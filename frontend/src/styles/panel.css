@@ -51,9 +51,9 @@
   --radius-xl: 20px;
   --radius-2xl: 28px;
   --radius-full: 9999px;
-  --shadow-sm: 0 1px 3px rgba(10, 27, 44, 0.18);
-  --shadow-card: 0 1px 2px rgba(10, 27, 44, 0.04), 0 2px 8px rgba(10, 27, 44, 0.03);
-  --shadow-hover: 0 14px 32px rgba(10, 27, 44, 0.1);
+  --shadow-sm: 0 1px 2px rgba(10, 27, 44, 0.08);
+  --shadow-card: 0 1px 2px rgba(10, 27, 44, 0.05);
+  --shadow-hover: 0 8px 24px rgba(10, 27, 44, 0.06);
   --shadow-float: 0 14px 36px rgba(10, 27, 44, 0.14);
   --shadow-float-dark: 0 14px 36px rgba(10, 27, 44, 0.22);
   --focus-ring: 0 0 0 2px #ffffff, 0 0 0 5px #0a1b2c;
@@ -76,17 +76,18 @@
   --duration-count: 1400ms;
   --duration-draw: 1800ms;
   --duration-beam: 3200ms;
-  --duration-stagger: 70ms;
+  --duration-stagger: 50ms;
   --duration-toast: 5000ms;
   --duration-marquee: 48s;
-  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* One curve for every panel transition: springs that overshoot read as a toy. */
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --press: scale(0.97);
+  --press: scale(0.98);
   --lift: translateY(-2px);
-  --reveal-from: translateY(16px);
-  --pop-from: scale(0.85);
+  --reveal-from: translateY(8px);
+  --pop-from: scale(0.98);
   /* Layout: one page width for every panel screen, centred in the space beside the sidebar. */
   --side-w: 280px;
   --page-max: 1320px;
@@ -132,137 +133,60 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
 @keyframes p-rise {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
     transform: none;
-  }
-}
-@keyframes p-fill {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-@keyframes p-ring {
-  from {
-    stroke-dashoffset: 100;
   }
 }
 @keyframes p-pop {
   0% {
     opacity: 0;
-    transform: scale(0.9) translateY(-6px);
+    transform: translateY(-6px);
   }
   100% {
     opacity: 1;
     transform: none;
   }
 }
-@keyframes p-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 174, 238, 0.55);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(0, 174, 238, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 174, 238, 0);
-  }
-}
-@keyframes p-pulse-green {
-  0% {
-    box-shadow: 0 0 0 0 rgba(14, 115, 80, 0.5);
-  }
-  70% {
-    box-shadow: 0 0 0 9px rgba(14, 115, 80, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(14, 115, 80, 0);
-  }
-}
-@keyframes p-drift {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 72px 36px;
-  }
-}
-@keyframes p-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-4deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(3deg);
-  }
-}
-@keyframes p-ring-bell {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-  20% {
-    transform: rotate(14deg);
-  }
-  40% {
-    transform: rotate(-12deg);
-  }
-  60% {
-    transform: rotate(8deg);
-  }
-  80% {
-    transform: rotate(-4deg);
-  }
-}
-@keyframes p-shine {
-  from {
-    transform: translateX(-120%) skewX(-18deg);
-  }
-  to {
-    transform: translateX(220%) skewX(-18deg);
-  }
-}
 
 .p-main > * {
-  animation: p-rise 520ms var(--ease-out-expo) both;
+  animation: p-rise 400ms var(--ease-standard) both;
 }
 .p-main > :nth-child(2) {
-  animation-delay: 60ms;
+  animation-delay: 50ms;
 }
 .p-main > :nth-child(3) {
-  animation-delay: 120ms;
+  animation-delay: 100ms;
 }
 .p-main > :nth-child(4) {
-  animation-delay: 180ms;
+  animation-delay: 150ms;
 }
 .p-main > :nth-child(5) {
-  animation-delay: 240ms;
+  animation-delay: 200ms;
 }
-.p-main > :nth-child(6) {
-  animation-delay: 300ms;
-}
-.p-main > :nth-child(n + 7) {
-  animation-delay: 360ms;
+.p-main > :nth-child(n + 6) {
+  animation-delay: 250ms;
 }
 .p-stagger > * {
-  animation: p-rise 520ms var(--ease-out-expo) both;
+  animation: p-rise 400ms var(--ease-standard) both;
 }
 .p-stagger > :nth-child(2) {
-  animation-delay: 70ms;
+  animation-delay: 50ms;
 }
 .p-stagger > :nth-child(3) {
-  animation-delay: 140ms;
+  animation-delay: 100ms;
 }
 .p-stagger > :nth-child(4) {
-  animation-delay: 210ms;
+  animation-delay: 150ms;
 }
 .p-stagger > :nth-child(n + 5) {
-  animation-delay: 280ms;
+  animation-delay: 200ms;
+}
+/* One entrance per screen: a stagger group that is itself a page block does not rise twice. */
+.p-main > .p-stagger {
+  animation: none;
 }
 
 /* ---------- Shell ----------
@@ -314,31 +238,27 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
   border-radius: var(--radius-md);
 }
 .p-brand-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   background: var(--cyan);
   flex: none;
-  box-shadow: inset 0 -3px 0 rgba(10, 27, 44, 0.18);
-  transition: transform var(--duration-base) var(--ease-spring);
-}
-.p-brand:hover .p-brand-mark {
-  transform: rotate(-8deg) scale(1.06);
 }
 .p-brand-text {
   display: flex;
   flex-direction: column;
 }
 .p-brand-name {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.01em;
 }
+/* Tracked capitals are the institute's wordmark lockup, not an interface label. */
 .p-brand-sub {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  font-size: 10px;
+  letter-spacing: 0.12em;
   color: var(--ink-3);
 }
 
@@ -347,68 +267,63 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
   flex-direction: column;
   gap: 2px;
 }
-/* Group labels (Learn, Progress, Support), set like SchoolofGenZ's: small bold capitals. */
+/* Group labels (Learn, Progress, Support): a label sits closer to its own items than to the group above. */
 .p-nav-label {
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
   color: var(--ink-3);
-  padding: 2px 12px 4px;
+  padding: 0 10px 8px;
 }
 .p-nav a {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-height: 44px;
+  gap: 10px;
+  min-height: 36px;
   padding: 0 8px;
-  border-radius: 14px;
+  border-radius: 10px;
   color: var(--ink-2);
   text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
   transition:
     background var(--duration-fast) var(--ease-standard),
     color var(--duration-fast) var(--ease-standard),
     transform var(--duration-base) var(--ease-standard);
 }
+/* Nav icons sit in one 20px column at the text colour, so every label starts on the same line. */
 .p-nav a > :first-child:not(.p-count) {
   display: inline-grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  padding: 7px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
   box-sizing: border-box;
-  border-radius: 10px;
-  background: var(--track);
-  color: var(--ink-2);
+  background: none;
+  color: var(--ink-3);
   flex: none;
-  transition:
-    background var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard),
-    transform var(--duration-base) var(--ease-spring);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+.p-nav a > :first-child:not(.p-count) > svg {
+  width: 18px;
+  height: 18px;
 }
 .p-nav a:hover {
-  background: var(--surface);
+  background: var(--track);
   color: var(--ink);
 }
 .p-nav a:hover > :first-child:not(.p-count) {
-  background: var(--cyan-soft);
-  color: var(--cyan-ink);
-  transform: rotate(-8deg) scale(1.08);
+  color: var(--ink-2);
 }
 .p-nav a[aria-current="page"],
 .p-nav a[aria-current="true"] {
   background: var(--cyan-soft);
   color: var(--cyan-deep);
-  font-weight: 600;
+  font-weight: 500;
 }
 .p-nav a[aria-current="page"] > :first-child:not(.p-count) {
-  background: var(--cyan);
-  color: var(--on-cyan);
-  box-shadow: 0 4px 10px rgba(0, 174, 238, 0.35);
+  color: var(--cyan-ink);
 }
 .p-nav a[aria-disabled="true"]:hover {
   background: transparent;
@@ -416,59 +331,50 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
 .p-nav a[aria-disabled="true"] > :first-child {
   opacity: 0.6;
 }
+/* A count in the rail is quiet mono text, not a filled chip. */
 .p-count {
   margin-left: auto;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 7px;
-  box-sizing: border-box;
-  border-radius: var(--radius-full);
-  background: var(--ink);
-  color: var(--on-ink);
+  font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 600;
-  display: inline-grid;
-  place-items: center;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-3);
+}
+.p-nav a[aria-current="page"] .p-count {
+  color: var(--cyan-deep);
 }
 /* Sub-links under a nav item (admin: reach every page from the sidebar) */
 .p-nav .p-nav-label:not(:first-child) {
-  padding-top: 14px;
+  padding-top: 24px;
 }
 .p-subnav {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin: 0 0 4px 25px;
+  margin: 0 0 4px 18px;
   padding-left: 12px;
-  border-left: 1.5px solid var(--line);
+  border-left: 1px solid var(--line);
 }
 .p-nav .p-subnav a {
-  min-height: 36px;
-  padding: 0 10px;
+  min-height: 32px;
+  padding: 0 8px;
   font-size: 14px;
-  border-radius: 10px;
-  gap: 8px;
-}
-.p-nav .p-subnav a:hover {
-  transform: translateX(2px);
+  border-radius: 8px;
+  gap: 10px;
 }
 .p-nav .p-subnav a[aria-current="page"] {
   background: var(--cyan-soft);
   color: var(--cyan-deep);
-  font-weight: 600;
-  box-shadow: inset 3px 0 0 var(--cyan);
+  font-weight: 500;
 }
 .p-help {
-  border: 1px solid var(--cyan-line);
-  background: var(--cyan-soft);
-  border-radius: var(--radius-xl);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-}
-.p-help .p-muted {
-  color: var(--cyan-deep);
+  gap: 8px;
 }
 
 .p-top {
@@ -479,7 +385,7 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
   flex-wrap: wrap;
   align-items: center;
   gap: 16px;
-  min-height: 72px;
+  min-height: 64px;
   /* Line the bar's contents up with the centred page column below it. */
   padding: 12px max(var(--page-pad), calc((100% - var(--page-max)) / 2 + var(--page-pad)));
   box-sizing: border-box;
@@ -508,11 +414,11 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
   display: flex;
   align-items: center;
   gap: 10px;
-  height: 44px;
-  padding: 0 16px;
+  height: 36px;
+  padding: 0 12px;
   box-sizing: border-box;
   border: 1px solid var(--line-control);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   background: var(--surface);
   color: var(--ink-3);
   transition:
@@ -541,11 +447,11 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
 }
 .p-iconbtn {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   display: inline-grid;
   place-items: center;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--line);
   background: var(--surface-card);
   color: var(--ink-2);
@@ -553,49 +459,45 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
   padding: 0;
   transition:
     background var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
     transform var(--duration-fast) var(--ease-standard);
 }
 .p-iconbtn:hover {
-  background: var(--cyan-soft);
-  color: var(--cyan-ink);
-  border-color: var(--cyan-line);
-}
-.p-iconbtn:hover > svg {
-  animation: p-ring-bell 700ms var(--ease-standard);
-  transform-origin: 50% 10%;
+  background: var(--track);
+  color: var(--ink);
 }
 .p-iconbtn:active {
   transform: var(--press);
 }
 .p-iconbtn[aria-expanded="true"] {
-  background: var(--cyan-soft);
-  color: var(--cyan-ink);
-  border-color: var(--cyan-line);
+  background: var(--track);
+  color: var(--ink);
+  border-color: var(--line-strong);
 }
 .p-pip {
   position: absolute;
-  top: 9px;
-  right: 10px;
-  width: 8px;
-  height: 8px;
+  top: 7px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--cyan);
   box-shadow: 0 0 0 2px var(--surface-card);
-  animation: p-pulse 2.4s ease-out infinite;
 }
 .p-badge-count {
   position: absolute;
-  top: -4px;
-  right: -4px;
-  min-width: 20px;
-  height: 20px;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
   padding: 0 5px;
   box-sizing: border-box;
-  border-radius: 999px;
+  border-radius: 9px;
   background: var(--danger);
   color: #ffffff;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
   display: grid;
   place-items: center;
   box-shadow: 0 0 0 2px var(--surface-card);
@@ -604,15 +506,15 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 4px 10px 4px 4px;
-  border-radius: var(--radius-full);
+  padding: 4px 8px 4px 4px;
+  border-radius: var(--radius-sm);
   transition: background var(--duration-fast) var(--ease-standard);
 }
 .p-me:hover {
   background: var(--track);
 }
 .p-me-name {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   line-height: 1.2;
   color: var(--ink);
@@ -623,19 +525,16 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
   line-height: 1.3;
 }
 .p-avatar {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: var(--cyan-soft);
-  color: var(--cyan-deep);
+  background: var(--track);
+  color: var(--ink-2);
   display: inline-grid;
   place-items: center;
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 13px;
   flex: none;
-  box-shadow:
-    0 0 0 2px var(--surface-card),
-    0 0 0 3px var(--cyan-line);
 }
 .p-avatar--sm {
   width: 32px;
@@ -655,37 +554,35 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
 }
 
 /* ---------- Type ---------- */
+/* Section labels are sentence case: tracked capitals shout and read slower. */
 .p-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 18px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--cyan-ink);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--ink-3);
 }
 .p-h1 {
   margin: 0;
   font-size: 32px;
   line-height: 1.15;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--ink);
   text-wrap: pretty;
 }
 .p-h2 {
   margin: 0;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1.3;
-  font-weight: 700;
-  letter-spacing: -0.015em;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   color: var(--ink);
 }
 .p-h3 {
   margin: 0;
-  font-size: 18px;
-  line-height: 1.35;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-size: 16px;
+  line-height: 1.375;
+  font-weight: 500;
+  letter-spacing: 0;
   color: var(--ink);
 }
 .p-body {
@@ -705,9 +602,9 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
   color: var(--ink-3);
 }
 .p-num {
-  font-size: 28px;
+  font-size: 30px;
   line-height: 1.1;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   color: var(--ink);
@@ -715,17 +612,17 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
 .p-mono {
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- Blocks ---------- */
 .p-card {
   background: var(--surface-card);
   border: 1px solid var(--line);
-  border-radius: var(--radius-xl);
-  padding: 24px;
+  border-radius: var(--radius-lg);
+  padding: 20px;
   box-sizing: border-box;
   min-width: 0;
   box-shadow: var(--shadow-card);
@@ -741,19 +638,15 @@ html.is-student[data-theme="dark"] [data-theme="ink"] {
   justify-content: space-between;
   gap: 12px;
 }
+/* Hover is a surface step and a firmer hairline: a card that jumps 3px and glows is a toy. */
 .p-lift {
   transition:
-    transform var(--duration-base) var(--ease-standard),
-    box-shadow var(--duration-base) var(--ease-standard),
-    border-color var(--duration-base) var(--ease-standard);
+    box-shadow var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
 }
 .p-lift:hover {
-  transform: translateY(-3px);
   box-shadow: var(--shadow-hover);
-  border-color: var(--cyan-line);
-}
-.p-lift:active {
-  transform: translateY(-1px);
+  border-color: var(--line-strong);
 }
 a.p-lift {
   color: inherit;
@@ -770,16 +663,16 @@ a.p-lift {
   gap: 24px;
   align-items: flex-start;
 }
+/* Tiles are quiet by default: a screen where every tile has its own hue has no focus. */
 .p-tile {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: var(--cyan-soft);
-  color: var(--cyan-ink);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--track);
+  color: var(--ink-2);
   display: inline-grid;
   place-items: center;
   flex: none;
-  transition: transform var(--duration-base) var(--ease-spring);
 }
 .p-tile--muted {
   background: var(--track);
@@ -801,17 +694,16 @@ a.p-lift {
   background: var(--ink);
   color: var(--on-ink);
 }
-.p-lift:hover .p-tile,
-.p-list > li:hover > .p-tile,
-.p-tile-hover:hover .p-tile {
-  transform: rotate(-8deg) scale(1.08);
+.p-tile--cyan {
+  background: var(--cyan-soft);
+  color: var(--cyan-ink);
 }
 .p-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
   flex: none;
@@ -820,6 +712,10 @@ a.p-lift {
 .p-icon--sm {
   width: 16px;
   height: 16px;
+}
+/* One stroke across the panel, whatever the markup asks for. */
+.p-shell .eit-icon {
+  stroke-width: 1.5;
 }
 .p-divider {
   height: 1px;
@@ -838,8 +734,6 @@ a.p-lift {
   height: 100%;
   border-radius: inherit;
   background: var(--cyan);
-  transform-origin: left center;
-  animation: p-fill 1100ms var(--ease-out-expo) 250ms both;
 }
 .p-bar--warn > span {
   background: var(--warning);
@@ -854,7 +748,7 @@ a.p-lift {
 }
 .p-ring circle {
   fill: none;
-  stroke-width: 4;
+  stroke-width: 3;
 }
 .p-ring .p-ring-track {
   stroke: var(--line-soft);
@@ -863,7 +757,6 @@ a.p-lift {
   stroke: var(--cyan);
   stroke-linecap: round;
   stroke-dasharray: 100;
-  animation: p-ring 1400ms var(--ease-out-expo) 300ms both;
 }
 .p-ring-wrap {
   position: relative;
@@ -874,20 +767,19 @@ a.p-lift {
 .p-ring-wrap > span {
   position: absolute;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: var(--ink);
 }
 .p-thumb {
-  background: var(--placeholder);
+  background: var(--track);
   border-radius: var(--radius-md);
   display: grid;
   place-items: center;
-  color: var(--cyan-deep);
+  color: var(--ink-3);
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0;
   text-align: center;
   padding: 8px;
   box-sizing: border-box;
@@ -902,8 +794,8 @@ a.p-lift {
 .p-list > li {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 0;
+  gap: 12px;
+  padding: 12px 0;
   border-bottom: 1px solid var(--line-soft);
 }
 .p-list > li:last-child {
@@ -924,16 +816,13 @@ a.p-lift {
 .p-rows > li {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 12px;
-  border-radius: 14px;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
   transition: background var(--duration-fast) var(--ease-standard);
 }
 .p-rows > li:hover {
   background: var(--surface);
-}
-.p-rows > li:hover > .p-tile {
-  transform: rotate(-8deg) scale(1.08);
 }
 .p-grow {
   flex: 1 1 auto;
@@ -941,7 +830,7 @@ a.p-lift {
 }
 .p-link {
   color: var(--cyan-ink);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   text-decoration: none;
   display: inline-flex;
@@ -959,73 +848,63 @@ a.p-lift {
 .p-link:hover .p-arrow {
   transform: translateX(3px);
 }
+/* A count or a tag is a quiet 6px chip, not a glowing capsule. */
 .p-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 28px;
-  padding: 0 10px;
-  border-radius: var(--radius-full);
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 6px;
   background: var(--track);
   color: var(--ink-2);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .p-notice {
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: var(--cyan-soft);
-  color: var(--cyan-deep);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
   font-size: 14px;
   line-height: 1.5;
 }
 .p-notice--warn {
   background: var(--warning-soft);
+  border-color: transparent;
   color: var(--warning);
 }
 .p-live {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--success);
-  animation: p-pulse-green 2s ease-out infinite;
   flex: none;
 }
 
-/* Hero banner (Ink) */
+/* Hero banner (Ink). No dot field behind the content: the content is the thing to look at. */
 .p-hero {
   position: relative;
   overflow: hidden;
-  border-radius: 24px;
-  padding: 32px;
+  border-radius: var(--radius-xl);
+  padding: 24px;
   box-sizing: border-box;
-}
-.p-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.2px, transparent 1.2px);
-  background-size: 18px 18px;
-  animation: p-drift 24s linear infinite;
-  pointer-events: none;
-  -webkit-mask-image: radial-gradient(circle at 85% 30%, #000 0%, transparent 70%);
-  mask-image: radial-gradient(circle at 85% 30%, #000 0%, transparent 70%);
 }
 .p-hero > * {
   position: relative;
 }
 .p-sticker {
   position: absolute;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   display: grid;
   place-items: center;
-  animation: p-float 6s ease-in-out infinite;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 }
 /* Stickers are decoration: they sit behind hero content and never take clicks */
 .p-hero > .p-sticker {
@@ -1042,7 +921,6 @@ a.p-lift {
   display: inline-grid;
   vertical-align: middle;
   flex: none;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
 }
 @media (max-width: 1100px) {
   .p-hero > .p-sticker {
@@ -1077,13 +955,13 @@ a.p-lift {
   box-sizing: border-box;
   background: var(--surface-card);
   color: var(--ink);
-  border-radius: 24px;
-  box-shadow: 0 30px 80px rgba(10, 27, 44, 0.35);
-  padding: 28px;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 24px 64px rgba(10, 27, 44, 0.24);
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  animation: p-pop 320ms var(--ease-spring) both;
+  gap: 16px;
+  animation: p-pop 200ms var(--ease-standard) both;
 }
 .p-modal-head {
   display: flex;
@@ -1104,26 +982,12 @@ a.p-lift {
   position: relative;
   overflow: hidden;
 }
-.p-shine::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 40%;
-  background: rgba(255, 255, 255, 0.35);
-  transform: translateX(-120%) skewX(-18deg);
-  pointer-events: none;
-}
-.p-shine:hover::after {
-  animation: p-shine 900ms var(--ease-standard);
-}
 
-/* Stat card */
+/* Stat card: a label, a figure and a change. Nothing else. */
 .p-stat {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
   padding: 20px;
 }
 .p-stat-top {
@@ -1132,20 +996,20 @@ a.p-lift {
   justify-content: space-between;
   gap: 12px;
 }
+/* A change is quiet text with what it compares to, not a green capsule. */
 .p-delta {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: var(--success-soft);
+  font-size: 13px;
+  font-weight: 400;
   color: var(--success);
 }
 .p-delta--down {
-  background: var(--danger-soft);
   color: var(--danger);
+}
+.p-delta--flat {
+  color: var(--ink-3);
 }
 
 /* Dropdown (notifications) */
@@ -1157,11 +1021,11 @@ a.p-lift {
   z-index: 20;
   background: var(--surface-card);
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-float);
   overflow: hidden;
   transform-origin: top right;
-  animation: p-pop 260ms var(--ease-spring) both;
+  animation: p-pop 200ms var(--ease-standard) both;
 }
 
 /* Charts: single-series bars and sparklines in cyan-hover (#0096CE passes 3:1 on white) */
@@ -1246,10 +1110,11 @@ a.p-lift {
   transform: translate(-50%, 0);
 }
 .p-bar-label {
+  font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 6px;
+  font-weight: 400;
+  color: var(--ink-3);
+  margin-bottom: 8px;
   font-variant-numeric: tabular-nums;
 }
 /* Sparklines draw in from the left with a clip, not a dash: a dash pattern measured on a
@@ -1279,9 +1144,9 @@ a.p-lift {
 .p-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
   padding: 4px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   background: var(--track);
   align-self: flex-start;
   border: 0;
@@ -1295,11 +1160,11 @@ a.p-lift {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 40px;
-  padding: 0 14px;
-  border-radius: 10px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
   color: var(--ink-3);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
   text-decoration: none;
   transition:
@@ -1309,11 +1174,12 @@ a.p-lift {
 .p-tabs a:hover,
 .p-tabs button:hover {
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.6);
+  background: color-mix(in srgb, var(--surface-card) 60%, transparent);
 }
 .p-tabs a[aria-current="page"],
 .p-tabs [aria-selected="true"] {
   color: var(--ink);
+  font-weight: 500;
   background: var(--surface-card);
   box-shadow: var(--shadow-sm);
 }
@@ -1345,11 +1211,9 @@ a.p-lift {
 }
 .p-table th {
   text-align: left;
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--ink-3);
   padding: 12px 16px;
   border-bottom: 1px solid var(--line);
@@ -1368,10 +1232,10 @@ a.p-lift {
 }
 .p-table td strong {
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 500;
 }
 .p-table tbody tr:hover td {
-  background: #f1f8fc;
+  background: var(--surface);
 }
 .p-cell-person {
   display: flex;
@@ -1391,7 +1255,7 @@ a.p-lift {
   background: var(--surface);
 }
 .p-table:has(thead th:last-child .eit-sr) tbody tr:hover > :last-child {
-  background: #f1f8fc;
+  background: var(--surface);
 }
 @media (max-width: 1439px) {
   .p-table th,
@@ -1436,10 +1300,10 @@ a.p-lift {
   transform: translateX(18px);
 }
 .p-input {
-  height: 44px;
+  height: 40px;
   box-sizing: border-box;
   border: 1px solid var(--line-control);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: 0 12px;
   font: inherit;
   font-size: 15px;
@@ -1451,8 +1315,8 @@ a.p-lift {
   min-height: 120px;
   box-sizing: border-box;
   border: 1px solid var(--line-control);
-  border-radius: 14px;
-  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  padding: 12px;
   font: inherit;
   font-size: 15px;
   line-height: 1.6;
@@ -1462,12 +1326,12 @@ a.p-lift {
 }
 .p-label {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
 }
 .p-drop {
-  border: 1.5px dashed var(--line-control);
-  border-radius: 16px;
+  border: 1px dashed var(--line-control);
+  border-radius: var(--radius-md);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -1481,27 +1345,27 @@ a.p-lift {
     border-color var(--duration-fast) var(--ease-standard);
 }
 .p-drop:hover {
-  background: var(--cyan-soft);
-  border-color: var(--cyan-ink);
-  color: var(--cyan-deep);
+  background: var(--surface);
+  border-color: var(--line-control);
+  color: var(--ink-2);
 }
 .p-seg {
   display: inline-flex;
   gap: 4px;
   padding: 4px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   background: var(--track);
 }
 .p-seg button {
-  min-width: 44px;
-  height: 36px;
+  min-width: 40px;
+  height: 32px;
   padding: 0 12px;
   border: 0;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: transparent;
   font: inherit;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--ink-3);
   cursor: pointer;
   transition:
@@ -1522,15 +1386,15 @@ a.p-lift {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 44px;
+  min-height: 36px;
   padding: 0 16px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--line-strong);
   background: var(--surface-card);
   color: var(--ink);
   font: inherit;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -1555,11 +1419,11 @@ a.p-lift {
 .p-option {
   display: flex;
   align-items: center;
-  gap: 14px;
-  min-height: 60px;
+  gap: 12px;
+  min-height: 56px;
   padding: 0 16px;
-  border-radius: 14px;
-  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line-strong);
   background: var(--surface-card);
   cursor: pointer;
   font: inherit;
@@ -1652,17 +1516,17 @@ textarea:focus-visible {
     gap: 6px;
   }
   .p-side .p-nav a {
-    width: 56px;
-    min-height: 52px;
+    width: 44px;
+    min-height: 40px;
     padding: 0;
     gap: 0;
     justify-content: center;
     font-size: 0;
   }
   .p-side .p-nav a > :first-child:not(.p-count) {
-    width: 38px;
-    height: 38px;
-    padding: 9px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
   }
   .p-side .p-nav-text {
     position: absolute;
@@ -1674,13 +1538,10 @@ textarea:focus-visible {
   }
   .p-side .p-nav .p-count {
     position: absolute;
-    top: 2px;
-    right: 2px;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 5px;
+    top: 4px;
+    right: 6px;
+    margin: 0;
     font-size: 10px;
-    box-shadow: 0 0 0 2px var(--surface-card);
   }
   /* Lock shown on paused items sits on the tile's corner. */
   .p-side .p-nav a > svg:last-child:not(:first-child) {
@@ -1837,9 +1698,9 @@ textarea:focus-visible {
     display: inline;
   }
   .p-side .p-nav a > :first-child:not(.p-count) {
-    width: 30px;
-    height: 30px;
-    padding: 6px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
   }
   .p-side .p-nav a > svg:last-child:not(:first-child) {
     position: absolute;
@@ -1851,12 +1712,10 @@ textarea:focus-visible {
   }
   .p-side .p-count {
     position: absolute;
-    top: 2px;
-    right: 8px;
-    min-width: 18px;
-    height: 18px;
+    top: 4px;
+    right: 12px;
+    margin: 0;
     font-size: 10px;
-    padding: 0 5px;
   }
   .p-more {
     position: relative;
@@ -1870,21 +1729,18 @@ textarea:focus-visible {
     cursor: pointer;
   }
   .p-more > svg {
-    width: 30px;
-    height: 30px;
-    padding: 6px;
+    width: 20px;
+    height: 20px;
     box-sizing: border-box;
-    border-radius: 10px;
-    background: var(--track);
+    color: var(--ink-3);
   }
   .p-more.is-current {
     background: var(--cyan-soft);
     color: var(--cyan-deep);
-    font-weight: 600;
+    font-weight: 500;
   }
   .p-more.is-current > svg {
-    background: var(--cyan);
-    color: var(--on-cyan);
+    color: var(--cyan-ink);
   }
   .p-more .p-pip {
     top: 6px;
@@ -1939,11 +1795,11 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 52px;
+  min-height: 44px;
   padding: 0 10px;
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   color: var(--ink);
-  font-weight: 500;
+  font-weight: 400;
   text-decoration: none;
 }
 .p-sheet a:hover,
@@ -1953,22 +1809,18 @@ textarea:focus-visible {
 .p-sheet a[aria-current="page"] {
   background: var(--cyan-soft);
   color: var(--cyan-deep);
-  font-weight: 600;
+  font-weight: 500;
 }
 .p-sheet a > svg:first-child,
 .p-sheet .p-sheet-ico {
-  width: 36px;
-  height: 36px;
-  padding: 8px;
+  width: 20px;
+  height: 20px;
   box-sizing: border-box;
-  border-radius: 10px;
-  background: var(--track);
-  color: var(--ink-2);
+  color: var(--ink-3);
   flex: none;
 }
 .p-sheet a[aria-current="page"] > svg:first-child {
-  background: var(--cyan);
-  color: var(--on-cyan);
+  color: var(--cyan-ink);
 }
 .p-sheet a > svg:last-child:not(:first-child) {
   margin-left: auto;

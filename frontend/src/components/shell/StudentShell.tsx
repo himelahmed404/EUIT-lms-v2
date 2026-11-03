@@ -7,7 +7,6 @@ import { studentNav, isNavCurrent } from "@/config/nav";
 import { NavIcon } from "@/config/navIcons";
 import { notificationsByRole } from "@/data/demo";
 import { nusrat } from "@/data/demo/people";
-import { Icon } from "@/components/eit/Icon";
 import { NotificationMenu } from "@/components/shell/NotificationMenu";
 
 const unread = () => notificationsByRole.student.filter((n) => n.unread).length;
@@ -64,28 +63,21 @@ export function StudentShell({
           href="/student/leaderboard"
           style={{ marginTop: "auto", textDecoration: "none", color: "inherit" }}
         >
-          <span className="p-row" style={{ gap: 10 }}>
-            <span className="p-tile" style={{ width: 38, height: 38, background: "var(--cyan)", color: "var(--on-cyan)" }}>
-              <Icon>
-                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-              </Icon>
-            </span>
-            <span style={{ display: "flex", flexDirection: "column" }}>
-              <strong style={{ fontSize: 18, lineHeight: 1.15 }}>{nusrat.points} points</strong>
-              <span className="p-small" style={{ color: "var(--cyan-deep)" }}>
-                #{nusrat.rank} in WordPress B14
-              </span>
+          <span className="p-small">Batch points</span>
+          <span className="p-row" style={{ gap: 8, alignItems: "baseline" }}>
+            <strong style={{ fontSize: 20, fontWeight: 500, lineHeight: 1.1, fontVariantNumeric: "tabular-nums" }}>
+              {nusrat.points}
+            </strong>
+            <span className="p-small">
+              #{nusrat.rank} of 20 in Batch 14
             </span>
           </span>
-          <span className="p-small" style={{ color: "var(--cyan-deep)" }}>
-            Every marked project adds its mark
-          </span>
+          <span className="p-small">Quizzes and marked projects add points</span>
         </Link>
       </aside>
       <div className="p-content">
         <header className="p-top">
           <Link className="p-next" href={next.href || "/student/routine"}>
-            <span className="p-live" aria-hidden />
             <span className="p-next-text">
               <span className="p-next-l">Next class</span>
               <span className="p-next-t">{next.title}</span>
