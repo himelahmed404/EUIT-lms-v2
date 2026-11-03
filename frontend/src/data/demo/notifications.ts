@@ -1,0 +1,82 @@
+import type { NotificationItem, Role } from "@/types";
+
+export const notificationsByRole: Record<Role, NotificationItem[]> = {
+  student: [
+    {
+      id: "s1",
+      title: "Class 12 quiz is open",
+      body: "WordPress Batch 14 · due before Class 13 on Mon 19 Oct",
+      when: "Today · 9:12 AM",
+      href: "/student/quizzes",
+      unread: true,
+      type: "quiz",
+    },
+    {
+      id: "s2",
+      title: "Mentor answered your question",
+      body: "Kamrul replied on Colour contrast for social posts",
+      when: "Yesterday · 6:40 PM",
+      href: "/student/questions",
+      unread: true,
+      type: "question",
+    },
+  ],
+  mentor: [
+    {
+      id: "m1",
+      title: "5 projects waiting for review",
+      body: "Oldest is 3 days · WordPress B14 and React JS B6",
+      when: "Today · 8:02 AM",
+      href: "/mentor/review",
+      unread: true,
+      type: "review",
+    },
+    {
+      id: "m2",
+      title: "3 student questions",
+      body: "Nusrat, Tahmid and Sadia are waiting",
+      when: "Today · 7:55 AM",
+      href: "/mentor/questions",
+      unread: true,
+      type: "question",
+    },
+    {
+      id: "m3",
+      title: "Class 12 recording due 9:00 AM",
+      body: "WordPress Batch 14 · upload from Schedule",
+      when: "Yesterday · 9:00 PM",
+      href: "/mentor/schedule",
+      unread: true,
+      type: "schedule",
+    },
+  ],
+  admin: [
+    {
+      id: "a1",
+      title: "3 courses waiting for review",
+      body: "Publish queue · Course review",
+      when: "Today · 8:30 AM",
+      href: "/admin/courses#cbp-queue",
+      unread: true,
+      type: "course",
+    },
+    {
+      id: "a2",
+      title: "14 overdue installments",
+      body: "October 2026 · Students & payments",
+      when: "Today · 8:10 AM",
+      href: "/admin/students",
+      unread: true,
+      type: "payment",
+    },
+    {
+      id: "a3",
+      title: "6 seminar leads this week",
+      body: "Follow up from Leads",
+      when: "Yesterday · 5:20 PM",
+      href: "/admin/leads",
+      unread: true,
+      type: "lead",
+    },
+  ],
+};

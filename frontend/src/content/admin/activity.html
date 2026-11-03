@@ -1,0 +1,2186 @@
+<main class="p-main">
+          <div class="c-work">
+            <section
+              class="c-list"
+              aria-label="Activity log"
+              style="
+                --cols: minmax(0, 0.8fr) minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 2.2fr);
+                --cols-wide: minmax(0, 0.7fr) minmax(0, 1.1fr) minmax(0, 0.9fr) minmax(0, 2fr) minmax(0, 1.6fr);
+              "
+            >
+              <div class="c-toolbar">
+                <div class="c-filters" role="group" aria-label="Area">
+                  <button type="button" class="c-filter" data-filter="all" aria-pressed="true">
+                    All<span class="c-n">22</span></button
+                  ><button type="button" class="c-filter" data-filter="payments" aria-pressed="false">
+                    Payments<span class="c-n">2</span></button
+                  ><button type="button" class="c-filter" data-filter="students" aria-pressed="false">
+                    Students<span class="c-n">2</span></button
+                  ><button type="button" class="c-filter" data-filter="courses" aria-pressed="false">
+                    Courses<span class="c-n">5</span></button
+                  ><button type="button" class="c-filter" data-filter="coupons" aria-pressed="false">
+                    Coupons<span class="c-n">3</span></button
+                  ><button type="button" class="c-filter" data-filter="announcements" aria-pressed="false">
+                    Announcements<span class="c-n">5</span></button
+                  ><button type="button" class="c-filter" data-filter="team" aria-pressed="false">
+                    Team<span class="c-n">4</span></button
+                  ><button type="button" class="c-filter" data-filter="settings" aria-pressed="false">
+                    Settings<span class="c-n">1</span>
+                  </button>
+                </div>
+                <div class="c-tools">
+                  <label class="c-pick" for="log-who"
+                    ><span class="eit-sr">Who</span
+                    ><select id="log-who" data-filter="">
+                      <option value="">Everyone</option>
+                      <option value="ss">Sharmin Sultana (10)</option>
+                      <option value="fh">Farzana Haque (3)</option>
+                      <option value="rk">Rakibul Karim (3)</option>
+                      <option value="ta">Tania Akter (3)</option>
+                      <option value="kh">Kamrul Hasan (1)</option>
+                      <option value="nr">Nadia Rahman (1)</option>
+                      <option value="ik">Imran Kabir (1)</option></select
+                    ><svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M6 9l6 6 6-6"></path></svg></label
+                  ><label class="c-find" for="log-find"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-4.3-4.3"></path></svg
+                    ><span class="eit-sr">Search the log</span
+                    ><input
+                      id="log-find"
+                      type="search"
+                      placeholder="Search name, action or reason"
+                      autocomplete="off"
+                      data-search=""
+                  /></label>
+                </div>
+              </div>
+              <div class="c-thead" aria-hidden="true">
+                <span>When</span><span>Who</span><span>Area</span><span>Action</span><span class="c-x">Reason</span>
+              </div>
+              <div class="c-rows" role="tablist" aria-orientation="vertical" aria-label="Log entries">
+                <button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-1"
+                  aria-controls="log-p-1"
+                  aria-selected="true"
+                  data-tags="students ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Today</span
+                    ><span class="c-cell-s">4:12 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Students</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Added a note</span
+                    ><span class="c-cell-s">Mehedi Hasan · EIT-24-0155</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-2"
+                  aria-controls="log-p-2"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="announcements fh"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Today</span
+                    ><span class="c-cell-s">2:10 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">FH</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Farzana Haque</span><span class="c-cell-s">Admin</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Announcements</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Saved a draft</span
+                    ><span class="c-cell-s">React JS Batch 7: seats still open</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-3"
+                  aria-controls="log-p-3"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="payments rk"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Today</span
+                    ><span class="c-cell-s">12:40 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">RK</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Rakibul Karim</span><span class="c-cell-s">Accounts</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Payments</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Sent payment reminders</span
+                    ><span class="c-cell-s">14 overdue installments · by SMS</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-4"
+                  aria-controls="log-p-4"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="courses ik"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Today</span
+                    ><span class="c-cell-s">11:05 AM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">IK</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Imran Kabir</span><span class="c-cell-s">Mentor</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Courses & batches</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Sent a course for review</span
+                    ><span class="c-cell-s">Facebook Ads in Practice · 12 lessons</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-5"
+                  aria-controls="log-p-5"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="students ta"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Today</span
+                    ><span class="c-cell-s">10:20 AM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">TA</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Tania Akter</span><span class="c-cell-s">Admissions</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Students</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Enrolled a student</span
+                    ><span class="c-cell-s">Imtiaz Ahmed · Digital Marketing · Batch 12</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-6"
+                  aria-controls="log-p-6"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="team ta"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Wed 14 Oct</span
+                    ><span class="c-cell-s">3:15 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">TA</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Tania Akter</span><span class="c-cell-s">Admissions</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Roles & access</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Invited a team member</span
+                    ><span class="c-cell-s">Sabbir Rahman as Admissions</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-7"
+                  aria-controls="log-p-7"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="courses ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Wed 14 Oct</span
+                    ><span class="c-cell-s">11:30 AM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Courses & batches</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Created a batch</span
+                    ><span class="c-cell-s">Graphic Design · Batch 10 · starts Sat 24 Oct</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-8"
+                  aria-controls="log-p-8"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="announcements ta"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Wed 14 Oct</span
+                    ><span class="c-cell-s">11:00 AM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">TA</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Tania Akter</span><span class="c-cell-s">Admissions</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Announcements</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Sent an announcement</span
+                    ><span class="c-cell-s">Free seminar this Saturday · 286 students</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-9"
+                  aria-controls="log-p-9"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="courses nr"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Wed 14 Oct</span
+                    ><span class="c-cell-s">9:50 AM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">NR</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Nadia Rahman</span><span class="c-cell-s">Mentor</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Courses & batches</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Sent a course for review</span
+                    ><span class="c-cell-s">Motion Graphics with After Effects · 18 lessons</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-10"
+                  aria-controls="log-p-10"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="payments ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Tue 13 Oct</span
+                    ><span class="c-cell-s">5:05 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Payments</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Recorded a cash payment</span
+                    ><span class="c-cell-s">Lamia Chowdhury · ৳6,000 · installment 1 of 2</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-11"
+                  aria-controls="log-p-11"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="team ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Tue 13 Oct</span
+                    ><span class="c-cell-s">4:30 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Roles & access</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Changed a permission</span
+                    ><span class="c-cell-s">Accounts · Prices &amp; installment plans</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t">Accounts answers fee questions at the front desk.</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-12"
+                  aria-controls="log-p-12"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="courses kh"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Tue 13 Oct</span
+                    ><span class="c-cell-s">2:20 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">KH</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Kamrul Hasan</span><span class="c-cell-s">Mentor</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Courses & batches</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Sent a course for review</span
+                    ><span class="c-cell-s">Advanced WordPress Theme Development · 24 lessons</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-13"
+                  aria-controls="log-p-13"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="team ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Mon 12 Oct</span
+                    ><span class="c-cell-s">4:45 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Roles & access</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Invited a team member</span
+                    ><span class="c-cell-s">Farhana Yasmin as Mentor</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-14"
+                  aria-controls="log-p-14"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="announcements ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Mon 12 Oct</span
+                    ><span class="c-cell-s">10:00 AM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Announcements</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Sent an announcement</span
+                    ><span class="c-cell-s">Refer a friend this seminar season · 286 students</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-15"
+                  aria-controls="log-p-15"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="courses ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Sun 11 Oct</span
+                    ><span class="c-cell-s">2:40 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Courses & batches</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Published a course</span
+                    ><span class="c-cell-s">Graphic Design · updated curriculum</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-16"
+                  aria-controls="log-p-16"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="coupons rk"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Sat 10 Oct</span
+                    ><span class="c-cell-s">6:10 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">RK</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Rakibul Karim</span><span class="c-cell-s">Accounts</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Coupons & referrals</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Disabled a coupon</span
+                    ><span class="c-cell-s">STUDENT10 · 10% off Graphic Design</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t">The code was shared in public Facebook groups.</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-17"
+                  aria-controls="log-p-17"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="announcements fh"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Sat 10 Oct</span
+                    ><span class="c-cell-s">12:15 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">FH</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Farzana Haque</span><span class="c-cell-s">Admin</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Announcements</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Sent an announcement</span
+                    ><span class="c-cell-s">Cyber Security Batch 4: class days confirmed · 9 students</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-18"
+                  aria-controls="log-p-18"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="announcements ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Thu 8 Oct</span
+                    ><span class="c-cell-s">11:30 AM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Announcements</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Sent an announcement</span
+                    ><span class="c-cell-s">Mentors: upload class recordings on the day · 7 mentors</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-19"
+                  aria-controls="log-p-19"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="coupons rk"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Mon 5 Oct</span
+                    ><span class="c-cell-s">3:00 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">RK</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Rakibul Karim</span><span class="c-cell-s">Accounts</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Coupons & referrals</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Created a coupon</span
+                    ><span class="c-cell-s">PUJA15 · 15% off all courses · 100 uses</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t" style="color: var(--ink-3)">—</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-20"
+                  aria-controls="log-p-20"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="team fh"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Sat 3 Oct</span
+                    ><span class="c-cell-s">12:00 PM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">FH</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Farzana Haque</span><span class="c-cell-s">Admin</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Roles & access</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Changed which batches a role sees</span
+                    ><span class="c-cell-s">Mentor</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t"
+                      >Mentors should only see the students and payments of their own batches.</span
+                    ></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-21"
+                  aria-controls="log-p-21"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="settings ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Fri 2 Oct</span
+                    ><span class="c-cell-s">10:15 AM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Settings</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Changed a setting</span
+                    ><span class="c-cell-s">Installments &amp; access · Pause after</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t">Families asked for time until salary day.</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="log-r-22"
+                  aria-controls="log-p-22"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="coupons ss"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">When</span><span class="c-cell-t">Thu 1 Oct</span
+                    ><span class="c-cell-s">11:00 AM</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Who</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SS</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sharmin Sultana</span><span class="c-cell-s">Owner</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Area</span
+                    ><span class="eit-badge eit-badge--neutral">Coupons & referrals</span></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Action</span
+                    ><span class="c-cell-t is-strong">Changed the referral credit</span
+                    ><span class="c-cell-s">Credit per friend who enrolls</span></span
+                  ><span class="c-cell c-x"
+                    ><span class="c-cell-l" aria-hidden="true">Reason</span
+                    ><span class="c-cell-t">Seminar season: reward students who bring friends.</span></span
+                  >
+                </button>
+              </div>
+              <p class="c-empty" data-list-empty="" hidden="">Nothing in the log matches.</p>
+              <div class="c-foot">
+                <span>Showing <span data-list-shown="">22</span> of 22 entries · since 1 Oct</span
+                ><span>Entries can’t be edited or deleted</span>
+              </div>
+            </section>
+            <aside class="c-pane" aria-label="Log entry">
+              <section class="c-pane-in" role="tabpanel" id="log-p-1" aria-labelledby="log-r-1-h">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Students</span>
+                    <h2 id="log-r-1-h">Added a note</h2>
+                    <span class="c-pane-sub">Mehedi Hasan · EIT-24-0155</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Thu 15 Oct 2026, 4:12 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Note</h3>
+                  <p class="c-note">Called. Says he will pay on 20 Oct.</p>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/student-record"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open student record</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-2" aria-labelledby="log-r-2-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Announcements</span>
+                    <h2 id="log-r-2-h">Saved a draft</h2>
+                    <span class="c-pane-sub">React JS Batch 7: seats still open</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Thu 15 Oct 2026, 2:10 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Farzana Haque</dd>
+                    <dt>Role</dt>
+                    <dd>Admin</dd>
+                    <dt>Device</dt>
+                    <dd>Laptop · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/announcements"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Announcements</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-3" aria-labelledby="log-r-3-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Payments</span>
+                    <h2 id="log-r-3-h">Sent payment reminders</h2>
+                    <span class="c-pane-sub">14 overdue installments · by SMS</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Thu 15 Oct 2026, 12:40 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Rakibul Karim</dd>
+                    <dt>Role</dt>
+                    <dd>Accounts</dd>
+                    <dt>Device</dt>
+                    <dd>Accounts PC · Edge · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/students"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Students & payments</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-4" aria-labelledby="log-r-4-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Courses & batches</span>
+                    <h2 id="log-r-4-h">Sent a course for review</h2>
+                    <span class="c-pane-sub">Facebook Ads in Practice · 12 lessons</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Thu 15 Oct 2026, 11:05 AM</dd>
+                    <dt>Who</dt>
+                    <dd>Imran Kabir</dd>
+                    <dt>Role</dt>
+                    <dd>Mentor</dd>
+                    <dt>Device</dt>
+                    <dd>Chrome · Android</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/courses#cbp-queue"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open the review queue</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-5" aria-labelledby="log-r-5-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Students</span>
+                    <h2 id="log-r-5-h">Enrolled a student</h2>
+                    <span class="c-pane-sub">Imtiaz Ahmed · Digital Marketing · Batch 12</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Thu 15 Oct 2026, 10:20 AM</dd>
+                    <dt>Who</dt>
+                    <dd>Tania Akter</dd>
+                    <dt>Role</dt>
+                    <dd>Admissions</dd>
+                    <dt>Device</dt>
+                    <dd>Front desk PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Note</h3>
+                  <p class="c-note">Paid in full at the campus · ৳7,000</p>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/students"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Students & payments</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-6" aria-labelledby="log-r-6-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Roles & access</span>
+                    <h2 id="log-r-6-h">Invited a team member</h2>
+                    <span class="c-pane-sub">Sabbir Rahman as Admissions</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Wed 14 Oct 2026, 3:15 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Tania Akter</dd>
+                    <dt>Role</dt>
+                    <dd>Admissions</dd>
+                    <dt>Device</dt>
+                    <dd>Front desk PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/roles"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Roles & access</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-7" aria-labelledby="log-r-7-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Courses & batches</span>
+                    <h2 id="log-r-7-h">Created a batch</h2>
+                    <span class="c-pane-sub">Graphic Design · Batch 10 · starts Sat 24 Oct</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Wed 14 Oct 2026, 11:30 AM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/courses#cbp-batches"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Batches</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-8" aria-labelledby="log-r-8-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Announcements</span>
+                    <h2 id="log-r-8-h">Sent an announcement</h2>
+                    <span class="c-pane-sub">Free seminar this Saturday · 286 students</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Wed 14 Oct 2026, 11:00 AM</dd>
+                    <dt>Who</dt>
+                    <dd>Tania Akter</dd>
+                    <dt>Role</dt>
+                    <dd>Admissions</dd>
+                    <dt>Device</dt>
+                    <dd>Front desk PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/announcements"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Announcements</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-9" aria-labelledby="log-r-9-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Courses & batches</span>
+                    <h2 id="log-r-9-h">Sent a course for review</h2>
+                    <span class="c-pane-sub">Motion Graphics with After Effects · 18 lessons</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Wed 14 Oct 2026, 9:50 AM</dd>
+                    <dt>Who</dt>
+                    <dd>Nadia Rahman</dd>
+                    <dt>Role</dt>
+                    <dd>Mentor</dd>
+                    <dt>Device</dt>
+                    <dd>Safari · Mac</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/courses#cbp-queue"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open the review queue</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-10" aria-labelledby="log-r-10-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Payments</span>
+                    <h2 id="log-r-10-h">Recorded a cash payment</h2>
+                    <span class="c-pane-sub">Lamia Chowdhury · ৳6,000 · installment 1 of 2</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Tue 13 Oct 2026, 5:05 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/students"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Students & payments</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-11" aria-labelledby="log-r-11-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Roles & access</span>
+                    <h2 id="log-r-11-h">Changed a permission</h2>
+                    <span class="c-pane-sub">Accounts · Prices &amp; installment plans</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Tue 13 Oct 2026, 4:30 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Change</h3>
+                  <p class="c-change">
+                    <del>None</del
+                    ><svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    ><ins>View</ins>
+                  </p>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="c-note">Accounts answers fee questions at the front desk.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/roles"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Roles & access</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-12" aria-labelledby="log-r-12-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Courses & batches</span>
+                    <h2 id="log-r-12-h">Sent a course for review</h2>
+                    <span class="c-pane-sub">Advanced WordPress Theme Development · 24 lessons</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Tue 13 Oct 2026, 2:20 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Kamrul Hasan</dd>
+                    <dt>Role</dt>
+                    <dd>Mentor</dd>
+                    <dt>Device</dt>
+                    <dd>Chrome · Windows</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/courses#cbp-queue"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open the review queue</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-13" aria-labelledby="log-r-13-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Roles & access</span>
+                    <h2 id="log-r-13-h">Invited a team member</h2>
+                    <span class="c-pane-sub">Farhana Yasmin as Mentor</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Mon 12 Oct 2026, 4:45 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/roles"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Roles & access</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-14" aria-labelledby="log-r-14-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Announcements</span>
+                    <h2 id="log-r-14-h">Sent an announcement</h2>
+                    <span class="c-pane-sub">Refer a friend this seminar season · 286 students</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Mon 12 Oct 2026, 10:00 AM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/announcements"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Announcements</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-15" aria-labelledby="log-r-15-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Courses & batches</span>
+                    <h2 id="log-r-15-h">Published a course</h2>
+                    <span class="c-pane-sub">Graphic Design · updated curriculum</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Sun 11 Oct 2026, 2:40 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/courses"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Courses & batches</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-16" aria-labelledby="log-r-16-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Coupons & referrals</span>
+                    <h2 id="log-r-16-h">Disabled a coupon</h2>
+                    <span class="c-pane-sub">STUDENT10 · 10% off Graphic Design</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Sat 10 Oct 2026, 6:10 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Rakibul Karim</dd>
+                    <dt>Role</dt>
+                    <dd>Accounts</dd>
+                    <dt>Device</dt>
+                    <dd>Accounts PC · Edge · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="c-note">The code was shared in public Facebook groups.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/coupons"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Coupons & referrals</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-17" aria-labelledby="log-r-17-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Announcements</span>
+                    <h2 id="log-r-17-h">Sent an announcement</h2>
+                    <span class="c-pane-sub">Cyber Security Batch 4: class days confirmed · 9 students</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Sat 10 Oct 2026, 12:15 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Farzana Haque</dd>
+                    <dt>Role</dt>
+                    <dd>Admin</dd>
+                    <dt>Device</dt>
+                    <dd>Laptop · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/announcements"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Announcements</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-18" aria-labelledby="log-r-18-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Announcements</span>
+                    <h2 id="log-r-18-h">Sent an announcement</h2>
+                    <span class="c-pane-sub">Mentors: upload class recordings on the day · 7 mentors</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Thu 8 Oct 2026, 11:30 AM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/announcements"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Announcements</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-19" aria-labelledby="log-r-19-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Coupons & referrals</span>
+                    <h2 id="log-r-19-h">Created a coupon</h2>
+                    <span class="c-pane-sub">PUJA15 · 15% off all courses · 100 uses</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Mon 5 Oct 2026, 3:00 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Rakibul Karim</dd>
+                    <dt>Role</dt>
+                    <dd>Accounts</dd>
+                    <dt>Device</dt>
+                    <dd>Accounts PC · Edge · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="p-small" style="margin: 0">This action doesn’t need a reason.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/coupons"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Coupons & referrals</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-20" aria-labelledby="log-r-20-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Roles & access</span>
+                    <h2 id="log-r-20-h">Changed which batches a role sees</h2>
+                    <span class="c-pane-sub">Mentor</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Sat 3 Oct 2026, 12:00 PM</dd>
+                    <dt>Who</dt>
+                    <dd>Farzana Haque</dd>
+                    <dt>Role</dt>
+                    <dd>Admin</dd>
+                    <dt>Device</dt>
+                    <dd>Laptop · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Change</h3>
+                  <p class="c-change">
+                    <del>All batches</del
+                    ><svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    ><ins>Only their own</ins>
+                  </p>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="c-note">Mentors should only see the students and payments of their own batches.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/roles"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Roles & access</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-21" aria-labelledby="log-r-21-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Settings</span>
+                    <h2 id="log-r-21-h">Changed a setting</h2>
+                    <span class="c-pane-sub">Installments &amp; access · Pause after</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Fri 2 Oct 2026, 10:15 AM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Change</h3>
+                  <p class="c-change">
+                    <del>3 days late</del
+                    ><svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    ><ins>7 days late</ins>
+                  </p>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="c-note">Families asked for time until salary day.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/settings#access"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Settings</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="log-p-22" aria-labelledby="log-r-22-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--neutral">Coupons & referrals</span>
+                    <h2 id="log-r-22-h">Changed the referral credit</h2>
+                    <span class="c-pane-sub">Credit per friend who enrolls</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>When</dt>
+                    <dd>Thu 1 Oct 2026, 11:00 AM</dd>
+                    <dt>Who</dt>
+                    <dd>Sharmin Sultana</dd>
+                    <dt>Role</dt>
+                    <dd>Owner</dd>
+                    <dt>Device</dt>
+                    <dd>Office PC · Chrome · Mirpur-10</dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Change</h3>
+                  <p class="c-change">
+                    <del>৳500</del
+                    ><svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    ><ins>৳1,000</ins>
+                  </p>
+                </div>
+                <div class="c-block">
+                  <h3>Reason</h3>
+                  <p class="c-note">Seminar season: reward students who bring friends.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/admin/coupons#cp-referrals"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6"></path></svg
+                    >Open Referrals</a
+                  >
+                </div>
+              </section>
+            </aside>
+          </div>
+        </main>

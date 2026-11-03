@@ -1,0 +1,278 @@
+[
+  {
+    "role": "student",
+    "slug": "dashboard",
+    "title": "Student dashboard",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "courses",
+    "title": "My courses",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "course-player",
+    "title": "Course player",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "course-offline",
+    "title": "Offline course",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "quizzes",
+    "title": "Quizzes",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "quiz",
+    "title": "Quiz",
+    "mode": "bare"
+  },
+  {
+    "role": "student",
+    "slug": "quiz-result",
+    "title": "Quiz result",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "projects",
+    "title": "Projects",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "project-detail",
+    "title": "Project details",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "project-feedback",
+    "title": "Project feedback",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "routine",
+    "title": "Routine",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "leaderboard",
+    "title": "Leaderboard",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "certificates",
+    "title": "Certificates",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "certificate",
+    "title": "Certificate",
+    "mode": "bare"
+  },
+  {
+    "role": "student",
+    "slug": "saved",
+    "title": "Saved & notes",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "questions",
+    "title": "My questions",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "payments",
+    "title": "Payments",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "access-paused",
+    "title": "Access paused",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "help",
+    "title": "Help centre",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "notifications",
+    "title": "Notifications",
+    "mode": null
+  },
+  {
+    "role": "student",
+    "slug": "profile",
+    "title": "Profile & settings",
+    "mode": null
+  },
+  {
+    "role": "mentor",
+    "slug": "dashboard",
+    "title": "Dashboard",
+    "mode": null
+  },
+  {
+    "role": "mentor",
+    "slug": "batch",
+    "title": "My batches",
+    "mode": null
+  },
+  {
+    "role": "mentor",
+    "slug": "review",
+    "title": "Reviews",
+    "mode": null
+  },
+  {
+    "role": "mentor",
+    "slug": "questions",
+    "title": "Student questions",
+    "mode": null
+  },
+  {
+    "role": "mentor",
+    "slug": "course-builder",
+    "title": "Courses",
+    "mode": null
+  },
+  {
+    "role": "mentor",
+    "slug": "quiz-builder",
+    "title": "Quiz builder",
+    "mode": null
+  },
+  {
+    "role": "mentor",
+    "slug": "schedule",
+    "title": "Schedule & recordings",
+    "mode": null
+  },
+  {
+    "role": "mentor",
+    "slug": "profile",
+    "title": "My profile",
+    "mode": null
+  },
+  {
+    "role": "mentor",
+    "slug": "notifications",
+    "title": "Notifications",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "overview",
+    "title": "Overview",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "courses",
+    "title": "Courses & batches",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "course-review",
+    "title": "Review & publish",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "batch-detail",
+    "title": "Batch detail",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "batch-edit",
+    "title": "Create a batch",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "students",
+    "title": "Students & payments",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "student-record",
+    "title": "Student record",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "mentors",
+    "title": "Mentors",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "coupons",
+    "title": "Coupons & referrals",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "announcements",
+    "title": "Announcements",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "activity",
+    "title": "Activity log",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "roles",
+    "title": "Roles & access",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "leads",
+    "title": "Seminar leads",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "settings",
+    "title": "Settings",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "profile",
+    "title": "My profile",
+    "mode": null
+  },
+  {
+    "role": "admin",
+    "slug": "notifications",
+    "title": "Notifications",
+    "mode": null
+  }
+]

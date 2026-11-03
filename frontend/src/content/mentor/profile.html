@@ -1,0 +1,435 @@
+<main class="p-main">
+          <div class="p-split">
+            <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px">
+              <span class="p-mono">Preview on the website</span>
+              <article class="eit-mentor">
+                <div class="eit-mentor__media">
+                  <div class="eit-mentor__photo eit-mentor__photo--empty">
+                    <span class="eit-eyebrow">Mentor photo</span>
+                  </div>
+                </div>
+                <div class="eit-mentor__body">
+                  <h3 class="eit-mentor__name">Kamrul Hasan</h3>
+                  <p class="eit-mentor__role">Senior WordPress Developer</p>
+                  <ul class="eit-mentor__tags">
+                    <li><span class="eit-badge eit-badge--cyan">WordPress</span></li>
+                    <li><span class="eit-badge eit-badge--cyan">WooCommerce</span></li>
+                    <li><span class="eit-badge eit-badge--cyan">React JS</span></li>
+                    <li><span class="eit-badge eit-badge--cyan">PHP</span></li>
+                  </ul>
+                </div>
+              </article>
+              <section
+                class="p-card"
+                aria-labelledby="teach-title"
+                style="display: flex; flex-direction: column; gap: 12px"
+              >
+                <h2 id="teach-title" class="p-h3">Teaching</h2>
+                <ul class="p-list">
+                  <li>
+                    <span class="p-grow" style="display: flex; flex-direction: column"
+                      ><strong style="font-size: 14px">Web Design &amp; Development with WordPress</strong
+                      ><span class="p-small">Batches 14 and 15</span></span
+                    >
+                  </li>
+                  <li>
+                    <span class="p-grow" style="display: flex; flex-direction: column"
+                      ><strong style="font-size: 14px">React JS</strong><span class="p-small">Batch 6</span></span
+                    >
+                  </li>
+                </ul>
+                <span class="p-small">Courses and batches are assigned by the admin.</span>
+              </section>
+            </div>
+            <div style="flex: 2 1 560px; min-width: 0px; display: flex; flex-direction: column; gap: 24px">
+              <section
+                class="p-card"
+                aria-labelledby="pub-title"
+                style="display: flex; flex-direction: column; gap: 20px"
+              >
+                <div class="p-card-head">
+                  <h2 id="pub-title" class="p-h3">Public profile</h2>
+                  <div class="p-row" style="gap: 12px">
+                    <span id="show-label" style="font-size: 14px; font-weight: 600">Show on website</span
+                    ><button
+                      type="button"
+                      class="p-switch"
+                      role="switch"
+                      aria-checked="true"
+                      aria-labelledby="show-label"
+                    ></button>
+                  </div>
+                </div>
+                <div class="p-row" style="gap: 16px; flex-wrap: wrap">
+                  <span class="p-avatar" style="width: 72px; height: 72px; font-size: 22px">KH</span>
+                  <div style="display: flex; flex-direction: column; gap: 4px">
+                    <button type="button" class="p-ghostbtn" style="min-height: 40px">Upload a photo</button
+                    ><span class="p-small">Square, at least 400 × 400 px</span>
+                  </div>
+                </div>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+                    gap: 16px 20px;
+                  "
+                >
+                  <div class="eit-field">
+                    <label class="eit-field__label" for="eit-field-1">Full name</label>
+                    <div class="eit-field__wrap">
+                      <input id="eit-field-1" name="name" type="text" class="eit-field__control" value="Kamrul Hasan" />
+                    </div>
+                  </div>
+                  <div class="eit-field">
+                    <label class="eit-field__label" for="eit-field-2">Job title</label>
+                    <div class="eit-field__wrap">
+                      <input
+                        id="eit-field-2"
+                        name="title"
+                        type="text"
+                        class="eit-field__control"
+                        value="Senior WordPress Developer"
+                      />
+                    </div>
+                  </div>
+                  <div class="eit-field">
+                    <label class="eit-field__label" for="eit-field-3">Years of experience</label>
+                    <div class="eit-field__wrap">
+                      <input
+                        id="eit-field-3"
+                        name="years"
+                        type="text"
+                        class="eit-field__control"
+                        inputmode="numeric"
+                        value="8"
+                      />
+                    </div>
+                  </div>
+                  <div class="eit-field">
+                    <label class="eit-field__label" for="eit-field-4">Portfolio or LinkedIn</label>
+                    <div class="eit-field__wrap">
+                      <input
+                        id="eit-field-4"
+                        name="url"
+                        type="url"
+                        class="eit-field__control"
+                        placeholder="https://"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px">
+                  <label class="p-label" for="bio">Short bio</label
+                  ><textarea id="bio" class="p-textarea" style="min-height: 100px">
+Builds WordPress and WooCommerce sites for clients in Bangladesh and abroad. Teaches the way real projects run: brief, build, review, launch.</textarea
+                  ><span class="p-small">Two or three sentences. Shown under your name.</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px">
+                  <span class="p-label">Skills</span>
+                  <div class="eit-chips">
+                    <span
+                      class="p-pill"
+                      style="
+                        background: var(--cyan-soft);
+                        color: var(--cyan-deep);
+                        height: 32px;
+                        padding: 0px 6px 0px 12px;
+                      "
+                      >WordPress<button
+                        type="button"
+                        aria-label="Remove WordPress"
+                        style="
+                          width: 24px;
+                          height: 24px;
+                          border: 0px;
+                          border-radius: 50%;
+                          background: transparent;
+                          color: inherit;
+                          display: grid;
+                          place-items: center;
+                          cursor: pointer;
+                          padding: 0px;
+                        "
+                      >
+                        <svg
+                          class="eit-icon"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          focusable="false"
+                          aria-hidden="true"
+                        >
+                          <path d="M18 6L6 18M6 6l12 12"></path>
+                        </svg></button></span
+                    ><span
+                      class="p-pill"
+                      style="
+                        background: var(--cyan-soft);
+                        color: var(--cyan-deep);
+                        height: 32px;
+                        padding: 0px 6px 0px 12px;
+                      "
+                      >WooCommerce<button
+                        type="button"
+                        aria-label="Remove WooCommerce"
+                        style="
+                          width: 24px;
+                          height: 24px;
+                          border: 0px;
+                          border-radius: 50%;
+                          background: transparent;
+                          color: inherit;
+                          display: grid;
+                          place-items: center;
+                          cursor: pointer;
+                          padding: 0px;
+                        "
+                      >
+                        <svg
+                          class="eit-icon"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          focusable="false"
+                          aria-hidden="true"
+                        >
+                          <path d="M18 6L6 18M6 6l12 12"></path>
+                        </svg></button></span
+                    ><span
+                      class="p-pill"
+                      style="
+                        background: var(--cyan-soft);
+                        color: var(--cyan-deep);
+                        height: 32px;
+                        padding: 0px 6px 0px 12px;
+                      "
+                      >React JS<button
+                        type="button"
+                        aria-label="Remove React JS"
+                        style="
+                          width: 24px;
+                          height: 24px;
+                          border: 0px;
+                          border-radius: 50%;
+                          background: transparent;
+                          color: inherit;
+                          display: grid;
+                          place-items: center;
+                          cursor: pointer;
+                          padding: 0px;
+                        "
+                      >
+                        <svg
+                          class="eit-icon"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          focusable="false"
+                          aria-hidden="true"
+                        >
+                          <path d="M18 6L6 18M6 6l12 12"></path>
+                        </svg></button></span
+                    ><span
+                      class="p-pill"
+                      style="
+                        background: var(--cyan-soft);
+                        color: var(--cyan-deep);
+                        height: 32px;
+                        padding: 0px 6px 0px 12px;
+                      "
+                      >PHP<button
+                        type="button"
+                        aria-label="Remove PHP"
+                        style="
+                          width: 24px;
+                          height: 24px;
+                          border: 0px;
+                          border-radius: 50%;
+                          background: transparent;
+                          color: inherit;
+                          display: grid;
+                          place-items: center;
+                          cursor: pointer;
+                          padding: 0px;
+                        "
+                      >
+                        <svg
+                          class="eit-icon"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          focusable="false"
+                          aria-hidden="true"
+                        >
+                          <path d="M18 6L6 18M6 6l12 12"></path>
+                        </svg></button></span
+                    ><button
+                      type="button"
+                      class="p-pill"
+                      style="
+                        border: 1px dashed var(--line-control);
+                        background: var(--surface-card);
+                        height: 32px;
+                        cursor: pointer;
+                        font-style: inherit;
+                        font-variant: inherit;
+                        font-stretch: inherit;
+                        line-height: inherit;
+                        font-family: inherit;
+                        font-optical-sizing: inherit;
+                        font-size-adjust: inherit;
+                        font-kerning: inherit;
+                        font-feature-settings: inherit;
+                        font-variation-settings: inherit;
+                        font-size: 13px;
+                        font-weight: 600;
+                      "
+                    >
+                      Add skill
+                    </button>
+                  </div>
+                </div>
+                <div class="p-row" style="justify-content: flex-end">
+                  <button type="button" class="eit-btn eit-btn--primary eit-btn--md" data-toast="Profile saved">
+                    <svg
+                      class="eit-icon eit-btn__lead"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      focusable="false"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5"></path></svg
+                    ><span class="eit-btn__label">Save profile</span>
+                  </button>
+                </div>
+              </section>
+              <section
+                id="notifications"
+                class="p-card"
+                aria-labelledby="nt-pref-title"
+                style="display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 96px"
+              >
+                <div style="display: flex; flex-direction: column; gap: 4px">
+                  <h2 id="nt-pref-title" class="p-h3">Notifications</h2>
+                  <span class="p-small"
+                    >Everything always shows in the panel. Choose what also comes to your phone by SMS.</span
+                  >
+                </div>
+                <div>
+                  <div class="p-row" style="justify-content: space-between; gap: 16px; padding: 12px 0px">
+                    <span style="display: flex; flex-direction: column"
+                      ><span id="np-m0" style="font-size: 14px; font-weight: 600">New project submissions</span
+                      ><span class="p-small">When a student sends or resubmits a project</span></span
+                    ><button
+                      type="button"
+                      class="p-switch"
+                      role="switch"
+                      aria-checked="true"
+                      aria-labelledby="np-m0"
+                    ></button>
+                  </div>
+                  <div
+                    class="p-row"
+                    style="
+                      justify-content: space-between;
+                      gap: 16px;
+                      padding: 12px 0px;
+                      border-top: 1px solid var(--line-soft);
+                    "
+                  >
+                    <span style="display: flex; flex-direction: column"
+                      ><span id="np-m1" style="font-size: 14px; font-weight: 600">Student questions</span
+                      ><span class="p-small">When a student asks about one of your lessons</span></span
+                    ><button
+                      type="button"
+                      class="p-switch"
+                      role="switch"
+                      aria-checked="true"
+                      aria-labelledby="np-m1"
+                    ></button>
+                  </div>
+                  <div
+                    class="p-row"
+                    style="
+                      justify-content: space-between;
+                      gap: 16px;
+                      padding: 12px 0px;
+                      border-top: 1px solid var(--line-soft);
+                    "
+                  >
+                    <span style="display: flex; flex-direction: column"
+                      ><span id="np-m2" style="font-size: 14px; font-weight: 600">Recording reminders</span
+                      ><span class="p-small">If a class recording is not uploaded 2 hours after class</span></span
+                    ><button
+                      type="button"
+                      class="p-switch"
+                      role="switch"
+                      aria-checked="true"
+                      aria-labelledby="np-m2"
+                    ></button>
+                  </div>
+                  <div
+                    class="p-row"
+                    style="
+                      justify-content: space-between;
+                      gap: 16px;
+                      padding: 12px 0px;
+                      border-top: 1px solid var(--line-soft);
+                    "
+                  >
+                    <span style="display: flex; flex-direction: column"
+                      ><span id="np-m3" style="font-size: 14px; font-weight: 600">Course review updates</span
+                      ><span class="p-small">When an admin publishes your course or sends it back</span></span
+                    ><button
+                      type="button"
+                      class="p-switch"
+                      role="switch"
+                      aria-checked="false"
+                      aria-labelledby="np-m3"
+                    ></button>
+                  </div>
+                </div>
+              </section>
+              <section
+                class="p-card"
+                aria-labelledby="acc-title"
+                style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px"
+              >
+                <div style="display: flex; flex-direction: column; gap: 4px">
+                  <h2 id="acc-title" class="p-h3">Login and security</h2>
+                  <span class="p-small">+880 18XXXXXX21 · logged in on 1 device</span>
+                </div>
+                <div class="p-row" style="gap: 16px">
+                  <a class="p-link" href="#">Change password</a><a class="p-link" href="#">Manage devices</a>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>

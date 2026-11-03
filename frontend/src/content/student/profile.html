@@ -1,0 +1,524 @@
+<main class="p-main">
+          <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+            <h1 class="p-h1">Profile &amp; settings</h1>
+            <a class="p-ghostbtn" href="/"
+              ><svg class="p-icon p-icon--sm" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <path d="m16 17 5-5-5-5"></path>
+                <path d="M21 12H9"></path></svg
+              >Log out</a
+            >
+          </div>
+
+          <section class="p-card pf-id" aria-label="Your account">
+            <div class="pf-id-main">
+              <span class="p-avatar" style="width: 80px; height: 80px; font-size: 26px; flex: 0 0 auto">NJ</span>
+              <div class="pf-id-meta">
+                <strong style="font-size: 20px; line-height: 1.2">Nusrat Jahan</strong>
+                <span class="p-mono">EIT-24-0148</span>
+                <a class="p-link" href="#">Change photo</a>
+                <div class="pf-id-chips">
+                  <span class="eit-badge eit-badge--cyan">WordPress B14 · Offline</span>
+                  <span class="eit-badge eit-badge--neutral">Graphic Design B9 · Online</span>
+                </div>
+              </div>
+            </div>
+            <div class="pf-id-side">
+              <a class="pf-stat" href="/student/leaderboard"
+                ><strong class="p-num" style="font-size: 28px; line-height: 1.1">164</strong
+                ><small class="p-small">points · #3</small></a
+              >
+              <div class="pf-code">
+                <span style="display: flex; flex-direction: column"
+                  ><span class="p-mono" style="font-size: 11px">Your referral code</span
+                  ><span class="pf-code-t">NUSRAT148</span></span
+                ><button type="button" class="p-ghostbtn" data-copy="NUSRAT148">Copy</button>
+              </div>
+            </div>
+          </section>
+
+          <div class="p-tabs" role="tablist" aria-label="Profile sections" data-linkable="">
+            <button type="button" role="tab" id="pt-account" aria-selected="true" aria-controls="pf-account">
+              Account</button
+            ><button
+              type="button"
+              role="tab"
+              id="pt-refer"
+              aria-selected="false"
+              aria-controls="pf-refer"
+              tabindex="-1"
+            >
+              Referrals &amp; coupons</button
+            ><button
+              type="button"
+              role="tab"
+              id="pt-notifications"
+              aria-selected="false"
+              aria-controls="notifications"
+              tabindex="-1"
+            >
+              Notifications</button
+            ><button
+              type="button"
+              role="tab"
+              id="pt-security"
+              aria-selected="false"
+              aria-controls="pf-security"
+              tabindex="-1"
+            >
+              Security
+            </button>
+          </div>
+
+          <div
+            role="tabpanel"
+            id="pf-account"
+            aria-labelledby="pt-account"
+            style="display: flex; flex-direction: column; gap: 24px"
+          >
+            <section
+              class="p-card"
+              aria-labelledby="details-title"
+              style="display: flex; flex-direction: column; gap: 20px"
+            >
+              <h2 id="details-title" class="p-h3">Personal details</h2>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+                  gap: 16px 20px;
+                "
+              >
+                <div class="eit-field">
+                  <label class="eit-field__label" for="eit-field-1">Full name</label>
+                  <div class="eit-field__wrap">
+                    <input id="eit-field-1" name="name" type="text" class="eit-field__control" value="Nusrat Jahan" />
+                  </div>
+                </div>
+                <div class="eit-field">
+                  <label class="eit-field__label" for="eit-field-2">Mobile number</label>
+                  <div class="eit-field__wrap">
+                    <span class="eit-field__prefix" aria-hidden="true">+880</span
+                    ><input
+                      id="eit-field-2"
+                      name="phone"
+                      type="text"
+                      class="eit-field__control"
+                      aria-describedby="eit-field-2-note"
+                      value="17XXXXXX48"
+                    />
+                  </div>
+                  <p id="eit-field-2-note" class="eit-field__note">Used to log in. To change it, contact the office.</p>
+                </div>
+                <div class="eit-field">
+                  <label class="eit-field__label" for="eit-field-3">Email (optional)</label>
+                  <div class="eit-field__wrap">
+                    <input
+                      id="eit-field-3"
+                      name="email"
+                      type="email"
+                      class="eit-field__control"
+                      aria-describedby="eit-field-3-note"
+                      value="nusrat.j@example.com"
+                    />
+                  </div>
+                  <p id="eit-field-3-note" class="eit-field__note">Receipts are also sent here</p>
+                </div>
+                <div class="eit-field">
+                  <label class="eit-field__label" for="eit-field-4">Emergency contact (optional)</label>
+                  <div class="eit-field__wrap">
+                    <span class="eit-field__prefix" aria-hidden="true">+880</span
+                    ><input
+                      id="eit-field-4"
+                      name="guardian"
+                      type="text"
+                      class="eit-field__control"
+                      placeholder="1XXXXXXXXX"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="p-row" style="justify-content: flex-end">
+                <button type="button" class="eit-btn eit-btn--primary eit-btn--md" data-toast="Changes saved">
+                  <svg
+                    class="eit-icon eit-btn__lead"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    focusable="false"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5"></path></svg
+                  ><span class="eit-btn__label">Save changes</span>
+                </button>
+              </div>
+            </section>
+            <section
+              class="p-card"
+              aria-labelledby="enrolled-title"
+              style="display: flex; flex-direction: column; gap: 12px"
+            >
+              <div class="p-card-head">
+                <h2 id="enrolled-title" class="p-h3">Enrolled courses</h2>
+                <a class="p-link" href="/student/courses">My courses</a>
+              </div>
+              <ul class="p-list">
+                <li>
+                  <span class="p-grow" style="display: flex; flex-direction: column"
+                    ><strong style="font-size: 14px">Web Design &amp; Development with WordPress</strong
+                    ><span class="p-small">Batch 14 · Offline · since 10 Sep 2026</span></span
+                  ><span class="eit-badge eit-badge--cyan">Offline</span>
+                </li>
+                <li>
+                  <span class="p-grow" style="display: flex; flex-direction: column"
+                    ><strong style="font-size: 14px">Graphic Design</strong
+                    ><span class="p-small">Batch 9 · Online · since 28 Aug 2026</span></span
+                  ><span class="eit-badge eit-badge--neutral">Online</span>
+                </li>
+              </ul>
+            </section>
+          </div>
+
+          <div
+            role="tabpanel"
+            id="pf-refer"
+            aria-labelledby="pt-refer"
+            hidden=""
+            style="display: flex; flex-direction: column; gap: 24px"
+          >
+            <div class="p-split">
+              <section
+                class="p-card"
+                aria-labelledby="refer-title"
+                style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px"
+              >
+                <div style="display: flex; flex-direction: column; gap: 4px">
+                  <h2 id="refer-title" class="p-h3">Bring a friend</h2>
+                  <span class="p-small">Share NUSRAT148 and you both save.</span>
+                </div>
+                <ol class="pf-refer-how">
+                  <li>
+                    <span class="pf-n">1</span><span>Your friend enters your code and gets ৳1,000 off their fee.</span>
+                  </li>
+                  <li>
+                    <span class="pf-n">2</span><span>You get ৳1,000 credit 7 days after their first payment.</span>
+                  </li>
+                  <li><span class="pf-n">3</span><span>One code per enrollment, so each course has its own.</span></li>
+                </ol>
+              </section>
+              <section
+                class="p-card"
+                aria-labelledby="refer-stats-title"
+                style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px"
+              >
+                <h2 id="refer-stats-title" class="p-h3">Your referrals</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px 28px">
+                  <span style="display: flex; flex-direction: column"
+                    ><span class="p-num" style="font-size: 28px">3</span
+                    ><span class="p-small">friends joined</span></span
+                  >
+                  <span style="display: flex; flex-direction: column"
+                    ><span class="p-num" style="font-size: 28px">৳1,500</span
+                    ><span class="p-small">credit added</span></span
+                  >
+                  <span style="display: flex; flex-direction: column"
+                    ><span class="p-num" style="font-size: 28px">৳1,000</span
+                    ><span class="p-small">more on Wed 21 Oct</span></span
+                  >
+                </div>
+                <a class="p-link" href="/student/payments">Use credit on a payment</a>
+              </section>
+            </div>
+            <section
+              class="p-card"
+              aria-labelledby="refer-hist-title"
+              style="display: flex; flex-direction: column; gap: 12px"
+            >
+              <h2 id="refer-hist-title" class="p-h3">Friends you referred</h2>
+              <ul class="p-list">
+                <li>
+                  <span class="p-avatar" aria-hidden="true">FR</span
+                  ><span class="p-grow" style="display: flex; flex-direction: column"
+                    ><strong style="font-size: 14px">Farhana R.</strong
+                    ><span class="p-small">Joined 14 Sep · WordPress B14</span></span
+                  ><span class="eit-badge eit-badge--success">Credit added</span>
+                </li>
+                <li>
+                  <span class="p-avatar" aria-hidden="true">SA</span
+                  ><span class="p-grow" style="display: flex; flex-direction: column"
+                    ><strong style="font-size: 14px">Sabbir Ahmed</strong
+                    ><span class="p-small">Joined 22 Sep · Graphic Design B9</span></span
+                  ><span class="eit-badge eit-badge--success">Credit added</span>
+                </li>
+                <li>
+                  <span class="p-avatar" aria-hidden="true">AM</span
+                  ><span class="p-grow" style="display: flex; flex-direction: column"
+                    ><strong style="font-size: 14px">Afsana Mim</strong
+                    ><span class="p-small">Joined 14 Oct · WordPress B14</span></span
+                  ><span class="eit-badge eit-badge--cyan">Enrolled</span>
+                </li>
+              </ul>
+            </section>
+            <section
+              class="p-card"
+              aria-labelledby="redeem-title"
+              style="display: flex; flex-direction: column; gap: 16px"
+            >
+              <div style="display: flex; flex-direction: column; gap: 4px">
+                <h2 id="redeem-title" class="p-h3">Redeem a coupon</h2>
+                <span class="p-small">Got a code from the office or a campaign? Enter it to see what you pay.</span>
+              </div>
+              <form data-redeem="" novalidate="" style="display: flex; flex-direction: column; gap: 4px">
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end">
+                  <div class="eit-field" style="flex: 1 1 220px; max-width: 360px">
+                    <label class="eit-field__label" for="pf-coupon">Coupon code</label>
+                    <div class="eit-field__wrap">
+                      <input
+                        id="pf-coupon"
+                        name="coupon"
+                        type="text"
+                        class="eit-field__control"
+                        autocomplete="off"
+                        autocapitalize="characters"
+                        spellcheck="false"
+                        maxlength="12"
+                        placeholder="PUJA15"
+                        aria-describedby="pf-redeem-msg"
+                        style="text-transform: uppercase"
+                      />
+                    </div>
+                  </div>
+                  <button type="submit" class="eit-btn eit-btn--primary eit-btn--md" data-redeem-apply="">
+                    <span class="eit-btn__label">Apply</span>
+                  </button>
+                </div>
+                <p id="pf-redeem-msg" class="pf-redeem-msg" aria-live="polite"></p>
+                <div data-redeem-action="" style="display: flex"></div>
+              </form>
+            </section>
+          </div>
+
+          <section
+            role="tabpanel"
+            id="notifications"
+            aria-labelledby="pt-notifications"
+            hidden=""
+            class="p-card"
+            style="display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 96px"
+          >
+            <div style="display: flex; flex-direction: column; gap: 4px">
+              <h2 id="nt-pref-title" class="p-h3">Notifications</h2>
+              <span class="p-small"
+                >Everything always shows in the panel. Choose what also comes to your phone by SMS.</span
+              >
+            </div>
+            <div>
+              <div class="p-row" style="justify-content: space-between; gap: 16px; padding: 12px 0px">
+                <span style="display: flex; flex-direction: column"
+                  ><span id="np-s0" style="font-size: 14px; font-weight: 600">Class changes and new recordings</span
+                  ><span class="p-small">Time or room changes, and when a recording is ready</span></span
+                ><button
+                  type="button"
+                  class="p-switch"
+                  role="switch"
+                  aria-checked="true"
+                  aria-labelledby="np-s0"
+                ></button>
+              </div>
+              <div
+                class="p-row"
+                style="
+                  justify-content: space-between;
+                  gap: 16px;
+                  padding: 12px 0px;
+                  border-top: 1px solid var(--line-soft);
+                "
+              >
+                <span style="display: flex; flex-direction: column"
+                  ><span id="np-s1" style="font-size: 14px; font-weight: 600">Marks and mentor feedback</span
+                  ><span class="p-small">When a project is marked or a mentor answers you</span></span
+                ><button
+                  type="button"
+                  class="p-switch"
+                  role="switch"
+                  aria-checked="false"
+                  aria-labelledby="np-s1"
+                ></button>
+              </div>
+              <div
+                class="p-row"
+                style="
+                  justify-content: space-between;
+                  gap: 16px;
+                  padding: 12px 0px;
+                  border-top: 1px solid var(--line-soft);
+                "
+              >
+                <span style="display: flex; flex-direction: column"
+                  ><span id="np-s2" style="font-size: 14px; font-weight: 600">Quiz reminders</span
+                  ><span class="p-small">When a class quiz opens after each class</span></span
+                ><button
+                  type="button"
+                  class="p-switch"
+                  role="switch"
+                  aria-checked="true"
+                  aria-labelledby="np-s2"
+                ></button>
+              </div>
+              <div
+                class="p-row"
+                style="
+                  justify-content: space-between;
+                  gap: 16px;
+                  padding: 12px 0px;
+                  border-top: 1px solid var(--line-soft);
+                "
+              >
+                <span style="display: flex; flex-direction: column"
+                  ><span id="np-s3" style="font-size: 14px; font-weight: 600">Payment reminders</span
+                  ><span class="p-small">3 days before each installment. Needed while you pay in parts</span></span
+                ><button
+                  type="button"
+                  class="p-switch"
+                  role="switch"
+                  aria-checked="true"
+                  aria-labelledby="np-s3"
+                  disabled=""
+                  aria-disabled="true"
+                ></button>
+              </div>
+              <div
+                class="p-row"
+                style="
+                  justify-content: space-between;
+                  gap: 16px;
+                  padding: 12px 0px;
+                  border-top: 1px solid var(--line-soft);
+                "
+              >
+                <span style="display: flex; flex-direction: column"
+                  ><span id="np-s4" style="font-size: 14px; font-weight: 600">Email receipts</span
+                  ><span class="p-small">A copy of every payment receipt to nusrat.j@example.com</span></span
+                ><button
+                  type="button"
+                  class="p-switch"
+                  role="switch"
+                  aria-checked="true"
+                  aria-labelledby="np-s4"
+                ></button>
+              </div>
+            </div>
+          </section>
+
+          <div
+            role="tabpanel"
+            id="pf-security"
+            aria-labelledby="pt-security"
+            hidden=""
+            style="display: flex; flex-direction: column; gap: 24px"
+          >
+            <section class="p-card" aria-labelledby="pw-title" style="display: flex; flex-direction: column; gap: 20px">
+              <h2 id="pw-title" class="p-h3">Password</h2>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+                  gap: 16px 20px;
+                "
+              >
+                <div class="eit-field">
+                  <label class="eit-field__label" for="eit-field-5">Current password</label>
+                  <div class="eit-field__wrap">
+                    <input id="eit-field-5" name="current" type="password" class="eit-field__control" value="" />
+                  </div>
+                </div>
+                <div class="eit-field">
+                  <label class="eit-field__label" for="eit-field-6">New password</label>
+                  <div class="eit-field__wrap">
+                    <input
+                      id="eit-field-6"
+                      name="new"
+                      type="password"
+                      class="eit-field__control"
+                      aria-describedby="eit-field-6-note"
+                      value=""
+                    />
+                  </div>
+                  <p id="eit-field-6-note" class="eit-field__note">At least 8 characters</p>
+                </div>
+                <div class="eit-field">
+                  <label class="eit-field__label" for="eit-field-7">Repeat new password</label>
+                  <div class="eit-field__wrap">
+                    <input id="eit-field-7" name="repeat" type="password" class="eit-field__control" value="" />
+                  </div>
+                </div>
+              </div>
+              <div class="p-row" style="justify-content: flex-end">
+                <button class="p-ghostbtn" type="button" data-toast="Password updated">Update password</button>
+              </div>
+            </section>
+            <section
+              class="p-card"
+              aria-labelledby="dev-title"
+              style="display: flex; flex-direction: column; gap: 12px"
+            >
+              <div class="p-card-head">
+                <h2 id="dev-title" class="p-h3">Logged-in devices</h2>
+                <a class="p-link" href="#" data-toast="Logged out of other devices">Log out of other devices</a>
+              </div>
+              <ul class="p-list">
+                <li>
+                  <span class="p-tile"
+                    ><svg
+                      class="eit-icon"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      focusable="false"
+                      aria-hidden="true"
+                    >
+                      <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                      <path d="M8 21h8"></path>
+                      <path d="M12 17v4"></path></svg></span
+                  ><span class="p-grow" style="display: flex; flex-direction: column"
+                    ><strong style="font-size: 14px">Chrome on Windows</strong
+                    ><span class="p-small">Dhaka · active now</span></span
+                  ><span class="eit-badge eit-badge--cyan">This device</span>
+                </li>
+                <li>
+                  <span class="p-tile p-tile--muted"
+                    ><svg
+                      class="eit-icon"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      focusable="false"
+                      aria-hidden="true"
+                    >
+                      <rect x="5" y="2" width="14" height="20" rx="2"></rect>
+                      <path d="M12 18h.01"></path></svg></span
+                  ><span class="p-grow" style="display: flex; flex-direction: column"
+                    ><strong style="font-size: 14px">Android phone</strong
+                    ><span class="p-small">Dhaka · last active 14 Oct</span></span
+                  ><a class="p-link" href="/">Log out</a>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </main>

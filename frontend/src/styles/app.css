@@ -1,0 +1,1263 @@
+/* Additions for the static build: things the design canvas showed as separate frames. */
+[hidden] {
+  display: none !important;
+}
+
+/* Student panel type: the same fonts as the admin and mentor console (Anek Bangla, JetBrains Mono). */
+html.is-student {
+  --font-sans: "Anek Bangla", system-ui, sans-serif;
+  --font-bangla: "Anek Bangla", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+/* Anek Bangla is narrower than Geist, so headings and big numbers lose their negative tracking. */
+html.is-student :is(.p-h1, .p-h2, .p-h3, .p-num, .p-brand-name, .eit-hl) {
+  letter-spacing: 0;
+}
+/* JetBrains Mono runs larger than the text around it. */
+html.is-student code {
+  font-size: 0.88em;
+}
+
+/* Notifications as its own page: the panel centred on the page surface. */
+body.page-panel {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px;
+  box-sizing: border-box;
+  background: var(--surface);
+}
+
+/* Login: demo switch for which panel "Log in" opens (no real accounts yet). */
+.demo-role {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+.demo-role__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+/* Help centre: the "no answers" state help.js shows while searching. */
+.hp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  padding: 40px 24px 48px;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* Phone-width fixes. The design's flex columns kept min-width: auto, so wide tables and the
+   bottom tab bar stretched the page instead of scrolling inside their own boxes. */
+.p-split > *,
+.p-card--flush,
+.p-shell > .p-content {
+  min-width: 0;
+}
+@media (max-width: 720px) {
+  .p-side .p-nav {
+    min-width: 0;
+  }
+  /* Log in / reset password: the two halves stack; trim their desktop padding. */
+  section[style*="padding: 40px 56px"] {
+    padding: 32px 20px !important;
+  }
+  section[style*="padding: 24px 48px 48px"] {
+    padding: 20px 20px 40px !important;
+  }
+  /* Certificates and other side columns sized with a 300px+ flex basis. */
+  .p-split > [style*="flex: 1 1 3"],
+  .p-card > [style*="flex: 1 1 3"] {
+    flex-basis: 100% !important;
+    min-width: 0;
+  }
+  /* UI guide phone mock-up. */
+  [style*="flex: 0 0 360px"] {
+    flex-shrink: 1 !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+/* Screen-reader-only labels inside tables are absolutely positioned; keep them inside the scroll box. */
+.p-scroll {
+  position: relative;
+}
+
+/* ---------- Balanced card grids ----------
+   The design's grids use repeat(auto-fit, minmax(...)), which strands one card on its own row
+   (4 cards as 3 + 1, 6 as 4 + 2). These rules pick a column count that divides the cards evenly.
+   The calc((W - 100%) * 999) term is 0 or huge, so it switches the minimum column width at a
+   container width W: no media queries, so it works in any column. Gaps up to 24px are allowed for. */
+[style*="repeat(auto-fit"]:has(> :nth-child(3):last-child) {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(max(calc((100% - 48px) / 3), min(100%, calc((600px - 100%) * 999))), 1fr)
+  ) !important;
+}
+[style*="repeat(auto-fit"]:has(> :nth-child(4):last-child) {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      max(
+        calc((100% - 72px) / 4),
+        min(calc((100% - 24px) / 2), calc((860px - 100%) * 999)),
+        min(100%, calc((480px - 100%) * 999))
+      ),
+      1fr
+    )
+  ) !important;
+}
+[style*="repeat(auto-fit"]:has(> :nth-child(6):last-child) {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      max(
+        calc((100% - 48px) / 3),
+        min(calc((100% - 24px) / 2), calc((640px - 100%) * 999)),
+        min(100%, calc((480px - 100%) * 999))
+      ),
+      1fr
+    )
+  ) !important;
+}
+/* 5 cards: 5 across, otherwise 3 + 2, then 2 columns, then stacked. */
+[style*="repeat(auto-fit"]:has(> :nth-child(5):last-child) {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      max(
+        calc((100% - 96px) / 5),
+        min(calc((100% - 48px) / 3), calc((1000px - 100%) * 999)),
+        min(calc((100% - 24px) / 2), calc((600px - 100%) * 999)),
+        min(100%, calc((400px - 100%) * 999))
+      ),
+      1fr
+    )
+  ) !important;
+}
+/* Four stat cards: 4 across, otherwise 2 x 2, phones included (compact cards). */
+[style*="repeat(auto-fit"]:has(> .p-stat:nth-child(4):last-child) {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(max(calc((100% - 72px) / 4), min(calc((100% - 24px) / 2), calc((800px - 100%) * 999))), 1fr)
+  ) !important;
+}
+@media (max-width: 720px) {
+  .p-stat {
+    padding: 16px;
+    gap: 10px;
+  }
+  .p-stat .p-num {
+    font-size: 24px;
+  }
+  .p-stat-top {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* ---------- Tables ----------
+   Wide tables scroll inside their card. On phones a soft edge shows there is more to the right. */
+@media (max-width: 1099px) {
+  .p-scroll {
+    background:
+      linear-gradient(to right, var(--surface-card) 30%, rgba(255, 255, 255, 0)) left center / 32px 100% no-repeat local,
+      linear-gradient(to left, var(--surface-card) 30%, rgba(255, 255, 255, 0)) right center / 32px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgba(10, 27, 44, 0.14), transparent) left center / 12px 100% no-repeat
+        scroll,
+      radial-gradient(farthest-side at 100% 50%, rgba(10, 27, 44, 0.14), transparent) right center / 12px 100% no-repeat
+        scroll;
+  }
+}
+
+/* ---------- Notifications page (student, mentor and admin) ---------- */
+.nt-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.nt-head .eit-chip {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+.nt-group {
+  padding: 4px 12px 12px;
+}
+.nt-group + .nt-group {
+  border-top: 1px solid var(--line-soft);
+}
+.nt-day {
+  margin: 0;
+  padding: 14px 8px 6px;
+}
+.nt-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nt-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 14px;
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+.nt-item:hover {
+  background: var(--surface);
+}
+.nt-item:hover > .p-tile {
+  transform: rotate(-8deg) scale(1.08);
+}
+.nt-item.is-unread {
+  background: rgba(227, 246, 253, 0.6);
+}
+.nt-item:has(.nt-link:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+.nt-link {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--ink);
+  text-decoration: none;
+  outline: none;
+}
+/* The whole row opens the notification. */
+.nt-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.nt-title {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.nt-item.is-unread .nt-title {
+  font-weight: 700;
+}
+.nt-meta {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  white-space: nowrap;
+}
+.nt-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(0, 174, 238, 0.18);
+}
+.nt-side > li {
+  position: relative;
+}
+.nt-side-link {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14px;
+}
+.nt-side-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+}
+.nt-side > li > svg {
+  color: var(--ink-3);
+}
+@media (max-width: 720px) {
+  .nt-head {
+    padding: 14px 12px;
+  }
+  .nt-group {
+    padding: 4px 4px 8px;
+  }
+  .nt-item {
+    gap: 12px;
+    padding: 12px 10px;
+  }
+}
+
+/* A switch the person can't change (for example payment reminders while paying in parts). */
+.p-switch:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ---------- Certificate (A4 landscape) ----------
+   On screen: a toolbar, then the sheet centred and scaled down to fit (app.js, data-fit).
+   On paper: only the sheet, full size, on one A4 landscape page. */
+body.page-print {
+  margin: 0;
+  min-height: 100vh;
+  padding: 24px 24px 48px;
+  box-sizing: border-box;
+  background: var(--surface);
+  font-family: var(--font-sans);
+  color: var(--ink);
+}
+.cert-bar {
+  max-width: 1123px;
+  margin: 0 auto 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cert-hint {
+  max-width: 1123px;
+  margin: 0 auto 16px;
+  text-align: right;
+}
+.cert-stage {
+  max-width: 1123px;
+  margin: 0 auto;
+}
+.cert-fit {
+  transform-origin: top left;
+}
+.cert-sheet {
+  box-shadow: var(--shadow-float);
+  border-radius: 6px;
+}
+@media (max-width: 720px) {
+  body.page-print {
+    padding: 16px 16px 32px;
+  }
+  .cert-hint {
+    text-align: left;
+  }
+}
+@page {
+  size: A4 landscape;
+  margin: 0;
+}
+@media print {
+  body.page-print {
+    padding: 0;
+    background: #ffffff;
+  }
+  .cert-bar,
+  .cert-hint {
+    display: none;
+  }
+  .cert-fit {
+    transform: none !important;
+    height: auto !important;
+  }
+  .cert-sheet {
+    box-shadow: none;
+    border-radius: 0;
+  }
+}
+
+/* Side columns that follow a long page on wide screens (help contacts, order and batch summaries). */
+@media (min-width: 1100px) {
+  .p-sticky {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+/* Enroll flow: the header lines up with the 1200px page column. */
+.enr-top {
+  padding-left: max(24px, calc((100% - 1200px) / 2 + 32px));
+  padding-right: max(24px, calc((100% - 1200px) / 2 + 32px));
+}
+.enr-top--narrow {
+  padding-left: max(24px, calc((100% - 760px) / 2 + 32px));
+  padding-right: max(24px, calc((100% - 760px) / 2 + 32px));
+}
+@media (max-width: 720px) {
+  .enr-top,
+  .enr-top--narrow {
+    padding: 8px 12px;
+  }
+}
+
+/* Quiz top bar on phones: Exit, timer and Submit on one row, the quiz name under them. */
+@media (max-width: 720px) {
+  .quiz-top {
+    padding: 8px 12px !important;
+  }
+  .quiz-top > div:not(.p-top-right) {
+    order: 3;
+    flex: 1 0 100%;
+  }
+}
+
+/* A mark outside its range (mentor review rubric). */
+.p-input[aria-invalid="true"] {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px var(--danger-soft);
+}
+
+/* Toast: confirms an action (Saved, Sent). Sits above the phone tab bar. */
+.p-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(480px, calc(100vw - 32px));
+  padding: 12px 18px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: var(--ink);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-float);
+  transform: translate(-50%, 16px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 240ms var(--ease-out-expo),
+    opacity 240ms var(--ease-standard);
+}
+.p-toast.is-on {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+.p-toast svg {
+  flex: none;
+  color: #4fd39a;
+}
+@media (max-width: 720px) {
+  .p-toast {
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Phones: in a list row that ends with a status badge, the badge drops under the text
+   instead of squeezing it into a narrow column ("Up next" on the dashboard). */
+@media (max-width: 720px) {
+  .p-rows > li:has(> .eit-badge:last-child),
+  .p-list > li:has(> .eit-badge:last-child) {
+    flex-wrap: wrap;
+  }
+  .p-rows > li:has(> .eit-badge:last-child) > .p-grow,
+  .p-list > li:has(> .eit-badge:last-child) > .p-grow {
+    flex: 1 1 calc(100% - 64px);
+  }
+  .p-rows > li:has(> .p-tile:first-child) > .eit-badge:last-child,
+  .p-list > li:has(> .p-tile:first-child) > .eit-badge:last-child {
+    margin-left: 56px;
+  }
+}
+
+/* Course player: module rows open and close their class list; the chevron turns with them. */
+.pl-mod > svg:last-child {
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+.pl-mod[aria-expanded="true"] > svg:last-child {
+  transform: rotate(180deg);
+}
+.pl-mod:hover {
+  background: var(--surface) !important;
+}
+
+/* Chip counts on Saved & notes (and similar student filters). */
+.ex-n {
+  margin-left: 2px;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+.eit-chip.is-on .ex-n {
+  color: inherit;
+  opacity: 0.7;
+}
+
+/* ---------- Student top bar: next-class strip and theme toggle ---------- */
+.p-next {
+  flex: 1 1 200px;
+  min-width: 0;
+  max-width: 440px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 14px;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  background: var(--surface-card);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+.p-next:hover {
+  border-color: var(--cyan-line);
+}
+.p-next:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: 0;
+}
+.p-next .p-live {
+  flex: 0 0 auto;
+}
+.p-next-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.p-next-l {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.p-next-t {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.p-next-m {
+  font-size: 12px;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Must live here: app.css loads after panel.css, so a bare display:flex would
+   undo panel's phone hide and force a two-row top bar under ~720px. */
+@media (max-width: 900px) {
+  .p-next {
+    flex-basis: 160px;
+    padding: 6px 12px;
+    gap: 8px;
+  }
+  .p-next-l {
+    display: none;
+  }
+}
+@media (max-width: 720px) {
+  .p-next {
+    display: none;
+  }
+  /* When utilities sit alone with the brand, keep one compact row. */
+  .p-top-right {
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+}
+.p-iconbtn .p-sun,
+html[data-theme="dark"] .p-iconbtn .p-moon {
+  display: none;
+}
+html[data-theme="dark"] .p-iconbtn .p-sun {
+  display: block;
+}
+
+/* ---------- Student: profile (referrals & coupons) ---------- */
+.pf-id {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px;
+}
+.pf-id-main {
+  flex: 1 1 280px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  min-width: 0;
+}
+.pf-id-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.pf-id-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.pf-id-side {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: stretch;
+  margin-left: auto;
+}
+.pf-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--track);
+  text-decoration: none;
+  color: inherit;
+  min-width: 110px;
+}
+.pf-stat:hover {
+  background: var(--cyan-soft);
+}
+.pf-code {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 6px 6px 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.pf-code-t {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.pf-refer-how {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pf-refer-how li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.pf-refer-how .pf-n {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cyan-ink);
+  margin-top: 2px;
+}
+.pf-redeem-msg {
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+.pf-redeem-msg.is-ok {
+  color: var(--success);
+}
+.pf-redeem-msg.is-err {
+  color: var(--danger);
+}
+
+/* ---------- Student: My courses hub ---------- */
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: 20px;
+}
+.cs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+.cs-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.cs-foot {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* Ink heroes: pills stay light-on-dark (--ink is white in the ink palette). */
+.p-hero[data-theme="ink"] .p-pill {
+  color: var(--ink);
+}
+.p-hero[data-theme="ink"] {
+  color: var(--ink);
+}
+
+/* Cinema surfaces (video, focused quiz chrome): stay dark in both themes. */
+.p-cinema {
+  background: #0a1b2c;
+  color: #ffffff;
+}
+
+/* ---------- Student: Routine calendar ---------- */
+.rt-week {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.rt-week-item {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+}
+.rt-cal {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--surface-card) 0%, var(--surface) 100%);
+  box-sizing: border-box;
+}
+.rt-cal-h {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink-3);
+  padding: 6px 0 10px;
+}
+.rt-day {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  min-height: 96px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: default;
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    background var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+.rt-day[data-filter] {
+  cursor: pointer;
+}
+.rt-day:hover:not(.is-empty),
+.rt-day[data-filter]:hover {
+  border-color: var(--cyan-line);
+  background: var(--cyan-soft);
+  box-shadow: 0 1px 0 var(--cyan-line);
+}
+.rt-day[aria-pressed="true"] {
+  border-color: var(--cyan);
+  background: var(--cyan-soft);
+  box-shadow: inset 0 0 0 1px var(--cyan);
+}
+.rt-day.is-today {
+  box-shadow: inset 0 0 0 2px var(--cyan);
+}
+.rt-day.is-today .rt-day-n {
+  background: var(--cyan);
+  color: var(--on-cyan);
+}
+.rt-day.is-empty {
+  min-height: 96px;
+  background: var(--track);
+  color: var(--ink-3);
+  opacity: 0.45;
+}
+.rt-day.is-empty:hover {
+  border-color: var(--line);
+  background: var(--track);
+  box-shadow: none;
+}
+.rt-day-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  background: var(--track);
+}
+.rt-ev {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.rt-chip {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 3px 6px;
+  border-radius: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rt-chip--off {
+  background: var(--cyan);
+  color: var(--on-cyan);
+}
+.rt-chip--on {
+  background: transparent;
+  color: var(--cyan-ink);
+  border: 1px solid var(--cyan-line);
+}
+.rt-chip--due {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+.rt-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+.rt-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  padding: 2px 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.rt-tag--off {
+  background: var(--cyan-soft);
+  color: var(--cyan-ink);
+  border: 1px solid var(--cyan-line);
+}
+.rt-tag--on {
+  background: transparent;
+  color: var(--ink-2);
+  border: 1px dashed var(--cyan-line);
+}
+.rt-tag--present {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.rt-tag--late {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+.rt-tag--absent {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+.rt-tag--soon {
+  background: var(--track);
+  color: var(--ink-3);
+}
+.rt-tag--due {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+.rt-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.rt-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.rt-stat strong {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.rt-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.rt-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (max-width: 900px) {
+  .rt-cal {
+    gap: 4px;
+    padding: 8px;
+  }
+  .rt-day,
+  .rt-day.is-empty {
+    min-height: 72px;
+    padding: 5px;
+    gap: 4px;
+  }
+  .rt-chip {
+    padding: 2px 4px;
+  }
+  .rt-tag {
+    padding: 1px 4px;
+    letter-spacing: 0;
+  }
+}
+
+/* ---------- Student: offline course ledger ---------- */
+.co-ledger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+.co-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+.co-row:hover {
+  background: var(--surface);
+}
+.co-row[aria-selected="true"] {
+  background: var(--cyan-soft);
+  color: var(--cyan-deep);
+}
+.co-date {
+  width: 48px;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--track);
+  padding: 6px 0;
+}
+.co-row[aria-selected="true"] .co-date {
+  background: var(--cyan);
+  color: var(--on-cyan);
+}
+
+/* ---------- Student: My questions (student/questions.html) ---------- */
+.mq-main {
+  flex: 1.6 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.mq-side {
+  flex: 1 1 320px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.mq-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.mq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.mq-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.mq-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.mq-ask,
+.mq-answer {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.mq-answer {
+  margin-left: 44px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--surface);
+}
+.mq-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mq-text strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.mq-text .p-body {
+  margin: 4px 0 0;
+  font-size: 15px;
+}
+.mq-wait {
+  margin: 0 0 0 44px;
+}
+.mq-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+}
+.mq-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mq-steps li {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+}
+.mq-steps li > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mq-step-n {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--cyan-soft);
+  color: var(--cyan-deep);
+  font-size: 13px;
+  font-weight: 700;
+}
+@media (max-width: 720px) {
+  .mq-answer,
+  .mq-wait {
+    margin-left: 0;
+  }
+}
+
+/* ---------- Student: Saved & notes (student/saved.html) and the course player's Save button ---------- */
+.ex-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ex-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 16px;
+}
+.sv-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.sv-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.sv-search {
+  flex: 0 1 340px;
+  background: var(--surface-card);
+}
+@media (max-width: 720px) {
+  /* The phone top bar folds its search to an icon; this one stays a full field. */
+  .sv-search,
+  .sv-search:focus-within {
+    order: 0;
+    flex: 1 1 100%;
+    width: auto;
+    height: 44px;
+    padding: 0 14px;
+    justify-content: flex-start;
+    cursor: text;
+  }
+  .sv-search input {
+    flex: 1 1 auto;
+    width: auto;
+  }
+}
+.sv-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sv-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.sv-top .p-iconbtn,
+.sv-note > .p-iconbtn {
+  margin: -8px -8px 0 0;
+  color: var(--ink-3);
+}
+.sv-name {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.sv-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sv-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.sv-note-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sv-note-head {
+  display: flex;
+  align-items: baseline;
+  gap: 4px 10px;
+  flex-wrap: wrap;
+}
+.sv-note-head strong {
+  font-size: 15px;
+}
+.sv-note .p-body {
+  margin: 0;
+}
+.cp-save {
+  flex: none;
+}
+.cp-save[aria-pressed="true"] {
+  background: var(--cyan-soft);
+  border-color: var(--cyan-line);
+  color: var(--cyan-deep);
+}
+.cp-save[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+.cp-save[aria-pressed="true"] .cp-off,
+.cp-save[aria-pressed="false"] .cp-on {
+  display: none;
+}
+
+/* ---------- Student dashboard on phones: a shorter hero, so the stats show on the first screen ---------- */
+@media (max-width: 720px) {
+  .p-hero #hello {
+    font-size: 28px !important;
+  }
+  .db-continue {
+    flex-wrap: nowrap !important;
+    gap: 14px !important;
+    padding: 12px !important;
+  }
+  .db-thumb {
+    flex: 0 0 72px !important;
+    min-height: 72px !important;
+  }
+  .db-thumb > span:first-child {
+    display: none;
+  }
+  .db-thumb .p-shine {
+    width: 40px !important;
+    height: 40px !important;
+    box-shadow: none !important;
+  }
+}

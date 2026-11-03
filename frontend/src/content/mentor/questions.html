@@ -1,0 +1,770 @@
+<main class="p-main">
+          <div class="c-work">
+            <section
+              class="c-list"
+              aria-label="Student questions"
+              style="--cols: minmax(0, 1.15fr) minmax(0, 2fr) minmax(0, 0.7fr) minmax(0, 0.7fr)"
+            >
+              <div class="c-toolbar">
+                <div class="c-filters" role="group" aria-label="Show">
+                  <button type="button" class="c-filter" data-filter="waiting" aria-pressed="true">
+                    Waiting<span class="c-n">3</span></button
+                  ><button type="button" class="c-filter" data-filter="answered" aria-pressed="false">
+                    Answered<span class="c-n">2</span></button
+                  ><button type="button" class="c-filter" data-filter="all" aria-pressed="false">
+                    All<span class="c-n">5</span>
+                  </button>
+                </div>
+                <div class="c-tools">
+                  <label class="c-pick" for="qa-batch"
+                    ><span class="eit-sr">Batch</span
+                    ><select id="qa-batch" data-filter="">
+                      <option value="">All batches</option>
+                      <option value="b14">WordPress · Batch 14 (4)</option>
+                      <option value="b6">React JS · Batch 6 (1)</option></select
+                    ><svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M6 9l6 6 6-6"></path></svg></label
+                  ><label class="c-find" for="qa-find"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-4.3-4.3"></path></svg
+                    ><span class="eit-sr">Search questions</span
+                    ><input id="qa-find" type="search" placeholder="Search questions" autocomplete="off" data-search=""
+                  /></label>
+                </div>
+              </div>
+              <div class="c-thead" aria-hidden="true">
+                <span>Student</span><span>Question</span><span>Asked</span><span>Status</span>
+              </div>
+              <div class="c-rows" role="tablist" aria-orientation="vertical" aria-label="Questions">
+                <button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="qa-r-q1"
+                  aria-controls="qa-p-q1"
+                  aria-selected="true"
+                  data-tags="waiting b14"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Student</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">NJ</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Nusrat Jahan</span
+                        ><span class="c-cell-s">WordPress · Batch 14</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Question</span
+                    ><span class="c-cell-t is-strong">Is the mobile menu timing okay?</span
+                    ><span class="c-cell-s">Class 12 · Building a custom header</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Asked</span><span class="c-cell-t">2 h ago</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Status</span
+                    ><span class="eit-badge eit-badge--warning">Waiting</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="qa-r-q2"
+                  aria-controls="qa-p-q2"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="waiting b14"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Student</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">TH</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Tanvir Hasan</span
+                        ><span class="c-cell-s">WordPress · Batch 14</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Question</span
+                    ><span class="c-cell-t is-strong">My style.css loads twice</span
+                    ><span class="c-cell-s">Class 11 · Enqueueing styles and scripts</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Asked</span><span class="c-cell-t">5 h ago</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Status</span
+                    ><span class="eit-badge eit-badge--warning">Waiting</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="qa-r-q3"
+                  aria-controls="qa-p-q3"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="waiting b6"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Student</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">SA</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Sadia Afrin</span><span class="c-cell-s">React JS · Batch 6</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Question</span
+                    ><span class="c-cell-t is-strong">Why does my fetch run twice?</span
+                    ><span class="c-cell-s">Class 17 · useEffect in practice</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Asked</span
+                    ><span class="c-cell-t">This morning</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Status</span
+                    ><span class="eit-badge eit-badge--warning">Waiting</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="qa-r-q4"
+                  aria-controls="qa-p-q4"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="answered b14"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Student</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">NJ</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Nusrat Jahan</span
+                        ><span class="c-cell-s">WordPress · Batch 14</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Question</span
+                    ><span class="c-cell-t is-strong">Why is my menu not showing?</span
+                    ><span class="c-cell-s">Class 12 · Building a custom header</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Asked</span><span class="c-cell-t">12 Oct</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Status</span
+                    ><span class="eit-badge eit-badge--success">Answered</span></span
+                  ></button
+                ><button
+                  type="button"
+                  class="c-row"
+                  role="tab"
+                  id="qa-r-q5"
+                  aria-controls="qa-p-q5"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tags="answered b14"
+                >
+                  <span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Student</span
+                    ><span class="c-who"
+                      ><span class="p-avatar p-avatar--sm" aria-hidden="true">AH</span
+                      ><span class="c-cell"
+                        ><span class="c-cell-t">Arif Hossain</span
+                        ><span class="c-cell-s">WordPress · Batch 14</span></span
+                      ></span
+                    ></span
+                  ><span class="c-cell c-lead"
+                    ><span class="c-cell-l" aria-hidden="true">Question</span
+                    ><span class="c-cell-t is-strong">Where does functions.php go?</span
+                    ><span class="c-cell-s">Class 9 · Theme folder structure</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Asked</span><span class="c-cell-t">10 Oct</span></span
+                  ><span class="c-cell"
+                    ><span class="c-cell-l" aria-hidden="true">Status</span
+                    ><span class="eit-badge eit-badge--success">Answered</span></span
+                  >
+                </button>
+              </div>
+              <p class="c-empty" data-list-empty="" hidden="">No questions match.</p>
+              <div class="c-foot">
+                <span>Showing <span data-list-shown="">3</span> of 5 questions</span
+                ><span>Students see your answer under the lesson</span>
+              </div>
+            </section>
+            <aside class="c-pane" aria-label="Question">
+              <section class="c-pane-in" role="tabpanel" id="qa-p-q1" aria-labelledby="qa-r-q1-h">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--warning">Waiting</span>
+                    <h2 id="qa-r-q1-h">Is the mobile menu timing okay?</h2>
+                    <span class="c-pane-sub">Class 12 · Building a custom header</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>Student</dt>
+                    <dd>Nusrat Jahan</dd>
+                    <dt>Batch</dt>
+                    <dd>WordPress · Batch 14</dd>
+                    <dt>Asked</dt>
+                    <dd>2 h ago</dd>
+                    <dt>In the video</dt>
+                    <dd><a class="p-link" href="/mentor/course-builder">11:36 in Class 12</a></dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Nusrat asked</h3>
+                  <p class="c-note">
+                    I used 400ms for the mobile menu slide-in. It feels a bit slow on my phone. Is that okay, or should
+                    it be faster?
+                  </p>
+                </div>
+                <form class="c-block c-answer" data-answer="">
+                  <label class="c-block-h" for="ans-q1">Your answer</label
+                  ><textarea
+                    id="ans-q1"
+                    class="p-textarea"
+                    rows="5"
+                    placeholder="Explain the fix in a few lines. Point to a time in the video if it helps."
+                  ></textarea
+                  ><span class="p-row c-switch-line"
+                    ><button
+                      type="button"
+                      class="p-switch"
+                      role="switch"
+                      aria-checked="false"
+                      aria-labelledby="faq-q1"
+                    ></button
+                    ><span id="faq-q1" class="p-small">Also add it to the lesson’s common questions</span></span
+                  ><button
+                    type="submit"
+                    class="eit-btn eit-btn--primary eit-btn--md"
+                    disabled=""
+                    data-toast="Answer sent · Nusrat is told by SMS"
+                  >
+                    <svg
+                      class="eit-icon eit-btn__lead"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      focusable="false"
+                      aria-hidden="true"
+                    >
+                      <path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"></path></svg
+                    ><span class="eit-btn__label">Send answer</span>
+                  </button>
+                </form>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/mentor/course-builder"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M7 4l13 8-13 8z"></path></svg
+                    >Open the lesson</a
+                  ><a class="c-btn" href="/mentor/batch"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21c0-4 3.1-7 7-7s7 3 7 7M16 3.5a4 4 0 0 1 0 7M22 21c0-3-1.7-5.4-4-6.4"
+                      ></path></svg
+                    >Open the batch</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="qa-p-q2" aria-labelledby="qa-r-q2-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--warning">Waiting</span>
+                    <h2 id="qa-r-q2-h">My style.css loads twice</h2>
+                    <span class="c-pane-sub">Class 11 · Enqueueing styles and scripts</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>Student</dt>
+                    <dd>Tanvir Hasan</dd>
+                    <dt>Batch</dt>
+                    <dd>WordPress · Batch 14</dd>
+                    <dt>Asked</dt>
+                    <dd>5 h ago</dd>
+                    <dt>In the video</dt>
+                    <dd><a class="p-link" href="/mentor/course-builder">24:10 in Class 11</a></dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Tanvir asked</h3>
+                  <p class="c-note">
+                    After I added wp_enqueue_style the page has two link tags for style.css. I also still have the link
+                    tag in header.php. Do I remove one?
+                  </p>
+                </div>
+                <form class="c-block c-answer" data-answer="">
+                  <label class="c-block-h" for="ans-q2">Your answer</label
+                  ><textarea
+                    id="ans-q2"
+                    class="p-textarea"
+                    rows="5"
+                    placeholder="Explain the fix in a few lines. Point to a time in the video if it helps."
+                  ></textarea
+                  ><span class="p-row c-switch-line"
+                    ><button
+                      type="button"
+                      class="p-switch"
+                      role="switch"
+                      aria-checked="false"
+                      aria-labelledby="faq-q2"
+                    ></button
+                    ><span id="faq-q2" class="p-small">Also add it to the lesson’s common questions</span></span
+                  ><button
+                    type="submit"
+                    class="eit-btn eit-btn--primary eit-btn--md"
+                    disabled=""
+                    data-toast="Answer sent · Tanvir is told by SMS"
+                  >
+                    <svg
+                      class="eit-icon eit-btn__lead"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      focusable="false"
+                      aria-hidden="true"
+                    >
+                      <path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"></path></svg
+                    ><span class="eit-btn__label">Send answer</span>
+                  </button>
+                </form>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/mentor/course-builder"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M7 4l13 8-13 8z"></path></svg
+                    >Open the lesson</a
+                  ><a class="c-btn" href="/mentor/batch"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21c0-4 3.1-7 7-7s7 3 7 7M16 3.5a4 4 0 0 1 0 7M22 21c0-3-1.7-5.4-4-6.4"
+                      ></path></svg
+                    >Open the batch</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="qa-p-q3" aria-labelledby="qa-r-q3-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--warning">Waiting</span>
+                    <h2 id="qa-r-q3-h">Why does my fetch run twice?</h2>
+                    <span class="c-pane-sub">Class 17 · useEffect in practice</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>Student</dt>
+                    <dd>Sadia Afrin</dd>
+                    <dt>Batch</dt>
+                    <dd>React JS · Batch 6</dd>
+                    <dt>Asked</dt>
+                    <dd>This morning</dd>
+                    <dt>In the video</dt>
+                    <dd><a class="p-link" href="/mentor/course-builder">41:02 in Class 17</a></dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Sadia asked</h3>
+                  <p class="c-note">
+                    In development my useEffect fetch runs two times when the page loads. In the build it runs once. Is
+                    something wrong in my code?
+                  </p>
+                </div>
+                <form class="c-block c-answer" data-answer="">
+                  <label class="c-block-h" for="ans-q3">Your answer</label
+                  ><textarea
+                    id="ans-q3"
+                    class="p-textarea"
+                    rows="5"
+                    placeholder="Explain the fix in a few lines. Point to a time in the video if it helps."
+                  ></textarea
+                  ><span class="p-row c-switch-line"
+                    ><button
+                      type="button"
+                      class="p-switch"
+                      role="switch"
+                      aria-checked="false"
+                      aria-labelledby="faq-q3"
+                    ></button
+                    ><span id="faq-q3" class="p-small">Also add it to the lesson’s common questions</span></span
+                  ><button
+                    type="submit"
+                    class="eit-btn eit-btn--primary eit-btn--md"
+                    disabled=""
+                    data-toast="Answer sent · Sadia is told by SMS"
+                  >
+                    <svg
+                      class="eit-icon eit-btn__lead"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      focusable="false"
+                      aria-hidden="true"
+                    >
+                      <path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"></path></svg
+                    ><span class="eit-btn__label">Send answer</span>
+                  </button>
+                </form>
+                <div class="c-pane-actions">
+                  <a class="c-btn" href="/mentor/course-builder"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M7 4l13 8-13 8z"></path></svg
+                    >Open the lesson</a
+                  ><a class="c-btn" href="/mentor/batch"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21c0-4 3.1-7 7-7s7 3 7 7M16 3.5a4 4 0 0 1 0 7M22 21c0-3-1.7-5.4-4-6.4"
+                      ></path></svg
+                    >Open the batch</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="qa-p-q4" aria-labelledby="qa-r-q4-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--success">Answered</span>
+                    <h2 id="qa-r-q4-h">Why is my menu not showing?</h2>
+                    <span class="c-pane-sub">Class 12 · Building a custom header</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>Student</dt>
+                    <dd>Nusrat Jahan</dd>
+                    <dt>Batch</dt>
+                    <dd>WordPress · Batch 14</dd>
+                    <dt>Asked</dt>
+                    <dd>12 Oct</dd>
+                    <dt>In the video</dt>
+                    <dd><a class="p-link" href="/mentor/course-builder">9:40 in Class 12</a></dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Nusrat asked</h3>
+                  <p class="c-note">I registered the menu but nothing shows in the header.</p>
+                </div>
+                <div class="c-block">
+                  <h3>Your answer</h3>
+                  <p class="c-note">
+                    Check that the theme location in wp_nav_menu() matches the one in register_nav_menus(), then assign
+                    a menu to it under Appearance → Menus.
+                  </p>
+                  <p class="p-small" style="margin: 0">Nusrat was told by SMS and in the panel.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <button type="button" class="c-btn" data-toast="Added to the lesson’s common questions">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M12 5v14M5 12h14"></path></svg
+                    >Add to the lesson FAQ</button
+                  ><a class="c-btn" href="/mentor/course-builder"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M7 4l13 8-13 8z"></path></svg
+                    >Open the lesson</a
+                  ><a class="c-btn" href="/mentor/batch"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21c0-4 3.1-7 7-7s7 3 7 7M16 3.5a4 4 0 0 1 0 7M22 21c0-3-1.7-5.4-4-6.4"
+                      ></path></svg
+                    >Open the batch</a
+                  >
+                </div>
+              </section>
+              <section class="c-pane-in" role="tabpanel" id="qa-p-q5" aria-labelledby="qa-r-q5-h" hidden="">
+                <div class="c-pane-head">
+                  <div class="c-pane-title">
+                    <span class="eit-badge eit-badge--success">Answered</span>
+                    <h2 id="qa-r-q5-h">Where does functions.php go?</h2>
+                    <span class="c-pane-sub">Class 9 · Theme folder structure</span>
+                  </div>
+                  <button type="button" class="c-iconbtn c-pane-x" data-pane-close="" aria-label="Close">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="c-block">
+                  <dl class="c-kv">
+                    <dt>Student</dt>
+                    <dd>Arif Hossain</dd>
+                    <dt>Batch</dt>
+                    <dd>WordPress · Batch 14</dd>
+                    <dt>Asked</dt>
+                    <dd>10 Oct</dd>
+                    <dt>In the video</dt>
+                    <dd><a class="p-link" href="/mentor/course-builder">15:22 in Class 9</a></dd>
+                  </dl>
+                </div>
+                <div class="c-block">
+                  <h3>Arif asked</h3>
+                  <p class="c-note">Does functions.php go in the theme folder or in wp-content?</p>
+                </div>
+                <div class="c-block">
+                  <h3>Your answer</h3>
+                  <p class="c-note">
+                    In your theme folder, next to style.css and index.php. WordPress loads it for the active theme only.
+                  </p>
+                  <p class="p-small" style="margin: 0">Arif was told by SMS and in the panel.</p>
+                </div>
+                <div class="c-pane-actions">
+                  <button type="button" class="c-btn" data-toast="Added to the lesson’s common questions">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M12 5v14M5 12h14"></path></svg
+                    >Add to the lesson FAQ</button
+                  ><a class="c-btn" href="/mentor/course-builder"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M7 4l13 8-13 8z"></path></svg
+                    >Open the lesson</a
+                  ><a class="c-btn" href="/mentor/batch"
+                    ><svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.9"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21c0-4 3.1-7 7-7s7 3 7 7M16 3.5a4 4 0 0 1 0 7M22 21c0-3-1.7-5.4-4-6.4"
+                      ></path></svg
+                    >Open the batch</a
+                  >
+                </div>
+              </section>
+            </aside>
+          </div>
+        </main>

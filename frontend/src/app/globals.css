@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@import "../styles/eit.css";
+@import "../styles/panel.css";
+@import "../styles/app.css";
+@import "../styles/console.css";
+@import "../styles/pages.css";
+
+:root {
+  --font-sans: "Anek Bangla", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-jb: "JetBrains Mono", ui-monospace, monospace;
+  --font-anek: "Anek Bangla", system-ui, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font-sans);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+button,
+a,
+[role="button"],
+[role="radio"],
+[role="tab"],
+[role="switch"],
+.eit-seg__btn,
+.p-iconbtn,
+.c-iconbtn {
+  touch-action: manipulation;
+}
+
+.eit-skip {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 10000;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--on-ink);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 120ms ease;
+}
+.eit-skip:focus,
+.eit-skip:focus-visible {
+  transform: translateY(0);
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.c-pop a {
+  min-height: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eit-rise,
+  .eit-hl,
+  .eit-count {
+    animation: none !important;
+    transition: none !important;
+  }
+}

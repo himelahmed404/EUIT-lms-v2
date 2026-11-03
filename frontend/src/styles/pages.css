@@ -1,0 +1,281 @@
+/* Page-level styles that lived in each prototype page's own <style> block. */
+
+/* ---------- Student · Help centre ---------- */
+.hp-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 58px;
+  padding: 0 10px 0 20px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: var(--on-ink);
+  color: var(--ink-3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  max-width: 640px;
+}
+.hp-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+}
+.hp-search input::placeholder {
+  color: var(--ink-3);
+}
+.hp-search:focus-within {
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    0 0 0 3px var(--cyan);
+}
+.hp-clear {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--track);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.hp-chip {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+.hp-chip:hover {
+  background: rgba(0, 174, 238, 0.22);
+  transform: translateY(-2px);
+}
+.hp-cat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 18px;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+}
+.hp-cat[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--cyan-soft);
+}
+.hp-cat:hover .p-tile {
+  transform: rotate(-8deg) scale(1.08);
+}
+.hp-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  border-radius: 14px;
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+.hp-q:hover {
+  background: var(--surface);
+}
+.hp-a {
+  padding: 0 20px 18px 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: p-rise 360ms var(--ease-out-expo) both;
+}
+.hp-yn {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-card);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+.hp-yn:hover {
+  background: var(--cyan-soft);
+  border-color: var(--cyan-line);
+}
+@media (max-width: 720px) {
+  .hp-a {
+    padding-left: 20px;
+  }
+}
+
+/* ---------- Student · Leaderboard ---------- */
+.lb-podium {
+  flex: 1 1 380px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 14px;
+  min-height: 280px;
+}
+.lb-col {
+  flex: 1 1 0;
+  max-width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  animation: p-rise 640ms var(--ease-out-expo) both;
+}
+.lb-av {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 17px;
+  background: var(--track);
+  color: var(--ink);
+  box-shadow: 0 0 0 2px var(--line-strong);
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+.lb-col:hover .lb-av {
+  transform: translateY(-5px) rotate(-6deg);
+}
+.lb-crown {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: var(--warning);
+  color: var(--ink);
+  margin-bottom: 2px;
+  animation: p-float 5s ease-in-out infinite;
+}
+.lb-block {
+  width: 100%;
+  border-radius: 16px 16px 6px 6px;
+  display: flex;
+  justify-content: center;
+  padding-top: 12px;
+  box-sizing: border-box;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0;
+  transform-origin: bottom;
+  animation: p-grow-up 1000ms var(--ease-out-expo) both;
+}
+.lb-me td {
+  background: var(--cyan-soft) !important;
+}
+.lb-me td:first-child {
+  box-shadow: inset 3px 0 0 var(--cyan);
+}
+.lb-rank {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.lb-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.lb-hist {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.lb-hist:last-child {
+  border-bottom: 0;
+}
+
+/* ---------- Admin · Roles & access ---------- */
+/* Six roles: 3 x 2, then 2 x 3, then one column (never 5 + 1). */
+.ro-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      max(
+        calc((100% - 28px) / 3),
+        min(calc((100% - 14px) / 2), calc((640px - 100%) * 999)),
+        min(100%, calc((440px - 100%) * 999))
+      ),
+      1fr
+    )
+  );
+  gap: 14px;
+}
+.ro-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 18px;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  min-height: 188px;
+}
+.ro-card[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--cyan-soft);
+  box-shadow:
+    0 0 0 1px var(--ink),
+    var(--shadow-card);
+}
+.ro-card:hover .p-tile {
+  transform: rotate(-8deg) scale(1.08);
+}
+.ro-seg button {
+  min-width: 64px;
+}
+.p-seg button[disabled] {
+  cursor: not-allowed;
+}
+
+/* ---------- Mentor · Schedule & recordings ---------- */
+.ms-class {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}

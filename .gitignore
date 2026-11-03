@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+dist/
+.DS_Store
+*.pem
+.env*
+.vercel
+*.tsbuildinfo
+frontend_plan.md
+**/frontend_plan.md
+npm-debug.log*
+yarn-debug.log*
+.pnpm-debug.log*
+coverage/
+playwright-report/
+test-results/

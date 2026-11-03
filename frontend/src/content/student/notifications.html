@@ -1,0 +1,338 @@
+<main class="p-main">
+          <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <h1 class="p-h1">Notifications</h1>
+              <p class="p-body">
+                Class updates, marks and payment reminders for your courses.
+                <strong data-notif-summary>2 unread</strong>
+              </p>
+            </div>
+            <button type="button" class="p-ghostbtn" data-mark-read="#notif-page">
+              <svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18 6 7 17l-5-5"></path>
+                <path d="m22 10-7.5 7.5L13 16"></path></svg
+              >Mark all as read
+            </button>
+          </div>
+          <div class="p-split">
+            <section class="p-card p-card--flush" id="notif-page" aria-labelledby="nt-title" style="flex: 2 1 560px">
+              <h2 id="nt-title" class="eit-sr">All notifications</h2>
+              <div class="nt-head">
+                <div class="p-seg" role="group" aria-label="Show">
+                  <button type="button" aria-pressed="true" data-notif-show="all">All</button
+                  ><button type="button" aria-pressed="false" data-notif-show="unread">
+                    Unread <span data-notif-count>2</span>
+                  </button>
+                </div>
+                <div class="eit-chips" role="group" aria-label="Type">
+                  <button type="button" class="eit-chip is-on" aria-pressed="true" data-notif-type="">
+                    <span class="eit-chip__check" aria-hidden="true"
+                      ><svg
+                        class="eit-icon"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        focusable="false"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6 9 17l-5-5"></path></svg></span
+                    ><span class="eit-chip__label">All types</span></button
+                  ><button type="button" class="eit-chip" aria-pressed="false" data-notif-type="classes">
+                    <span class="eit-chip__check" aria-hidden="true"
+                      ><svg
+                        class="eit-icon"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        focusable="false"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6 9 17l-5-5"></path></svg></span
+                    ><span class="eit-chip__label">Classes</span></button
+                  ><button type="button" class="eit-chip" aria-pressed="false" data-notif-type="quizzes">
+                    <span class="eit-chip__check" aria-hidden="true"
+                      ><svg
+                        class="eit-icon"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        focusable="false"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6 9 17l-5-5"></path></svg></span
+                    ><span class="eit-chip__label">Quizzes</span></button
+                  ><button type="button" class="eit-chip" aria-pressed="false" data-notif-type="projects">
+                    <span class="eit-chip__check" aria-hidden="true"
+                      ><svg
+                        class="eit-icon"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        focusable="false"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6 9 17l-5-5"></path></svg></span
+                    ><span class="eit-chip__label">Projects</span></button
+                  ><button type="button" class="eit-chip" aria-pressed="false" data-notif-type="payments">
+                    <span class="eit-chip__check" aria-hidden="true"
+                      ><svg
+                        class="eit-icon"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        focusable="false"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6 9 17l-5-5"></path></svg></span
+                    ><span class="eit-chip__label">Payments</span></button
+                  ><button type="button" class="eit-chip" aria-pressed="false" data-notif-type="messages">
+                    <span class="eit-chip__check" aria-hidden="true"
+                      ><svg
+                        class="eit-icon"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        focusable="false"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6 9 17l-5-5"></path></svg></span
+                    ><span class="eit-chip__label">Messages</span>
+                  </button>
+                </div>
+              </div>
+              <div class="nt-group">
+                <h3 class="p-mono nt-day">Today</h3>
+                <ul class="nt-list">
+                  <li class="nt-item is-unread" data-type="classes">
+                    <span class="p-tile"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M5 3l14 9-14 9V3z"></path></svg></span
+                    ><a class="nt-link" href="/student/routine"
+                      ><span class="nt-title">Class 12 recording is ready</span
+                      ><span class="p-small">WordPress · Batch 14 · watch it again before the Class 12 quiz</span></a
+                    ><span class="nt-meta"
+                      ><span class="p-small">10 min ago</span
+                      ><span class="nt-dot" aria-label="Unread" data-unread=""></span
+                    ></span>
+                  </li>
+                  <li class="nt-item is-unread" data-type="projects">
+                    <span class="p-tile p-tile--green"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20 6 9 17l-5-5"></path></svg></span
+                    ><a class="nt-link" href="/student/project-feedback"
+                      ><span class="nt-title">Personal portfolio homepage approved · 86/100</span
+                      ><span class="p-small">Kamrul Hasan left notes on 3 parts of your page</span></a
+                    ><span class="nt-meta"
+                      ><span class="p-small">2 h ago</span
+                      ><span class="nt-dot" aria-label="Unread" data-unread=""></span
+                    ></span>
+                  </li>
+                </ul>
+              </div>
+              <div class="nt-group">
+                <h3 class="p-mono nt-day">Yesterday</h3>
+                <ul class="nt-list">
+                  <li class="nt-item" data-type="payments">
+                    <span class="p-tile p-tile--amber"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 6v6l4 2M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"></path></svg></span
+                    ><a class="nt-link" href="/student/payments"
+                      ><span class="nt-title">Installment 2 is due on 15 Nov</span
+                      ><span class="p-small"
+                        >৳5,000 for WordPress · we will also remind you by SMS 3 days before</span
+                      ></a
+                    ><span class="nt-meta"><span class="p-small">Yesterday</span></span>
+                  </li>
+                </ul>
+              </div>
+              <div class="nt-group">
+                <h3 class="p-mono nt-day">Earlier</h3>
+                <ul class="nt-list">
+                  <li class="nt-item" data-type="classes">
+                    <span class="p-tile p-tile--muted"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
+                        ></path></svg></span
+                    ><a class="nt-link" href="/student/routine"
+                      ><span class="nt-title">Graphic Design Live 8 moved to 8:00 PM</span
+                      ><span class="p-small">Wed, 21 Oct · same Zoom link</span></a
+                    ><span class="nt-meta"><span class="p-small">13 Oct</span></span>
+                  </li>
+                  <li class="nt-item" data-type="messages">
+                    <span class="p-tile"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span
+                    ><a class="nt-link" href="/student/questions"
+                      ><span class="nt-title">Kamrul answered your question</span
+                      ><span class="p-small">“Why is my menu not showing?” · Building a custom header</span></a
+                    ><span class="nt-meta"><span class="p-small">12 Oct</span></span>
+                  </li>
+                  <li class="nt-item" data-type="quizzes">
+                    <span class="p-tile"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2z"
+                        ></path></svg></span
+                    ><a class="nt-link" href="/student/leaderboard"
+                      ><span class="nt-title">Full marks on the Class 11 quiz</span
+                      ><span class="p-small">You moved up to #3 in WordPress Batch 14</span></a
+                    ><span class="nt-meta"><span class="p-small">12 Oct</span></span>
+                  </li>
+                  <li class="nt-item" data-type="projects">
+                    <span class="p-tile p-tile--green"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="8" r="6"></circle>
+                        <path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"></path></svg></span
+                    ><a class="nt-link" href="/student/certificates"
+                      ><span class="nt-title">You are 1 project away from your WordPress certificate</span
+                      ><span class="p-small">2 of 3 requirements done</span></a
+                    ><span class="nt-meta"><span class="p-small">11 Oct</span></span>
+                  </li>
+                  <li class="nt-item" data-type="payments">
+                    <span class="p-tile p-tile--green"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                        <circle cx="12" cy="12" r="2"></circle>
+                        <path d="M6 12h.01M18 12h.01"></path></svg></span
+                    ><a class="nt-link" href="/student/payments"
+                      ><span class="nt-title">Payment received · ৳5,000</span
+                      ><span class="p-small">Installment 1 via bKash · receipt ready</span></a
+                    ><span class="nt-meta"><span class="p-small">10 Sep</span></span>
+                  </li>
+                </ul>
+              </div>
+              <div class="hp-empty" data-notif-empty hidden>
+                <span class="p-tile p-tile--green" style="width: 52px; height: 52px; border-radius: 16px"
+                  ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18 6 7 17l-5-5"></path>
+                    <path d="m22 10-7.5 7.5L13 16"></path></svg
+                ></span>
+                <strong style="font-size: 16px">You are all caught up</strong>
+                <span class="p-small" style="max-width: 360px"
+                  >Nothing here right now. New updates show up as they happen.</span
+                >
+              </div>
+            </section>
+            <aside style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+              <section
+                class="p-card"
+                aria-labelledby="reach-title"
+                style="display: flex; flex-direction: column; gap: 16px"
+              >
+                <h2 id="reach-title" class="p-h3">How we reach you</h2>
+                <ul class="p-list">
+                  <li>
+                    <span class="p-tile"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></span
+                    ><span class="p-grow" style="display: flex; flex-direction: column"
+                      ><strong style="font-size: 14px">In the panel</strong
+                      ><span class="p-small">Every update, as it happens</span></span
+                    ><span class="eit-badge eit-badge--success">On</span>
+                  </li>
+                  <li>
+                    <span class="p-tile"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="5" y="2" width="14" height="20" rx="2"></rect>
+                        <path d="M12 18h.01"></path></svg></span
+                    ><span class="p-grow" style="display: flex; flex-direction: column"
+                      ><strong style="font-size: 14px">SMS</strong
+                      ><span class="p-small">+880 17XXXXXX48 · payments and class changes</span></span
+                    ><span class="eit-badge eit-badge--success">On</span>
+                  </li>
+                  <li>
+                    <span class="p-tile p-tile--muted"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-10 5L2 7"></path></svg></span
+                    ><span class="p-grow" style="display: flex; flex-direction: column"
+                      ><strong style="font-size: 14px">Email</strong><span class="p-small">Receipts only</span></span
+                    ><span class="eit-badge eit-badge--neutral">Some</span>
+                  </li>
+                </ul>
+                <a class="p-link" href="/student/profile#notifications"
+                  >Change what we send
+                  <span class="p-arrow"
+                    ><svg class="p-icon p-icon--sm" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path></svg></span
+                ></a>
+              </section>
+              <section
+                class="p-card"
+                aria-labelledby="side-title"
+                style="display: flex; flex-direction: column; gap: 12px"
+              >
+                <h2 id="side-title" class="p-h3">Missed something?</h2>
+                <ul class="p-rows nt-side">
+                  <li>
+                    <span class="p-tile p-tile--muted"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
+                        ></path></svg></span
+                    ><a class="nt-side-link" href="/student/routine"
+                      ><strong>Class recordings</strong
+                      ><span class="p-small">Every class is added after it ends</span></a
+                    ><svg class="p-icon p-icon--sm" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                  </li>
+                  <li>
+                    <span class="p-tile p-tile--muted"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                        <path d="M2 10h20"></path></svg></span
+                    ><a class="nt-side-link" href="/student/payments"
+                      ><strong>Payments</strong><span class="p-small">Next installment ৳5,000 on 15 Nov</span></a
+                    ><svg class="p-icon p-icon--sm" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                  </li>
+                  <li>
+                    <span class="p-tile p-tile--muted"
+                      ><svg class="p-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"></path></svg></span
+                    ><a class="nt-side-link" href="/student/help"
+                      ><strong>Help centre</strong><span class="p-small">Answers to common questions</span></a
+                    ><svg class="p-icon p-icon--sm" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                  </li>
+                </ul>
+              </section>
+            </aside>
+          </div>
+        </main>
