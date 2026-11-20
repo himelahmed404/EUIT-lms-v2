@@ -7,7 +7,7 @@ import { ConsoleNavIcon, NavIcon } from "@/config/navIcons";
 import { NotificationMenu } from "@/components/shell/NotificationMenu";
 import { headerActions } from "@/content/headerActions";
 import { notificationsByRole } from "@/data/demo";
-import { kamrul, sharmin } from "@/data/demo/people";
+import { useAccount, SignOutButton } from "@/components/account/auth-provider";
 import type { Role } from "@/types";
 
 function MenuIcon({ d }: { d: string }) {
@@ -35,15 +35,16 @@ export function ConsoleShell({
 }) {
   const pathname = usePathname();
   const groups: NavGroup[] = role === "admin" ? adminNav : mentorNav;
-  const person = role === "admin" ? sharmin : kamrul;
+  const { profile } = useAccount();
+  const person = { name: profile?.fullName ?? "" };
   const brandSub = role === "admin" ? "admin console" : "mentor panel";
   const home = role === "admin" ? "/admin/overview" : "/mentor/dashboard";
   const notifs = notificationsByRole[role as Role];
   const count = notifs.filter((n) => n.unread).length;
   const currentHref =
     groups.flatMap((g) => g.items).find((item) => isNavCurrent(pathname, item))?.href ?? pathname;
-  const roleLabel = role === "admin" ? sharmin.title : "Mentor";
-  const roleDetail = role === "admin" ? `${sharmin.title} · European IT` : "Mentor · Web Development";
+  const roleLabel = profile?.roleName ?? "";
+  const roleDetail = `${roleLabel} · European IT`;
   const initials = person.name
     .split(" ")
     .map((p) => p[0])
@@ -237,10 +238,7 @@ export function ConsoleShell({
                   </div>
                 </div>
                 <hr />
-                <Link href="/">
-                  <MenuIcon d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
-                  Log out
-                </Link>
+                <SignOutButton />
               </div>
             </div>
           </div>

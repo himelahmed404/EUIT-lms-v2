@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import { HtmlMain } from "@/components/shell/HtmlMain";
-import { html, title as pageTitle } from "@/content/student/course-offline";
-
-export const metadata: Metadata = { title: `${pageTitle} · European IT LMS` };
-
+import { CourseOfflineScreen } from "@/components/student/course-offline/CourseOfflineScreen";
+import { StudentPage } from "@/components/student/layout/StudentPage";
+export const metadata = { title: "Offline course · European IT Institute" };
 export default function Page() {
-  return <HtmlMain html={html} />;
+  return (
+    <StudentPage slug="course-offline" legacy>
+      <CourseOfflineScreen />
+    </StudentPage>
+  );
 }

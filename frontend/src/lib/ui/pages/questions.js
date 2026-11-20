@@ -1,4 +1,5 @@
-export function initPage() {
+/** @param {AbortSignal} [signal] */
+export function initPage(signal) {
 
   "use strict";
 
@@ -23,7 +24,7 @@ export function initPage() {
     if (form) {
       form.querySelector('[type="submit"]').disabled = !form.querySelector("textarea").value.trim();
     }
-  });
+  }, { signal });
 
   document.addEventListener("submit", function (e) {
     var form = e.target.closest("[data-answer]");
@@ -45,7 +46,7 @@ export function initPage() {
     });
     bump(list.querySelector('[data-filter="waiting"] .c-n'), -1);
     bump(list.querySelector('[data-filter="answered"] .c-n'), 1);
-    var pill = document.querySelector('.c-item[href="questions.html"] .c-count');
+    var pill = document.querySelector('.c-item[href="/mentor/questions"] .c-count');
     if (pill) {
       bump(pill, -1);
       if (pill.textContent === "0") {
@@ -58,6 +59,6 @@ export function initPage() {
       '</p><p class="p-small" style="margin: 0">' +
       first +
       " is told by SMS and sees it under the lesson.</p></div>";
-  });
+  }, { signal });
 
 }

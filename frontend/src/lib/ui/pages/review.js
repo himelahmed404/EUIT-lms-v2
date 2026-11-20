@@ -1,4 +1,5 @@
-export function initPage() {
+/** @param {AbortSignal} [signal] */
+export function initPage(signal) {
 
   "use strict";
 
@@ -69,11 +70,11 @@ export function initPage() {
     if (rubric && e.target.matches("input[data-score]")) {
       sum(rubric);
     }
-  });
+  }, { signal });
   queue.addEventListener("change", function () {
     // The batch picker filters the queue (app.js); keep the position line right.
-    window.setTimeout(syncPosition, 0);
-  });
+    queueMicrotask(() => { if (!signal?.aborted) syncPosition(); });
+  }, { signal });
 
   document.addEventListener("click", function (e) {
     var t = e.target;
@@ -128,7 +129,7 @@ export function initPage() {
     if (t.closest(".c-qrow")) {
       syncPosition();
     }
-  });
+  }, { signal });
 
   $all("[data-rubric]").forEach(sum);
   syncPosition();

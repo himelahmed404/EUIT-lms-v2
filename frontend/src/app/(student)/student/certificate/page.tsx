@@ -1,15 +1,10 @@
-import type { Metadata } from "next";
-import { BodyClass } from "@/components/shell/BodyClass";
-import { HtmlMain } from "@/components/shell/HtmlMain";
-import { html, title as pageTitle } from "@/content/student/certificate";
-
-export const metadata: Metadata = { title: `${pageTitle} · European IT LMS` };
-
+import { CertificateScreen } from "@/components/student/certificate/CertificateScreen";
+import { StudentPage } from "@/components/student/layout/StudentPage";
+export const metadata = { title: "Certificate · European IT Institute" };
 export default function Page() {
   return (
-    <>
-      <BodyClass name="page-print" />
-      <HtmlMain html={html} />
-    </>
+    <StudentPage slug="certificate" legacy>
+      <CertificateScreen />
+    </StudentPage>
   );
 }

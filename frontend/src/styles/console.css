@@ -1608,6 +1608,10 @@ div.c-kpi:hover {
   .c-work {
     grid-template-columns: minmax(0, 1fr);
   }
+  /* A transformed ancestor would position the fixed sheet inside the record list. */
+  .p-main > :has(.c-pane) {
+    animation: none;
+  }
   /* The open record slides over the page from the right. */
   .c-pane {
     position: fixed;

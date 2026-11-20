@@ -1,0 +1,10 @@
+version: 1
+id: a537c87d-cfd7-463e-82b7-417ee1444558
+name: Cloudinary profile photo subset
+slug: cloudinary-profile-photo-subset
+protocol: http
+port: 4500
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true

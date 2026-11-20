@@ -15,3 +15,14 @@ yarn-debug.log*
 coverage/
 playwright-report/
 test-results/
+frontend/docs/
+
+# Local frontend reference docs remain private after relocation.
+resources/frontend/docs/
+resources/frontend/plans/
+
+# Generated resource output and locally populated Postman environments.
+resources/**/output/
+resources/**/*.local.json
+record.md
+AGENTS.md

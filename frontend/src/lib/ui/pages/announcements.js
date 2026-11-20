@@ -1,4 +1,5 @@
-export function initPage() {
+/** @param {AbortSignal} [signal] */
+export function initPage(signal) {
 
   "use strict";
 
@@ -168,9 +169,9 @@ export function initPage() {
     if (e.target.closest("[data-aud], [data-ch], [data-when]")) {
       update();
     }
-  });
-  dlg.addEventListener("input", update);
-  dlg.addEventListener("change", update);
+  }, { signal });
+  dlg.addEventListener("input", update, { signal });
+  dlg.addEventListener("change", update, { signal });
   update();
 
 }

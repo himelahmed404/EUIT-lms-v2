@@ -1,4 +1,5 @@
-export function initPage() {
+/** @param {AbortSignal} [signal] */
+export function initPage(signal) {
 
   "use strict";
 
@@ -35,6 +36,6 @@ export function initPage() {
     if (focus) {
       focus.focus();
     }
-  });
+  }, { signal });
 
 }

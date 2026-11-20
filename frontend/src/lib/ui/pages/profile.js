@@ -1,4 +1,5 @@
-export function initPage() {
+/** @param {AbortSignal} [signal] */
+export function initPage(signal) {
 
   "use strict";
 
@@ -67,7 +68,7 @@ export function initPage() {
   input.addEventListener("input", function () {
     clean();
     reset();
-  });
-  form.addEventListener("submit", apply);
+  }, { signal });
+  form.addEventListener("submit", apply, { signal });
 
 }

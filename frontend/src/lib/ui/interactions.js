@@ -1,4 +1,5 @@
-export function initUiInteractions() {
+/** @param {AbortSignal} [signal] */
+export function initUiInteractions(signal) {
 var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var store = {
     get: function (k) {
@@ -37,6 +38,7 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
       { threshold: threshold == null ? 0.2 : threshold },
     );
     io.observe(el);
+    signal?.addEventListener("abort", () => io.disconnect(), { once: true });
   }
   function tween(ms, fn) {
     var start = null;
@@ -331,6 +333,7 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
         },
         { rootMargin: "-100px 0px -60% 0px" },
       );
+      signal?.addEventListener("abort", () => io.disconnect(), { once: true });
       targets.forEach(function (t) {
         t.style.scrollMarginTop = "96px";
         io.observe(t);
@@ -384,9 +387,9 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
     if (!nav) {
       return;
     }
-    var page = window.location.pathname.split("/").pop();
+    var page = window.location.pathname;
     var mine = $all("a[href]", nav).filter(function (a) {
-      return a.getAttribute("href").split("#")[0] === page;
+      return a.pathname === page;
     });
     var hash = window.location.hash;
     var match =
@@ -439,6 +442,7 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
       el.setAttribute("role", "status");
       el.setAttribute("aria-live", "polite");
       document.body.appendChild(el);
+      signal?.addEventListener("abort", () => { clearTimeout(toastTimer); el.remove(); }, { once: true });
     }
     el.innerHTML =
       '<svg class="p-icon p-icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>';
@@ -519,6 +523,7 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
     scrim.hidden = true;
     scrim.setAttribute("data-nav-close", "");
     document.body.appendChild(scrim);
+    signal?.addEventListener("abort", () => scrim.remove(), { once: true });
     // Ctrl K on Windows and Linux, Command K on a Mac.
     if (/Mac|iPhone|iPad/.test(navigator.platform || "")) {
       $all(".c-kbd").forEach(function (k) {
@@ -533,7 +538,7 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
       if (!narrowPane.matches) {
         closePanes();
       }
-    });
+    }, { signal });
   }
 
   /* ---------- Record lists (admin and mentor): filters, search and the open record ----------
@@ -847,7 +852,7 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
     if (dead) {
       e.preventDefault();
     }
-  });
+  }, { signal });
 
   // Record lists: runs after the generic handler has pressed the filter or opened the row's tab.
   document.addEventListener("click", function (e) {
@@ -868,17 +873,17 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
     if (t.closest("[data-pane-close]")) {
       setPane(t.closest(".c-pane"), false);
     }
-  });
+  }, { signal });
   document.addEventListener("input", function (e) {
     if (e.target.matches && e.target.matches("[data-search]")) {
       filterList(e.target.closest(".c-list, [data-list]"));
     }
-  });
+  }, { signal });
   document.addEventListener("change", function (e) {
     if (e.target.matches && e.target.matches("select[data-filter]")) {
       filterList(e.target.closest(".c-list, [data-list]"));
     }
-  });
+  }, { signal });
 
   // Reveal / conceal: a trigger lists elements it shows (data-reveal) and hides (data-conceal).
   // Clicking flips it; clicking again undoes it. Runs after the generic handler above.
@@ -919,7 +924,7 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
         el.hidden = on;
       }
     });
-  });
+  }, { signal });
 
   document.addEventListener("keydown", function (e) {
     // Ctrl K / Command K jumps to the search in the console top bar.
@@ -960,12 +965,12 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
     if (document.activeElement && document.activeElement.closest(".c-search")) {
       document.activeElement.blur();
     }
-  });
+  }, { signal });
   window.addEventListener("hashchange", function () {
     openHashTab();
     syncNavCurrent();
     setDrawer(false);
-  });
+  }, { signal });
 
   // Forms are mock-ups: never post anywhere. A form can name where it leads with data-next.
   document.addEventListener("submit", function (e) {
@@ -976,14 +981,14 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
     if (next) {
       window.location.href = next;
     }
-  });
+  }, { signal });
 
   // Countdowns (e.g. the quiz timer): "mm:ss" text that ticks down once a second.
   function initCountdowns() {
     $all("[data-countdown]").forEach(function (el) {
       var p = (/(\d{1,2}):(\d{2})/.exec(el.textContent) || [0, 0, 0]).slice(1);
       var secs = +p[0] * 60 + +p[1];
-      setInterval(function () {
+      const timer = setInterval(function () {
         if (secs <= 0) {
           return;
         }
@@ -1001,6 +1006,7 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
           }
         });
       }, 1000);
+      signal?.addEventListener("abort", () => clearInterval(timer), { once: true });
     });
   }
 
@@ -1120,14 +1126,14 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
     }
     syncRail();
     if (rail.addEventListener) {
-      rail.addEventListener("change", syncRail);
+      rail.addEventListener("change", syncRail, { signal });
     }
   }
 
   window.addEventListener("resize", function () {
     $all(".eit-seg").forEach(placeThumb);
     fitAll();
-  });
+  }, { signal });
 
   function init() {
     initShell();
@@ -1143,6 +1149,7 @@ var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-moti
     // Thumbs measure text, so place them again once the web fonts are in.
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(function () {
+        if (signal?.aborted) return;
         $all(".eit-seg").forEach(placeThumb);
       });
     }

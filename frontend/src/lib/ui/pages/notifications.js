@@ -1,4 +1,5 @@
-export function initPage() {
+/** @param {AbortSignal} [signal] */
+export function initPage(signal) {
 
   "use strict";
 
@@ -58,8 +59,8 @@ export function initPage() {
       }
       update();
     }
-  });
-  document.addEventListener("eit:read", update);
+  }, { signal });
+  document.addEventListener("eit:read", update, { signal });
   update();
 
 }

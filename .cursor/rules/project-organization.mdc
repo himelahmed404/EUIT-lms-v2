@@ -1,0 +1,8 @@
+---
+description: Keep frontend and backend focused on runtime code and maintain the project work record.
+alwaysApply: true
+---
+
+Follow the repository's `AGENTS.md` organization and record-keeping instructions.
+Use the root `resources/` directory for tests, checks, Postman artifacts and supporting references.
+Update root `record.md` after substantive changes with actual verification results and outstanding work.

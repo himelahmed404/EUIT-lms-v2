@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { ConsoleShell } from "./ConsoleShell";
 
 const titles: Record<string, { title: string; subtitle?: string }> = {
-  "/mentor/dashboard": { title: "Dashboard", subtitle: "Today for Kamrul Hasan" },
+  "/mentor/dashboard": { title: "Dashboard", subtitle: "Your teaching overview" },
   "/mentor/review": { title: "Reviews", subtitle: "5 projects waiting" },
   "/mentor/questions": { title: "Student questions", subtitle: "Answer waiting questions" },
   "/mentor/batch": { title: "My batches", subtitle: "WordPress Batch 14" },
@@ -17,8 +17,9 @@ const titles: Record<string, { title: string; subtitle?: string }> = {
   "/admin/overview": { title: "Overview", subtitle: "October 2026" },
   "/admin/courses": { title: "Courses & batches" },
   "/admin/course-review": { title: "Review & publish" },
-  "/admin/batch-detail": { title: "Batch detail", subtitle: "WordPress Batch 14" },
-  "/admin/batch-edit": { title: "Create a batch" },
+  "/admin/batch-detail": { title: "Batch detail" },
+  "/admin/batch-edit": { title: "Batch editor" },
+  "/admin/course-edit": { title: "Course editor" },
   "/admin/students": { title: "Students & payments" },
   "/admin/student-record": { title: "Student record", subtitle: "Mehedi Hasan" },
   "/admin/mentors": { title: "Mentors" },

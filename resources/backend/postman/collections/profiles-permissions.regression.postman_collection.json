@@ -1,0 +1,2533 @@
+{
+  "info": {
+    "name": "EUIT Firebase profiles and permissions \u2014 isolated regression",
+    "description": "Run with npm run test:postman. Uses disposable Auth emulator + PostgreSQL fixtures. __tests routes exist only in the fixture harness. No production credentials.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "invalidToken",
+      "value": "not-a-token"
+    }
+  ],
+  "item": [
+    {
+      "name": "Missing token",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 401', () => pm.response.to.have.status(401));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('UNAUTHENTICATED'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid token",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{invalidToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 401', () => pm.response.to.have.status(401));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('UNAUTHENTICATED'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Expired token",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{expiredToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 401', () => pm.response.to.have.status(401));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('UNAUTHENTICATED'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unverified email",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{unverifiedToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('EMAIL_NOT_VERIFIED'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Disabled Firebase user",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{disabledToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 401', () => pm.response.to.have.status(401));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('UNAUTHENTICATED'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Revoked Firebase token",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{revokedToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 401', () => pm.response.to.have.status(401));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('UNAUTHENTICATED'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Missing LMS profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{missingToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404', () => pm.response.to.have.status(404));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('PROFILE_NOT_FOUND'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Disabled LMS profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{inactiveToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('ACCOUNT_DISABLED'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Load verified student",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Internal profile and verified login email\", () => { pm.expect(body.data.id).to.equal(pm.environment.get('studentId')); pm.expect(body.data.email).to.equal('student@example.test'); pm.expect(body.data.emailVerified).to.equal(true); pm.expect(body.data.role).to.equal('STUDENT'); });",
+              "pm.test(\"No staff grants or internal identity fields\", () => { pm.expect(body.data.permissions).not.to.include('access.write'); pm.expect(body.data).not.to.have.property('firebaseUid'); pm.expect(body.data.batchScope).to.deep.equal({mode:'ASSIGNED',batchIds:[]}); });",
+              "pm.test('Private response is not cached', () => pm.expect(pm.response.headers.get('Cache-Control')).to.equal('no-store'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update own contact details",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"fullName\": \" Updated Student \", \"phone\": \"+8801712345678\", \"emergencyContact\": \"+8801812345678\", \"education\": \"University\", \"occupation\": \"Student\", \"address\": \"Dhaka\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Normalized and persisted fields\", () => { pm.expect(body.data.fullName).to.equal('Updated Student'); pm.expect(body.data.phone).to.equal('+8801712345678'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Read persisted contact details",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Persisted name\", () => { pm.expect(body.data.fullName).to.equal('Updated Student'); pm.expect(body.data.emergencyContact).to.equal('+8801812345678'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject role escalation",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"role\": \"OWNER\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject permission injection",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"permissions\": [\"access.write\"]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject login email change",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"attacker@example.test\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject Firebase UID change",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"firebaseUid\": \"test-owner\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject cross-user ID",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"id\": \"{{otherId}}\", \"fullName\": \"Hijack\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject prototype field",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"__proto__\": \"bad\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject empty patch",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject invalid contact",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"phone\": \"not-a-number\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject blank name",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"fullName\": \"  \"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject student staff fields",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"jobTitle\": \"Owner\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject malformed JSON",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{oops",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('INVALID_BODY'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Default preferences",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/preferences"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Defaults before a preference record exists\", () => { pm.expect(body.data.emailNotifications).to.equal(true); pm.expect(body.data.marketingEmails).to.equal(false); pm.expect(body.data.leaderboardVisible).to.equal(true); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Patch preferences",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/preferences",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"smsNotifications\": false, \"leaderboardVisible\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Only requested defaults change\", () => { pm.expect(body.data.smsNotifications).to.equal(false); pm.expect(body.data.leaderboardVisible).to.equal(false); pm.expect(body.data.emailNotifications).to.equal(true); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Read persisted preferences",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/preferences"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Preference persistence\", () => { pm.expect(body.data.smsNotifications).to.equal(false); pm.expect(body.data.leaderboardVisible).to.equal(false); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Other account preferences remain private",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{otherToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/preferences"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Preferences are isolated by internal profile ID\", () => { pm.expect(body.data.smsNotifications).to.equal(true); pm.expect(body.data.leaderboardVisible).to.equal(true); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject preference mass assignment",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/preferences",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"profileId\": \"{{otherId}}\", \"smsNotifications\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject non-boolean preference",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/preferences",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"smsNotifications\": \"false\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject raw photo URL",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/photo",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"url\": \"https://example.test/photo.png\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Other owner photo",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/photo",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"assetId\": \"{{otherPhotoId}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404', () => pm.response.to.have.status(404));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('ASSET_NOT_FOUND'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pending photo",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/photo",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"assetId\": \"{{pendingPhotoId}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('ASSET_NOT_READY'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Non-image asset",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/photo",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"assetId\": \"{{documentId}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('ASSET_NOT_READY'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unknown photo",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/photo",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"assetId\": \"00000000-0000-4000-8000-000000000001\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404', () => pm.response.to.have.status(404));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('ASSET_NOT_FOUND'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attach owned photo",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/photo",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"assetId\": \"{{photoId}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Owned asset attached\", () => { pm.expect(body.data.photo.id).to.equal(pm.environment.get('photoId')); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Read attached photo",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Photo persisted\", () => { pm.expect(body.data.photo.id).to.equal(pm.environment.get('photoId')); pm.expect(body.data.photo.url).to.equal('https://assets.example.test/photo'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Remove photo",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/photo",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"assetId\": null}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Photo removed\", () => { pm.expect(body.data.photo).to.equal(null); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student own permission API",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Student self grants\", () => { pm.expect(body.data.permissions).to.have.members(['profile.read','profile.write','preferences.read','preferences.write']); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student cannot list roles",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/roles"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('FORBIDDEN'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student cannot read staff permission catalog",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('FORBIDDEN'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner permission catalog",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Access management is explicit\", () => { pm.expect(body.data).to.include('access.write'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner role catalog",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/roles"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Six seeded system roles plus custom role\", () => { pm.expect(body.data.filter(r => r.system).map(r => r.key)).to.have.members(['OWNER','ADMIN','ACCOUNTS','ADMISSIONS','MENTOR','STUDENT']); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin can inspect roles",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/roles"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "owner permissions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Role-specific permission\", () => { pm.expect(body.data.permissions).to.include('access.write'); });",
+              "pm.test(\"Correct scope\", () => { pm.expect(body.data.batchScope.mode).to.equal('ALL'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "admin permissions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Role-specific permission\", () => { pm.expect(body.data.permissions).to.include('courses.write'); });",
+              "pm.test(\"Correct scope\", () => { pm.expect(body.data.batchScope.mode).to.equal('ALL'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "accounts permissions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{accountsToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Role-specific permission\", () => { pm.expect(body.data.permissions).to.include('payments.write'); });",
+              "pm.test(\"Correct scope\", () => { pm.expect(body.data.batchScope.mode).to.equal('ALL'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "admissions permissions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admissionsToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Role-specific permission\", () => { pm.expect(body.data.permissions).to.include('leads.write'); });",
+              "pm.test(\"Correct scope\", () => { pm.expect(body.data.batchScope.mode).to.equal('ALL'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "mentor permissions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Role-specific permission\", () => { pm.expect(body.data.permissions).to.include('teaching.write'); });",
+              "pm.test(\"Correct scope\", () => { pm.expect(body.data.batchScope.mode).to.equal('ASSIGNED'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor staff profile",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"jobTitle\": \"Developer\", \"bio\": \"Mentor bio\", \"skills\": [\"React\", \"React\", \" TypeScript \"], \"yearsOfExperience\": 6, \"portfolioUrl\": \"https://example.test/portfolio\", \"showOnWebsite\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Mentor fields accepted and skills normalized\", () => { pm.expect(body.data.skills).to.deep.equal(['React','TypeScript']); pm.expect(body.data.yearsOfExperience).to.equal(6); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject executable portfolio URL",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"portfolioUrl\": \"javascript:alert(1)\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Custom role grants are filtered",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Unknown and owner-only grants ignored\", () => { pm.expect(body.data.role).to.equal('CUSTOM'); pm.expect(body.data.permissions).to.have.members(['profile.read','profile.write','courses.read']); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Custom role without preference grant is denied",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/preferences"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('FORBIDDEN'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor assigned lesson",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/__tests/lessons/lesson-a"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor outside assigned batch",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/__tests/lessons/lesson-b"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('BATCH_FORBIDDEN'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student cannot use teaching permission",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/__tests/lessons/lesson-a"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('FORBIDDEN'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner has all-batch teaching scope",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/__tests/lessons/lesson-b"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "student cannot grant staff access",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"role\": \"ADMIN\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('FORBIDDEN'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "admin cannot grant staff access",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"role\": \"ADMIN\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('FORBIDDEN'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "custom cannot grant staff access",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"role\": \"ADMIN\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('FORBIDDEN'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner cannot change self",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{ownerId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"active\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('OWNER_PROTECTED'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner cannot assign another Owner",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"role\": \"OWNER\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject student all-batch grant",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"batchScope\": \"ALL\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject invalid batch ID",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"batchIds\": [\"bad\"]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Assign scoped Mentor with audit",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"role\": \"MENTOR\", \"batchScope\": \"ASSIGNED\", \"batchIds\": [\"{{batchA}}\"]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Assignment persisted\", () => { pm.expect(body.data.role).to.equal('MENTOR'); pm.expect(body.data.batchIds).to.deep.equal([pm.environment.get('batchA')]); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Same token observes new permissions immediately",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{otherToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"No token refresh needed for application role changes\", () => { pm.expect(body.data.role).to.equal('MENTOR'); pm.expect(body.data.permissions).to.include('teaching.write'); pm.expect(body.data.batchScope.batchIds).to.deep.equal([pm.environment.get('batchA')]); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "New Mentor assigned lesson",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{otherToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/__tests/lessons/lesson-a"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "New Mentor outside assigned batch",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{otherToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/__tests/lessons/lesson-b"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('BATCH_FORBIDDEN'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Disable LMS account with audit",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"active\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Previously issued token cannot bypass disable",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{otherToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 403', () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(false));",
+              "pm.test('Stable error code', () => pm.expect(body.code).to.equal('ACCOUNT_DISABLED'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Re-enable LMS account with audit",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"active\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Assign custom role with audit",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"role\": \"CUSTOM\", \"customRoleId\": \"{{customRoleId}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Observe custom role on same token",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{otherToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Custom role active\", () => { pm.expect(body.data.role).to.equal('CUSTOM'); pm.expect(body.data.permissions).to.include('courses.read'); pm.expect(body.data.permissions).not.to.include('access.write'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Restore student with audit",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"role\": \"STUDENT\", \"batchIds\": []}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Restored student loses staff grant",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{otherToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/permissions"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('Response success flag', () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Least privilege restored\", () => { pm.expect(body.data.role).to.equal('STUDENT'); pm.expect(body.data.permissions).not.to.include('teaching.write'); pm.expect(body.data.batchScope).to.deep.equal({mode:'ASSIGNED',batchIds:[]}); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unknown API route stays 404",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/not-a-real-route",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 404', () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject array role",
+      "request": {
+        "method": "PATCH",
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"role\": [\"ADMIN\"]}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "pm.test('Validation error', () => pm.expect(pm.response.json().code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject array batch scope",
+      "request": {
+        "method": "PATCH",
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"batchScope\": [\"ALL\"]}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+              "pm.test('Validation error', () => pm.expect(pm.response.json().code).to.equal('VALIDATION_ERROR'));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

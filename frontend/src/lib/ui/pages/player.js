@@ -1,4 +1,5 @@
-export function initPage() {
+/** @param {AbortSignal} [signal] */
+export function initPage(signal) {
 
   "use strict";
 
@@ -214,6 +215,7 @@ export function initPage() {
     }
   }
 
+  signal?.addEventListener("abort", () => cancelAnimationFrame(frame), { once: true });
   playBtn.addEventListener("click", function () {
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce && !finished) {
@@ -225,7 +227,7 @@ export function initPage() {
     } else {
       play();
     }
-  });
+  }, { signal });
 
   render();
 

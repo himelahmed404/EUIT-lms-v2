@@ -1,0 +1,5 @@
+.env
+!.env.example
+/generated/
+firebase-debug.log
+ui-debug.log

@@ -5,6 +5,7 @@
 @import "../styles/app.css";
 @import "../styles/console.css";
 @import "../styles/pages.css";
+@import "../styles/shadcn.css";
 
 :root {
   --font-sans: "Anek Bangla", system-ui, sans-serif;

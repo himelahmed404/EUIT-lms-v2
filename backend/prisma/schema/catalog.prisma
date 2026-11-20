@@ -1,0 +1,90 @@
+enum CourseStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum BatchStatus {
+  DRAFT
+  OPEN
+  CLOSED
+}
+
+enum CourseFormat {
+  ONLINE
+  OFFLINE
+}
+
+model Course {
+  id String @id @default(uuid()) @db.Uuid
+  title String @db.VarChar(180)
+  summary String @db.VarChar(4000)
+  track String @db.VarChar(100)
+  status CourseStatus @default(DRAFT)
+  // Validated format-specific BDT fees and allowed installment counts.
+  offerings Json
+  version Int @default(1)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+  batches Batch[]
+  @@index([status, title])
+  @@map("courses")
+}
+
+model Room {
+  id String @id @default(uuid()) @db.Uuid
+  name String @unique @db.VarChar(120)
+  location String @db.VarChar(240)
+  capacity Int
+  active Boolean @default(true)
+  batches Batch[]
+  @@map("rooms")
+}
+
+model Batch {
+  id String @id @default(uuid()) @db.Uuid
+  courseId String @db.Uuid
+  course Course @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  name String @db.VarChar(120)
+  format CourseFormat
+  status BatchStatus @default(DRAFT)
+  leadMentorId String @db.Uuid
+  leadMentor Profile @relation("BatchLead", fields: [leadMentorId], references: [id], onDelete: Restrict)
+  assistantMentorId String? @db.Uuid
+  assistantMentor Profile? @relation("BatchAssistant", fields: [assistantMentorId], references: [id], onDelete: Restrict)
+  roomId String? @db.Uuid
+  room Room? @relation(fields: [roomId], references: [id], onDelete: Restrict)
+  onlineLocation String? @db.VarChar(2048)
+  startDate String @db.VarChar(10)
+  repeatDays Int[]
+  startTime String @db.VarChar(5)
+  endTime String @db.VarChar(5)
+  timeZone String @default("Asia/Dhaka") @db.VarChar(40)
+  classCount Int
+  seats Int
+  // Only future trusted enrollment/reservation transactions may change this.
+  seatsTaken Int @default(0)
+  fee Int
+  installmentCounts Int[]
+  admissionOpen Boolean @default(false)
+  websiteVisible Boolean @default(false)
+  version Int @default(1)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+  classes BatchClass[]
+  @@unique([courseId, name])
+  @@index([status, websiteVisible, admissionOpen])
+  @@map("batches")
+}
+
+model BatchClass {
+  id String @id @default(uuid()) @db.Uuid
+  batchId String @db.Uuid
+  batch Batch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  sequence Int
+  startsAt DateTime @db.Timestamptz(3)
+  endsAt DateTime @db.Timestamptz(3)
+  @@unique([batchId, sequence])
+  @@index([startsAt, endsAt])
+  @@map("batch_classes")
+}

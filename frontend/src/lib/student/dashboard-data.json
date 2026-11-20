@@ -1,0 +1,27 @@
+{
+  "progress": {
+    "Week": [70, 35, 87, 45],
+    "Month": [78, 61, 92, 58]
+  },
+  "events": {
+    "2026-10-01": "WordPress · Class 8",
+    "2026-10-05": "WordPress · Class 9",
+    "2026-10-07": "Graphic Design · Live 6",
+    "2026-10-08": "WordPress · Class 10",
+    "2026-10-12": "WordPress · Class 11",
+    "2026-10-14": "Graphic Design · Live 7",
+    "2026-10-15": "WordPress · Class 12",
+    "2026-10-19": "WordPress · Class 13",
+    "2026-10-21": "Graphic Design · Live 8",
+    "2026-10-22": "WordPress · Class 14",
+    "2026-10-26": "WordPress · Class 15",
+    "2026-10-27": "Social media post set due",
+    "2026-10-28": "Graphic Design · Live 9",
+    "2026-10-29": "WordPress · Class 16",
+    "2026-11-15": "Installment 2 of 3 due"
+  },
+  "activity": [
+    [240, 330, 198, 525, 288, 108, 348],
+    [210, 315, 225, 405, 320, 136, 365]
+  ]
+}

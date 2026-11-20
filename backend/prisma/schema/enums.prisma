@@ -1,0 +1,14 @@
+enum Role {
+  STUDENT
+  OWNER
+  ADMIN
+  ACCOUNTS
+  ADMISSIONS
+  MENTOR
+  CUSTOM
+}
+
+enum BatchScope {
+  ALL
+  ASSIGNED
+}

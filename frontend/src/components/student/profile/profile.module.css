@@ -1,0 +1,26 @@
+.root :global(.pf-picture .account-avatar) {
+  width: 76px;
+  height: 76px;
+}
+.root :global(.pf-nav button) {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 8px 12px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+.root :global(.pf-nav button:hover) {
+  background: #f7f5f9;
+}
+.root :global(.pf-id > p) {
+  overflow-wrap: anywhere;
+}

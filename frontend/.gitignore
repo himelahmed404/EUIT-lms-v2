@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+/.next-production/
 /out/
 
 # production
@@ -42,3 +43,8 @@ next-env.d.ts
 
 # Local migration plan (not committed)
 frontend_plan.md
+
+!.env.example
+
+# Isolated browser-check build caches
+.next-test-*/

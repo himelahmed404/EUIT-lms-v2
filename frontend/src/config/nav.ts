@@ -84,10 +84,10 @@ export const adminNav: NavGroup[] = [
     label: "Queues",
     items: [
       {
-        href: "/admin/courses#cbp-queue",
+        href: "/admin/course-review",
         label: "Course review",
         count: 3,
-        match: ["/admin/course-review", "/admin/courses"],
+        match: ["/admin/course-review"],
       },
       { href: "/admin/leads", label: "Seminar leads", count: 6 },
     ],
@@ -109,7 +109,7 @@ export const adminNav: NavGroup[] = [
       {
         href: "/admin/courses",
         label: "Courses & batches",
-        match: ["/admin/batch-detail", "/admin/batch-edit"],
+        match: ["/admin/batch-detail", "/admin/batch-edit", "/admin/course-edit"],
       },
       { href: "/admin/coupons", label: "Coupons & referrals" },
     ],

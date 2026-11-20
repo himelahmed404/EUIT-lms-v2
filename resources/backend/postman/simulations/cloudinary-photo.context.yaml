@@ -1,0 +1,21 @@
+version: 1
+name: cloudinary-photo
+sources:
+  - https://cloudinary.com/documentation/upload_images
+  - https://cloudinary.com/documentation/authentication_signatures
+scope: Local-only multipart upload/destroy subset; synthetic credentials. No external publication.
+owner_mock_search: Skipped because Postman CLI is signed out; status command is unavailable in this version.
+implementation: Actual HTTP server consumes multipart bytes and validates the signed parameters; no HTTP client stubbing.
+claims:
+  - claim: Real backend sends normalized JPEG and a valid SHA-256 parameter signature.
+    status: verified-with-local-simulation
+    verification: profile-photo.integration.mjs with disposable PostgreSQL and Firebase Auth emulator
+  - claim: Provider failure leaves the active profile photo binding unchanged.
+    status: verified-with-local-simulation
+    verification: Injected 503 then checked stored photoAssetId
+  - claim: Live Cloudinary accepts uploads and deletion with the owner's credentials.
+    status: unverified
+    reason: Owner has not created a Cloudinary account yet.
+limits:
+  - The simulator does not reproduce Cloudinary CDN, billing, throttling or account policies.
+  - Provider timeouts can leave orphaned uploads requiring reconciliation.

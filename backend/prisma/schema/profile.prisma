@@ -1,0 +1,33 @@
+model Profile {
+  id          String   @id @default(uuid()) @db.Uuid
+  firebaseUid String   @unique @map("firebase_uid") @db.VarChar(128)
+  fullName    String   @map("full_name") @db.VarChar(120)
+  role        Role     @default(STUDENT)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+  active      Boolean  @default(true)
+  phone       String?  @db.VarChar(24)
+  emergencyContact String? @map("emergency_contact") @db.VarChar(24)
+  address     String?  @db.VarChar(500)
+  education   String?  @db.VarChar(200)
+  occupation  String?  @db.VarChar(120)
+  jobTitle    String?  @map("job_title") @db.VarChar(120)
+  bio         String?  @db.VarChar(2000)
+  skills      String[] @default([])
+  yearsOfExperience Int? @map("years_of_experience")
+  portfolioUrl String? @map("portfolio_url") @db.VarChar(2048)
+  showOnWebsite Boolean @default(false) @map("show_on_website")
+  customRoleId String? @map("custom_role_id") @db.Uuid
+  customRole RoleDefinition? @relation(fields: [customRoleId], references: [id], onDelete: Restrict)
+  batchScope BatchScope? @map("batch_scope")
+  batchIds String[] @default([]) @map("batch_ids") @db.Uuid
+  photoAssetId String? @map("photo_asset_id") @db.Uuid
+  photoAsset UploadedAsset? @relation("ProfilePhoto", fields: [photoAssetId], references: [id], onDelete: SetNull)
+  ownedAssets UploadedAsset[] @relation("AssetOwner")
+  preferences ProfilePreferences?
+  auditEvents AuditEvent[] @relation("AuditActor")
+  leadBatches Batch[] @relation("BatchLead")
+  assistantBatches Batch[] @relation("BatchAssistant")
+
+  @@map("profiles")
+}

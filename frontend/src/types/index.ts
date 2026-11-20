@@ -46,9 +46,3 @@ export interface NotificationItem {
   unread: boolean;
   type: string;
 }
-
-export interface EnrollChoice {
-  format: "offline" | "online";
-  batch: "16" | "18";
-  plan: "installments" | "full";
-}

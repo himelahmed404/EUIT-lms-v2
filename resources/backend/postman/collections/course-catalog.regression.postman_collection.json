@@ -1,0 +1,2631 @@
+{
+  "info": {
+    "name": "Course catalog, batches and public pricing regression",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Run only with the disposable PostgreSQL/Auth emulator harness. Money is integer BDT. Course publication is outside this API."
+  },
+  "item": [
+    {
+      "name": "Public published courses",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Only published offerings\", () => { pm.expect(body.data.total).to.equal(1); pm.expect(body.data.items[0].title).to.equal('Published Web Design'); pm.expect(body.data.items[0].batches).to.have.length(2); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public details hide private data and enforce money totals",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses/{{publishedCourseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Valid combinations and safe fields\", () => { const b=body.data.batches.find(b=>b.id===pm.environment.get('publicBatchId')); pm.expect(b.seatsAvailable).to.equal(17); pm.expect(b).not.to.have.property('onlineLocation'); pm.expect(b).not.to.have.property('leadMentorId'); pm.expect(b.mentor).to.deep.equal({id:pm.environment.get(\"mentorId\"),name:\"mentor fixture\"}); pm.expect(b.plans.find(p=>p.count===3).amounts).to.deep.equal([4001,4000,4000]); b.plans.forEach(p=>pm.expect(p.amounts.reduce((a,b)=>a+b,0)).to.equal(p.total)); pm.expect(b.classes[0].startsAt).to.equal('2027-01-04T12:00:00.000Z'); pm.expect(b.classes[1].startsAt).to.equal('2027-01-07T12:00:00.000Z'); pm.expect(new Set(b.classes.map(c=>c.id)).size).to.equal(6); pm.expect(body.data.batches.find(b=>b.id===pm.environment.get('fullBatchId')).seatsAvailable).to.equal(0); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor opts out of public identity",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"showOnWebsite\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public honors mentor privacy",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses/{{publishedCourseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Mentor identity hidden\",()=>pm.expect(body.data.batches[0].mentor).to.equal(null));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Restore mentor website opt-in",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/me/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"showOnWebsite\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Draft is private",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses/{{draftCourseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));",
+              "pm.test(\"Stable error\", () => pm.expect(body.code).to.equal(\"NOT_FOUND\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unknown course",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses/00000000-0000-4000-8000-000000000000"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bad course ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses/not-an-id"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Search and pagination",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses?q=not-found&limit=1"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Empty search\",()=>pm.expect(body.data.items).to.deep.equal([]));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Format filter",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses?format=ONLINE"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Only requested format\",()=>pm.expect(body.data.items[0].batches.every(b=>b.format===\"ONLINE\")).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Track filter",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses?track=Design"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"No published design\",()=>pm.expect(body.data.total).to.equal(0));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject invalid query limit=0",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses?limit=0"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject invalid query page=-1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses?page=-1"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject invalid query limit=101",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses?limit=101"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject invalid query format=other",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses?format=other"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject invalid query q[x]=bad",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses?q[x]=bad"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject invalid query status=DRAFT",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses?status=DRAFT"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Staff requires login",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/admin/courses"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 401\", () => pm.response.to.have.status(401));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student cannot read staff courses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unverified cannot manage courses",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{unverifiedToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor reads assigned course only",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Scoped courses\",()=>{pm.expect(body.data.total).to.equal(1);pm.expect(body.data.items[0].id).to.equal(pm.environment.get(\"publishedCourseId\"));});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor cannot read unrelated draft",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses/{{draftCourseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor reads assigned batches only",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Scoped batches\",()=>{pm.expect(body.data.total).to.equal(1);pm.expect(body.data.items[0].id).to.equal(pm.environment.get(\"batchA\"));});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor cannot read other batch",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{batchB}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));",
+              "pm.test(\"Stable error\", () => pm.expect(body.code).to.equal(\"BATCH_FORBIDDEN\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student cannot read batches",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner mentor scheduling choices",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/mentors"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Active mentor projection\",()=>{pm.expect(body.data.items.some(m=>m.id===pm.environment.get(\"mentorId\"))).to.equal(true);pm.expect(body.data.items[0]).not.to.have.property(\"firebaseUid\");});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner room scheduling choices",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/rooms"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Active room capacity\",()=>{pm.expect(body.data.items).to.have.length(1);pm.expect(body.data.items[0].capacity).to.equal(30);});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student cannot read mentor directory",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/mentors"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admissions cannot read room choices",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admissionsToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/rooms"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor cannot create global catalog",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"API Course Draft\", \"summary\": \"A real draft created over HTTP.\", \"track\": \"Testing\", \"offerings\": [{\"format\": \"ONLINE\", \"fee\": 10001, \"installmentCounts\": [1, 3]}, {\"format\": \"OFFLINE\", \"fee\": 16000, \"installmentCounts\": [1, 2]}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admissions cannot create courses",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{admissionsToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"API Course Draft\", \"summary\": \"A real draft created over HTTP.\", \"track\": \"Testing\", \"offerings\": [{\"format\": \"ONLINE\", \"fee\": 10001, \"installmentCounts\": [1, 3]}, {\"format\": \"OFFLINE\", \"fee\": 16000, \"installmentCounts\": [1, 2]}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject publication shortcut",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"API Course Draft\", \"summary\": \"A real draft created over HTTP.\", \"track\": \"Testing\", \"offerings\": [{\"format\": \"ONLINE\", \"fee\": 10001, \"installmentCounts\": [1, 3]}, {\"format\": \"OFFLINE\", \"fee\": 16000, \"installmentCounts\": [1, 2]}], \"status\": \"PUBLISHED\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject negative fee",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"API Course Draft\", \"summary\": \"A real draft created over HTTP.\", \"track\": \"Testing\", \"offerings\": [{\"format\": \"ONLINE\", \"fee\": -1, \"installmentCounts\": [1]}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject fractional fee",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"API Course Draft\", \"summary\": \"A real draft created over HTTP.\", \"track\": \"Testing\", \"offerings\": [{\"format\": \"ONLINE\", \"fee\": 2.5, \"installmentCounts\": [1]}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject duplicate formats",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"API Course Draft\", \"summary\": \"A real draft created over HTTP.\", \"track\": \"Testing\", \"offerings\": [{\"format\": \"ONLINE\", \"fee\": 10001, \"installmentCounts\": [1, 3]}, {\"format\": \"ONLINE\", \"fee\": 10001, \"installmentCounts\": [1, 3]}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject missing full payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"API Course Draft\", \"summary\": \"A real draft created over HTTP.\", \"track\": \"Testing\", \"offerings\": [{\"format\": \"ONLINE\", \"fee\": 10000, \"installmentCounts\": [3]}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create course draft",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"API Course Draft\", \"summary\": \"A real draft created over HTTP.\", \"track\": \"Testing\", \"offerings\": [{\"format\": \"ONLINE\", \"fee\": 10001, \"installmentCounts\": [1, 3]}, {\"format\": \"OFFLINE\", \"fee\": 16000, \"installmentCounts\": [1, 2]}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Server creates draft\",()=>{pm.expect(body.data.status).to.equal(\"DRAFT\");pm.expect(body.data.version).to.equal(1);}); pm.environment.set(\"createdCourseId\",body.data.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Read created course",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses/{{createdCourseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Saved pricing\",()=>pm.expect(body.data.offerings[0].fee).to.equal(10001));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update course draft",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses/{{createdCourseId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"title\": \"Updated API Course Draft\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Version increments\",()=>pm.expect(body.data.version).to.equal(2));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject stale course update",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses/{{createdCourseId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"title\": \"Lost edit\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));",
+              "pm.test(\"Stable error\", () => pm.expect(body.code).to.equal(\"CATALOG_CONFLICT\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject editing published course",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses/{{publishedCourseId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"title\": \"Unreviewed change\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Draft remains private after save",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses/{{createdCourseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mentor cannot create batch",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{mentorToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid date",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-30\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "First class on wrong day",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-02\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Empty repeat days",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Overnight schedule",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"17:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid mentor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{studentId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Duplicate mentor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": \"{{mentorId}}\", \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unsupported batch plan",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 2], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Draft cannot admit",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"DRAFT\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject submitted seats taken",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true, \"seatsTaken\": 0}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject submitted classes",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true, \"classes\": []}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject unsafe meeting URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"javascript:alert(1)\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Offline requires room",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"OFFLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": null, \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Room capacity enforced",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"OFFLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": \"{{roomId}}\", \"onlineLocation\": null, \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 31, \"fee\": 10001, \"installmentCounts\": [1, 2], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inactive room rejected",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"OFFLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": \"{{inactiveRoomId}}\", \"onlineLocation\": null, \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 2], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Room or mentor scheduling conflict",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-01-04\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));",
+              "pm.test(\"Stable error\", () => pm.expect(body.code).to.equal(\"CATALOG_CONFLICT\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create real scheduled batch",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Schedule generated\",()=>{pm.expect(body.data.classes).to.have.length(4);pm.expect(body.data.version).to.equal(1);pm.expect(body.data.classes[0].startsAt).to.equal('2027-02-01T12:00:00.000Z');});pm.environment.set('createdBatchId',body.data.id);pm.environment.set('classIds',JSON.stringify(body.data.classes.map(c=>c.id)));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject duplicate batch name",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"DRAFT\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": false, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));",
+              "pm.test(\"Stable error\", () => pm.expect(body.code).to.equal(\"DUPLICATE_RESOURCE\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Read batch detail",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{createdBatchId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Private staff meeting URL\",()=>pm.expect(body.data.onlineLocation).to.equal(\"https://meeting.example.test/private\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject removing format used by batch",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses/{{createdCourseId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 2, \"offerings\": [{\"format\": \"OFFLINE\", \"fee\": 16000, \"installmentCounts\": [1, 2]}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Filter batches by course",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches?courseId={{createdCourseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Filtered list\",()=>{pm.expect(body.data.total).to.equal(1);pm.expect(body.data.items[0].id).to.equal(pm.environment.get(\"createdBatchId\"));});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update batch preserves class IDs",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{createdBatchId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"name\": \"Updated API Batch\", \"startTime\": \"19:00\", \"endTime\": \"21:00\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Stable class identities\",()=>{pm.expect(body.data.version).to.equal(2);pm.expect(body.data.classes.map(c=>c.id)).to.deep.equal(JSON.parse(pm.environment.get(\"classIds\")));pm.expect(body.data.classes[0].startsAt).to.equal(\"2027-02-01T13:00:00.000Z\");});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject stale batch update",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{createdBatchId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"name\": \"Lost edit\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject moving batch to another course",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{createdBatchId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 2, \"courseId\": \"{{publishedCourseId}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject seats below occupied",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{publicBatchId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"seats\": 2}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject price changes for occupied batch",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{publicBatchId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"fee\": 99}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject schedule changes for occupied batch",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{publicBatchId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"classCount\": 2}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Close batch",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{createdBatchId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 2, \"status\": \"CLOSED\", \"admissionOpen\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Closed status persisted\",()=>pm.expect(body.data.status).to.equal(\"CLOSED\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reject granting nonexistent batch scope",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/profiles/{{otherId}}/access",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"batchIds\": [\"00000000-0000-4000-8000-000000000000\"]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scoped scheduler can change assigned batch visibility",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{schedulerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{batchB}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"websiteVisible\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scoped scheduler cannot change pricing",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{schedulerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{batchB}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 2, \"fee\": 99}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scoped scheduler cannot edit another batch",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{schedulerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{batchA}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 1, \"name\": \"Forbidden\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scoped scheduler cannot create a global batch",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{schedulerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{createdCourseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scoped scheduler reads assigned mentor choices",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{schedulerToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/mentors"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Only assigned mentor\",()=>{pm.expect(body.data.items).to.have.length(1);pm.expect(body.data.items[0].id).to.equal(pm.environment.get(\"mentorId\"));});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Expose an eligible published-course batch",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{batchB}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 2, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public sees visibility change",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses/{{publishedCourseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"New visible batch\",()=>pm.expect(body.data.batches.some(b=>b.id===pm.environment.get(\"batchB\"))).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hide batch again",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{ownerToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{batchB}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": 3, \"websiteVisible\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public no longer sees hidden batch",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses/{{publishedCourseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Success envelope\", () => pm.expect(body.success).to.equal(true));",
+              "pm.test(\"Hidden again\",()=>pm.expect(body.data.batches.some(b=>b.id===pm.environment.get(\"batchB\"))).to.equal(false));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

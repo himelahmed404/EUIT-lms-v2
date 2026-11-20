@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import {backendRequire} from './backend-runtime.mjs';
+const sharp=backendRequire('sharp');
+export async function checkProfilePhotos(db,env) {
+  const image=await sharp({create:{width:800,height:600,channels:3,background:'#654abc'}}).png().toBuffer();
+  const send=(token,body=image,type='image/png')=>fetch(`${env.baseUrl}/api/me/photo/upload`,{method:'POST',headers:{...(token?{Authorization:`Bearer ${token}`} : {}),'Content-Type':type},body});
+  assert.equal((await send(null)).status,401);
+  assert.equal((await send(env.unverifiedToken)).status,403);
+  assert.equal((await send(env.studentToken,Buffer.from('bad'),'text/plain')).status,415);
+  assert.equal((await send(env.studentToken,Buffer.from('bad'))).status,400);
+  assert.equal((await send(env.studentToken,Buffer.alloc(2*1024*1024+1))).status,413);
+  const first=await send(env.studentToken);assert.equal(first.status,201,await first.clone().text());
+  const photo=(await first.json()).data.photo;
+  assert.equal((await db.profile.findUniqueOrThrow({where:{id:env.studentId}})).photoAssetId,photo.id);
+  assert.equal((await db.uploadedAsset.findUniqueOrThrow({where:{id:photo.id}})).ownerId,env.studentId);
+  const foreign=await fetch(`${env.baseUrl}/api/me/photo`,{method:'PUT',headers:{Authorization:`Bearer ${env.otherToken}`,'Content-Type':'application/json'},body:JSON.stringify({assetId:photo.id})});assert.equal(foreign.status,404);
+  await fetch(`${process.env.CLOUDINARY_TEST_BASE_URL}/__control?mode=failure`);
+  assert.equal((await send(env.studentToken)).status,503);
+  assert.equal((await db.profile.findUniqueOrThrow({where:{id:env.studentId}})).photoAssetId,photo.id);
+  await fetch(`${process.env.CLOUDINARY_TEST_BASE_URL}/__control?mode=ok`);
+  const second=await send(env.studentToken);assert.equal(second.status,201);
+  assert.equal((await db.uploadedAsset.findUniqueOrThrow({where:{id:photo.id}})).ready,false);
+  const state=await (await fetch(`${process.env.CLOUDINARY_TEST_BASE_URL}/__control`)).json();assert.ok(state.destroyed.includes((await db.uploadedAsset.findUniqueOrThrow({where:{id:photo.id}})).storageKey.slice(11)));
+  const active=(await second.json()).data.photo;
+  const removal=await fetch(`${env.baseUrl}/api/me/photo`,{method:'PUT',headers:{Authorization:`Bearer ${env.studentToken}`,'Content-Type':'application/json'},body:JSON.stringify({assetId:null})});
+  assert.equal(removal.status,200);assert.equal((await db.profile.findUniqueOrThrow({where:{id:env.studentId}})).photoAssetId,null);
+  assert.equal((await db.uploadedAsset.findUniqueOrThrow({where:{id:active.id}})).ready,false);
+  for(let i=0;i<10;i++) assert.equal((await send(env.accountsToken,Buffer.from('bad'))).status,400);
+  assert.equal((await send(env.accountsToken,Buffer.from('bad'))).status,429);
+  const secret=process.env.CLOUDINARY_API_SECRET;delete process.env.CLOUDINARY_API_SECRET;
+  assert.equal((await send(env.studentToken)).status,503);process.env.CLOUDINARY_API_SECRET=secret;
+  console.log('PASS: photo validation, authentication, ownership, persistence, replacement cleanup, provider failure and missing configuration.');
+}

@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import { HtmlMain } from "@/components/shell/HtmlMain";
-import { html, title as pageTitle } from "@/content/student/leaderboard";
-
-export const metadata: Metadata = { title: `${pageTitle} · European IT LMS` };
-
+import { StudentPage } from "@/components/student/layout/StudentPage";
+import { LeaderboardScreen } from "@/components/student/leaderboard/LeaderboardScreen";
+export const metadata = { title: "Leaderboard · European IT Institute" };
 export default function Page() {
-  return <HtmlMain html={html} />;
+  return (
+    <StudentPage slug="leaderboard" legacy>
+      <LeaderboardScreen />
+    </StudentPage>
+  );
 }

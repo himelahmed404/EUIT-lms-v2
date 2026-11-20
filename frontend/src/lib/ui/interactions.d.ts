@@ -1,1 +1,1 @@
-export function initUiInteractions(): void;
+export function initUiInteractions(signal?: AbortSignal): void;

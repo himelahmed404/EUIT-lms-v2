@@ -1,0 +1,369 @@
+{
+  "info": {
+    "name": "Course catalog manual validation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Use a test database. Set the blank environment values locally. Public course detail requires an already approved PUBLISHED course; newly created courses are DRAFT."
+  },
+  "item": [
+    {
+      "name": "Public published courses",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public details hide private data and enforce money totals",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/catalog/courses/{{courseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner mentor scheduling choices",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/mentors"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner room scheduling choices",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/rooms"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create course draft",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"API Course Draft\", \"summary\": \"A real draft created over HTTP.\", \"track\": \"Testing\", \"offerings\": [{\"format\": \"ONLINE\", \"fee\": 10001, \"installmentCounts\": [1, 3]}, {\"format\": \"OFFLINE\", \"fee\": 16000, \"installmentCounts\": [1, 2]}]}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));",
+              "if(pm.response.code===201) pm.environment.set(\"courseId\",pm.response.json().data.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Read created course",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses/{{courseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update course draft",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/courses/{{courseId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": {{version}}, \"title\": \"Updated API Course Draft\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Set version to the current resource version from its latest GET before sending."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create real scheduled batch",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": \"{{courseId}}\", \"name\": \"API Batch\", \"format\": \"ONLINE\", \"status\": \"OPEN\", \"leadMentorId\": \"{{mentorId}}\", \"assistantMentorId\": null, \"roomId\": null, \"onlineLocation\": \"https://meeting.example.test/private\", \"startDate\": \"2027-02-01\", \"repeatDays\": [1, 4], \"startTime\": \"18:00\", \"endTime\": \"20:00\", \"classCount\": 4, \"seats\": 20, \"fee\": 10001, \"installmentCounts\": [1, 3], \"admissionOpen\": true, \"websiteVisible\": true}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));",
+              "if(pm.response.code===201) pm.environment.set(\"batchId\",pm.response.json().data.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Read batch detail",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{batchId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Filter batches by course",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches?courseId={{courseId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update batch preserves class IDs",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{batchId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": {{version}}, \"name\": \"Updated API Batch\", \"startTime\": \"19:00\", \"endTime\": \"21:00\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Set version to the current resource version from its latest GET before sending."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Close batch",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{staffToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/admin/batches/{{batchId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"version\": {{version}}, \"status\": \"CLOSED\", \"admissionOpen\": false}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Set version to the current resource version from its latest GET before sending."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful response\", () => pm.expect(pm.response.code).to.be.within(200, 299));",
+              "pm.test(\"API envelope\", () => pm.expect(pm.response.json().success).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

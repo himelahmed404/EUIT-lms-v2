@@ -1,0 +1,139 @@
+.account-card {
+  box-sizing: border-box;
+  width: min(100% - 32px, 960px);
+  margin: 32px auto;
+  padding: clamp(20px, 4vw, 40px);
+  background: #fff;
+  color: #202820;
+  border: 1px solid #dde2db;
+  border-radius: 18px;
+  font:
+    15px/1.55 system-ui,
+    sans-serif;
+}
+.account-card h1 {
+  font-size: 28px;
+  margin: 0 0 16px;
+}
+.account-card h2 {
+  font-size: 20px;
+  margin: 0 0 16px;
+}
+.account-card section {
+  padding: 24px 0;
+  border-top: 1px solid #e2e5df;
+}
+.account-card form {
+  display: grid;
+  gap: 16px;
+}
+.account-card label {
+  display: grid;
+  gap: 6px;
+  font-weight: 500;
+}
+.account-card input:not([type="checkbox"]),
+.account-card textarea,
+.account-card select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #aab4a5;
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: #fff;
+  color: #202820;
+  font: inherit;
+}
+.account-card textarea {
+  min-height: 90px;
+}
+.account-card input[readonly] {
+  background: #f4f5f2;
+}
+.account-card button,
+.account-card .account-link {
+  cursor: pointer;
+  border: 1px solid #344d31;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: #263e23;
+  color: white;
+  font: inherit;
+  display: inline-block;
+  text-decoration: none;
+}
+.account-card button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+.account-card [role="alert"] {
+  color: #a12323;
+}
+.account-card [role="status"] {
+  color: #28572f;
+}
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+}
+.account-card .account-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.account-card input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+.account-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.account-card a {
+  text-decoration: underline;
+}
+.account-card code {
+  overflow-wrap: anywhere;
+}
+.account-card ul {
+  padding-left: 22px;
+}
+.account-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e2e8db;
+  color: #263e23;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+.account-demo-note {
+  padding: 8px 16px;
+  background: #fff6dd;
+  color: #604a13;
+  font:
+    13px/1.4 system-ui,
+    sans-serif;
+}
+.round-tool .account-avatar {
+  width: 100%;
+  height: 100%;
+}
+.profile-portrait .account-avatar {
+  width: 100%;
+  height: 100%;
+  font-size: 32px;
+}
+.account-identity p {
+  overflow-wrap: anywhere;
+}
+/* The student portal's reset otherwise inherits dark text for buttons. */
+.portal-content .account-card button {
+  color: #fff;
+}

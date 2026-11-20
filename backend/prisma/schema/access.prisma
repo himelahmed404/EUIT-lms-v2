@@ -1,0 +1,58 @@
+model RoleDefinition {
+  id String @id @default(uuid()) @db.Uuid
+  key String @unique @db.VarChar(80)
+  name String @db.VarChar(120)
+  system Boolean @default(false)
+  permissions String[] @default([])
+  defaultBatchScope BatchScope @default(ASSIGNED) @map("default_batch_scope")
+  profiles Profile[]
+
+  @@map("role_definitions")
+}
+
+model ProfilePreferences {
+  profileId String @id @map("profile_id") @db.Uuid
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  emailNotifications Boolean @default(true) @map("email_notifications")
+  smsNotifications Boolean @default(true) @map("sms_notifications")
+  leaderboardVisible Boolean @default(true) @map("leaderboard_visible")
+  classReminders Boolean @default(true) @map("class_reminders")
+  paymentReminders Boolean @default(true) @map("payment_reminders")
+  learningUpdates Boolean @default(true) @map("learning_updates")
+  marketingEmails Boolean @default(false) @map("marketing_emails")
+  projectSubmissions Boolean @default(true) @map("project_submissions")
+  studentQuestions Boolean @default(true) @map("student_questions")
+  recordingReminders Boolean @default(true) @map("recording_reminders")
+  courseReviewUpdates Boolean @default(true) @map("course_review_updates")
+
+  @@map("profile_preferences")
+}
+
+// Only trusted upload-finalization code may create READY assets (API map step 4).
+// Never accept a client-provided URL or ownership field as an uploaded asset.
+model UploadedAsset {
+  id String @id @default(uuid()) @db.Uuid
+  ownerId String @map("owner_id") @db.Uuid
+  owner Profile @relation("AssetOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  storageKey String @unique @map("storage_key")
+  url String
+  mimeType String @map("mime_type")
+  ready Boolean @default(false)
+  profilePhotos Profile[] @relation("ProfilePhoto")
+
+  @@map("uploaded_assets")
+}
+
+model AuditEvent {
+  id String @id @default(uuid()) @db.Uuid
+  actorId String @map("actor_id") @db.Uuid
+  actor Profile @relation("AuditActor", fields: [actorId], references: [id], onDelete: Restrict)
+  targetId String @map("target_id") @db.Uuid
+  action String @db.VarChar(80)
+  before Json
+  after Json
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  @@index([targetId, createdAt])
+  @@map("audit_events")
+}

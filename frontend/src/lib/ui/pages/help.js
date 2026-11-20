@@ -1,4 +1,5 @@
-export function initPage() {
+/** @param {AbortSignal} [signal] */
+export function initPage(signal) {
 
   "use strict";
 
@@ -32,6 +33,7 @@ export function initPage() {
     '<strong style="font-size: 16px;"></strong>' +
     '<span class="p-small" style="max-width: 360px;">Try a shorter word, pick a topic above, or message the support team. A real person will reply.</span>';
   list.after(empty);
+  signal?.addEventListener("abort", () => { reset.remove(); empty.remove(); }, { once: true });
 
   function text(li) {
     return (li.textContent + " " + (li.getAttribute("data-cat-label") || "")).toLowerCase();
@@ -102,14 +104,14 @@ export function initPage() {
         ? '<span class="p-small" style="color: var(--success); font-weight: 600;">Thanks, glad it helped.</span>'
         : '<span class="p-small">Sorry about that. Message us on WhatsApp and we\'ll sort it out.</span>';
     }
-  });
+  }, { signal });
 
   if (input) {
     input.addEventListener("input", function () {
       state.q = input.value;
       state.cat = "";
       apply();
-    });
+    }, { signal });
   }
 
 }
