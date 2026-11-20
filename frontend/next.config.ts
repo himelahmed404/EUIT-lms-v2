@@ -4,7 +4,9 @@ import { PHASE_DEVELOPMENT_SERVER } from "next/constants";
 
 export default function nextConfig(phase: string): NextConfig {
   return {
-    distDir: process.env.EUIT_TEST_DIST_DIR || (phase === PHASE_DEVELOPMENT_SERVER ? ".next" : ".next-production"),
+    distDir:
+      process.env.EUIT_TEST_DIST_DIR ||
+      (process.env.VERCEL ? ".next" : phase === PHASE_DEVELOPMENT_SERVER ? ".next" : ".next-production"),
     reactStrictMode: true,
     async redirects() {
       return [
@@ -27,6 +29,16 @@ export default function nextConfig(phase: string): NextConfig {
           source: "/forgot-password.html",
           destination: "/student/forgot-password",
           permanent: true,
+        },
+        {
+          source: "/auth/action",
+          destination: "/student/verify-email",
+          permanent: false,
+        },
+        {
+          source: "/__/auth/action",
+          destination: "/student/verify-email",
+          permanent: false,
         },
       ];
     },

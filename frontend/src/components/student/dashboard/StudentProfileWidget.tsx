@@ -12,7 +12,7 @@ export function StudentProfileWidget() {
           aria-label="Open student profile"
         >
           <AccountPhoto />
-          <span>Student</span>
+          <span className="profile-role">Student</span>
         </Link>
         <h2>
           Welcome back,

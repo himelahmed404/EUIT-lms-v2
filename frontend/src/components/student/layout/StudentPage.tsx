@@ -5,16 +5,14 @@ import { StudentInteractions } from "./StudentInteractions";
 type Props = { slug: string; legacy?: boolean; children: React.ReactNode };
 
 export function StudentPage({ slug, legacy = false, children }: Props) {
-  const account = slug === "login" || slug === "forgot-password";
+  const account =
+    slug === "login" || slug === "forgot-password" || slug === "verify-email";
   return (
     <>
       {legacy && (
         <link rel="stylesheet" href="/student-assets/learning-pages.css" />
       )}
       <link rel="stylesheet" href="/student-assets/portal.css" />
-      <a className="skip" href="#content">
-        Skip to content
-      </a>
       <div
         data-student-page={slug}
         className={`app-shell ${slug === "dashboard" ? "home-shell" : "inner-shell"}`}

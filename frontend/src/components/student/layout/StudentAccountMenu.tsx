@@ -4,6 +4,7 @@ import {
   Bookmark,
   CircleHelp,
   CreditCard,
+  LogOut,
   MessageCircle,
 } from "lucide-react";
 import { AccountName, AccountPhoto, AccountId } from "@/components/account/account-identity";
@@ -90,7 +91,12 @@ export function StudentAccountMenu({ slug }: { slug: string }) {
           </li>
         </ul>
       </nav>
-      <footer className="account-exit"><SignOutButton /></footer>
+      <footer className="account-exit">
+        <SignOutButton className="account-row">
+          <LogOut size={17} strokeWidth={1.8} aria-hidden="true" />
+          <span>Sign out</span>
+        </SignOutButton>
+      </footer>
     </section>
   );
 }

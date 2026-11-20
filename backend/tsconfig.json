@@ -9,5 +9,5 @@
     "rootDir": ".",
     "outDir": "dist"
   },
-  "include": ["src/**/*.ts", "generated/prisma/**/*.ts"]
+  "include": ["index.ts", "src/**/*.ts", "generated/prisma/**/*.ts"]
 }

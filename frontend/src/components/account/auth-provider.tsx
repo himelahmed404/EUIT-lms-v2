@@ -17,6 +17,7 @@ import {
   type Profile,
 } from "@/lib/api/account";
 import "@/styles/account.css";
+import { PortalLoadingSkeleton } from "./PortalLoadingSkeleton";
 
 type Session = {
   phase: "loading" | "signed-out" | "verification" | "ready" | "error";
@@ -126,7 +127,11 @@ export function AccessGate({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const protectedPath =
     /^(\/admin|\/mentor|\/student)(\/|$)/.test(path) &&
-    !["/student/login", "/student/forgot-password"].includes(path);
+    ![
+      "/student/login",
+      "/student/forgot-password",
+      "/student/verify-email",
+    ].includes(path);
   const home = account.profile && portalHome(account.profile);
   const wrongPortal =
     protectedPath && home && path.split("/")[1] !== home.split("/")[1];
@@ -147,11 +152,7 @@ export function AccessGate({ children }: { children: React.ReactNode }) {
       </main>
     );
   if (account.phase !== "ready" || wrongPortal)
-    return (
-      <main className="account-card" role="status">
-        Loading your account…
-      </main>
-    );
+    return <PortalLoadingSkeleton />;
   return (
     <>
       {!/(\/profile|\/roles)$/.test(path) &&
@@ -171,7 +172,13 @@ export function AccessGate({ children }: { children: React.ReactNode }) {
     </>
   );
 }
-export function SignOutButton({ className }: { className?: string } = {}) {
+export function SignOutButton({
+  className,
+  children = "Sign out",
+}: {
+  className?: string;
+  children?: React.ReactNode;
+} = {}) {
   const { logout } = useAccount();
   const [error, setError] = useState("");
   return (
@@ -181,7 +188,7 @@ export function SignOutButton({ className }: { className?: string } = {}) {
         type="button"
         onClick={() => void logout().catch((e) => setError(errorMessage(e)))}
       >
-        Sign out
+        {children}
       </button>
       {error && <p role="alert">{error}</p>}
     </>
