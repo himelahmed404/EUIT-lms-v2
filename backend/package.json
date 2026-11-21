@@ -13,9 +13,10 @@
     "test:integration": "npm run build && node ../resources/backend/tests/student-signup.integration.mjs",
     "test:middleware": "npm run build && node --test ../resources/backend/tests/firebase-email.middleware.test.mjs",
     "db:seed": "node scripts/seed.mjs",
+    "db:seed-demo": "node scripts/seed-demo-course.mjs",
     "bootstrap:owner": "node scripts/bootstrap-owner.mjs",
     "test:postman": "npm run build && node ../resources/backend/tests/profiles-permissions.postman.mjs",
-    "test:access": "npm run build && node --test ../resources/backend/tests/firebase-email.middleware.test.mjs ../resources/backend/tests/permissions.authorization.test.mjs",
+    "test:access": "npm run build && node --test ../resources/backend/tests/firebase-email.middleware.test.mjs ../resources/backend/tests/permissions.authorization.test.mjs ../resources/backend/tests/learning-mvp.test.mjs",
     "test:browser": "npm run build && EUIT_BROWSER_TEST=1 node ../resources/backend/tests/profiles-permissions.postman.mjs",
     "catalog:import-rooms": "node scripts/import-rooms.mjs",
     "test:catalog": "npm run test:postman"

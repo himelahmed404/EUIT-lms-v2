@@ -18,6 +18,7 @@ import {
 } from "@/lib/api/account";
 import "@/styles/account.css";
 import { PortalLoadingSkeleton } from "./PortalLoadingSkeleton";
+import { AccountUnavailableScreen } from "./AccountUnavailableScreen";
 
 type Session = {
   phase: "loading" | "signed-out" | "verification" | "ready" | "error";
@@ -144,12 +145,10 @@ export function AccessGate({ children }: { children: React.ReactNode }) {
   if (!protectedPath) return <>{children}</>;
   if (account.phase === "error")
     return (
-      <main className="account-card">
-        <h1>Account unavailable</h1>
-        <p role="alert">{account.error}</p>
-        <button onClick={() => void account.refresh(true)}>Retry</button>
-        <SignOutButton />
-      </main>
+      <AccountUnavailableScreen
+        error={account.error}
+        onRetry={() => void account.refresh(true)}
+      />
     );
   if (account.phase !== "ready" || wrongPortal)
     return <PortalLoadingSkeleton />;

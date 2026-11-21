@@ -1,0 +1,419 @@
+/* ==========================================================================
+   European IT Institute - Modern Error & 404 Pages Styles
+   Adhering to UI/UX Pro Max and European IT Design Tokens
+   ========================================================================== */
+
+.error-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  color: #0a1b2c;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  overflow-x: clip;
+}
+
+/* Header Masthead */
+.error-page-masthead {
+  background: #0a1b2c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+}
+
+.error-page-masthead-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.error-page-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.error-page-brand-badge {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-page-brand-text {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.error-page-brand-dot {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c6f73b;
+  box-shadow: 0 0 6px #c6f73b;
+}
+
+.error-page-brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-page-brand-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.error-page-brand-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.error-page-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.error-page-nav-link {
+  color: #94a3b8;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.error-page-nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.error-page-nav-cta {
+  background: #c6f73b;
+  color: #0a1b2c;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 7px 16px;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.error-page-nav-cta:hover {
+  background: #b5e830;
+  transform: translateY(-1px);
+}
+
+/* Main Body & Card */
+.error-page-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 6vh, 64px) 16px;
+}
+
+.error-page-card {
+  box-sizing: border-box;
+  width: min(100%, 720px);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 28px;
+  padding: clamp(32px, 5vw, 56px);
+  text-align: center;
+  box-shadow:
+    0 10px 30px -5px rgba(10, 27, 44, 0.06),
+    0 24px 35px -8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Big Display Code & Icon Badge */
+.error-page-code-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.error-page-code-number {
+  font-size: clamp(68px, 14vw, 110px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #0a1b2c;
+  user-select: none;
+  background: linear-gradient(180deg, #0a1b2c 0%, #1e3a5f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.error-page-icon-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #c6f73b;
+  color: #0a1b2c;
+  border: 3px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(198, 247, 59, 0.4);
+}
+
+.error-page-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.error-page-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+
+.error-page-badge-dot.is-warning {
+  background: #f59e0b;
+}
+
+.error-page-badge-dot.is-info {
+  background: #3b82f6;
+}
+
+.error-page-title {
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #0a1b2c;
+  margin: 0 0 12px 0;
+  line-height: 1.25;
+}
+
+.error-page-description {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #64748b;
+  max-width: 520px;
+  margin: 0 0 28px 0;
+}
+
+/* Call to Action Buttons */
+.error-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 36px;
+}
+
+.error-page-btn-primary {
+  cursor: pointer;
+  background: #0a1b2c;
+  color: #ffffff;
+  border: 1px solid #0a1b2c;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 4px rgba(10, 27, 44, 0.12);
+}
+
+.error-page-btn-primary:hover {
+  background: #1e293b;
+  border-color: #1e293b;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(10, 27, 44, 0.18);
+}
+
+.error-page-btn-secondary {
+  cursor: pointer;
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.error-page-btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.error-page-btn-ghost {
+  cursor: pointer;
+  background: transparent;
+  color: #64748b;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.error-page-btn-ghost:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Bento Quick Nav Cards */
+.error-page-bento {
+  box-sizing: border-box;
+  width: 100%;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 28px;
+}
+
+.error-page-bento-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.error-page-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.error-page-bento-item {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #eef2f6;
+  text-decoration: none;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.error-page-bento-item:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(10, 27, 44, 0.06);
+}
+
+.error-page-bento-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a1b2c;
+  margin-bottom: 10px;
+}
+
+.error-page-bento-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.error-page-bento-desc {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+/* Footer */
+.error-page-footer {
+  border-top: 1px solid #e2e8f0;
+  padding: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+@media (max-width: 640px) {
+  .error-page-nav-links {
+    display: none;
+  }
+  .error-page-bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .error-page-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .error-page-btn-primary,
+  .error-page-btn-secondary,
+  .error-page-btn-ghost {
+    width: 100%;
+  }
+}

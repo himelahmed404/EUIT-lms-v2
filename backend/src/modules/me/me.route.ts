@@ -4,6 +4,7 @@ import { requireProfile } from "../../middleware/requireProfile.js";
 import { requirePermission } from "../../middleware/authorize.js";
 import { catchAsync } from "../../utils/catchAsync.js";
 import * as meController from "./me.controller.js";
+import * as learningController from "../learning/learning.controller.js";
 
 export const meRouter = Router();
 
@@ -16,6 +17,22 @@ meRouter.get(
 );
 
 meRouter.get("/permissions", catchAsync(meController.getPermissions));
+
+// Student enrolled courses, curriculum outline, video lessons & routine
+meRouter.get("/courses", catchAsync(learningController.getEnrolledCourses));
+meRouter.get("/routine", catchAsync(learningController.getStudentRoutine));
+meRouter.get(
+  "/enrollments/:enrollmentId/course",
+  catchAsync(learningController.getCourseOutline)
+);
+meRouter.get(
+  "/enrollments/:enrollmentId/lessons/:lessonId",
+  catchAsync(learningController.getLessonDetail)
+);
+meRouter.put(
+  "/enrollments/:enrollmentId/lessons/:lessonId/progress",
+  catchAsync(learningController.updateLessonProgress)
+);
 
 meRouter.patch(
   "/profile",

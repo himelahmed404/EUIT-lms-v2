@@ -43,9 +43,9 @@ npm run check:pages
 
 The [root work record](../record.md) tracks completed changes and verification. The organization rules live in [AGENTS.md](../AGENTS.md).
 
-Connected account setup: [frontend API integration guide](backend/docs/frontend-api-integration.md). Previous account demo code is retained under `frontend/reference/account-demo/` for design reference only.
+Connected account setup: [frontend API integration guide](backend/docs/frontend-api-integration.md).
 
-Course catalog: [contract and validation guide](backend/docs/course-catalog-validation.md), [manual Postman collection](backend/postman/collections/course-catalog.manual.postman_collection.json), [blank environment](backend/postman/environments/course-catalog.template.postman_environment.json), and [automated regression collection](backend/postman/collections/course-catalog.regression.postman_collection.json). Catalog fixtures/concurrency checks live under `backend/tests/`; actual frontend flow checks are in `frontend/checks/catalog-integration.mjs`. Old admin catalog templates live under `frontend/reference/catalog-demo/`.
+Course catalog: [contract and validation guide](backend/docs/course-catalog-validation.md), [manual Postman collection](backend/postman/collections/course-catalog.manual.postman_collection.json), [blank environment](backend/postman/environments/course-catalog.template.postman_environment.json), and [automated regression collection](backend/postman/collections/course-catalog.regression.postman_collection.json). Catalog fixtures/concurrency checks live under `backend/tests/`; actual frontend flow checks are in `frontend/checks/catalog-integration.mjs`.
 
 ## Mobile developer handoff
 

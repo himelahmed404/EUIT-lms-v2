@@ -28,6 +28,7 @@ model Profile {
   auditEvents AuditEvent[] @relation("AuditActor")
   leadBatches Batch[] @relation("BatchLead")
   assistantBatches Batch[] @relation("BatchAssistant")
+  enrollments Enrollment[]
 
   @@map("profiles")
 }

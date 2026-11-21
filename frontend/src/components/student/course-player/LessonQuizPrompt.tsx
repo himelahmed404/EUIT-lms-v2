@@ -1,9 +1,25 @@
-export function LessonQuizPrompt() {
+import { DemoLesson } from "@/content/student/demo-course-data";
+
+type Props = {
+  currentLesson: DemoLesson;
+  onPreviousLesson?: () => void;
+  onNextLesson?: () => void;
+  hasPrevious: boolean;
+  hasNext: boolean;
+};
+
+export function LessonQuizPrompt({
+  currentLesson,
+  onPreviousLesson,
+  onNextLesson,
+  hasPrevious,
+  hasNext,
+}: Props) {
   return (
     <section
       className="p-card"
       data-player-gate=""
-      aria-label="Next lesson"
+      aria-label="Lesson navigation"
       style={{
         padding: "20px",
         display: "flex",
@@ -14,8 +30,9 @@ export function LessonQuizPrompt() {
     >
       <span className="p-tile p-tile--muted" data-player-gate-icon="">
         <svg className="p-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="3" y="11" width="18" height="11" rx="2" />
-          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
         </svg>
       </span>
       <div
@@ -31,39 +48,59 @@ export function LessonQuizPrompt() {
           data-player-gate-title=""
           aria-live="polite"
         >
-          Lesson 8 opens when you finish this video
+          {hasNext
+            ? `Next: Lesson ${currentLesson.number + 1} unlocks after this video`
+            : "Final demo lesson · You have explored all 3 showcase videos"}
         </strong>
-        <div className="p-bar p-bar--thin" role="img" aria-label="64% watched">
-          <span style={{ width: "64%" }} data-player-gate-bar="" />
+        <div
+          className="p-bar p-bar--thin"
+          role="img"
+          aria-label={`Lesson ${currentLesson.number} of 3`}
+        >
+          <span
+            style={{ width: `${(currentLesson.number / 3) * 100}%` }}
+            data-player-gate-bar=""
+          />
         </div>
         <span className="p-small" data-player-left="">
-          6:24 left to watch
+          Demo progress: {currentLesson.number} of 3 lessons active
         </span>
       </div>
-      <div className="p-row" style={{ flexWrap: "wrap" }}>
-        <a className="p-ghostbtn" href="#">
-          Previous lesson
-        </a>
+      <div className="p-row" style={{ flexWrap: "wrap", gap: "8px" }}>
         <button
           className="p-ghostbtn"
           type="button"
-          disabled
-          aria-describedby="lock-why"
+          disabled={!hasPrevious}
+          onClick={onPreviousLesson}
+          style={{
+            cursor: hasPrevious ? "pointer" : "not-allowed",
+            opacity: hasPrevious ? 1 : 0.5,
+          }}
+        >
+          Previous lesson
+        </button>
+        <button
+          className="p-ghostbtn"
+          type="button"
+          disabled={!hasNext}
+          onClick={onNextLesson}
+          style={{
+            cursor: hasNext ? "pointer" : "not-allowed",
+            opacity: hasNext ? 1 : 0.5,
+          }}
           data-player-next=""
         >
+          Next lesson
           <svg
             className="p-icon p-icon--sm"
             viewBox="0 0 24 24"
             aria-hidden="true"
+            style={{ marginLeft: "4px" }}
           >
-            <rect x="3" y="11" width="18" height="11" rx="2" />
-            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
           </svg>
-          Next lesson
         </button>
-        <span id="lock-why" className="eit-sr" data-player-why="">
-          Locked until this video is watched to the end
-        </span>
       </div>
     </section>
   );

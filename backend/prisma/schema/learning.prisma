@@ -1,0 +1,83 @@
+enum EnrollmentStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CANCELLED
+}
+
+enum LessonType {
+  VIDEO
+  DOCUMENT
+  LIVE_RECORDING
+}
+
+enum VideoProvider {
+  YOUTUBE
+  VIMEO
+  DIRECT_URL
+}
+
+model Enrollment {
+  id             String           @id @default(uuid()) @db.Uuid
+  studentId      String           @map("student_id") @db.Uuid
+  student        Profile          @relation(fields: [studentId], references: [id], onDelete: Restrict)
+  courseId       String           @map("course_id") @db.Uuid
+  course         Course           @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  batchId        String           @map("batch_id") @db.Uuid
+  batch          Batch            @relation(fields: [batchId], references: [id], onDelete: Restrict)
+  status         EnrollmentStatus @default(ACTIVE)
+  enrolledAt     DateTime         @default(now()) @map("enrolled_at") @db.Timestamptz(3)
+  completedAt    DateTime?        @map("completed_at") @db.Timestamptz(3)
+  progress       Int              @default(0)
+  lessonProgress LessonProgress[]
+
+  @@unique([studentId, batchId])
+  @@index([studentId, status])
+  @@map("enrollments")
+}
+
+model Module {
+  id         String   @id @default(uuid()) @db.Uuid
+  courseId   String   @map("course_id") @db.Uuid
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title      String   @db.VarChar(180)
+  orderIndex Int      @map("order_index")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  lessons    Lesson[]
+
+  @@unique([courseId, orderIndex])
+  @@map("modules")
+}
+
+model Lesson {
+  id              String           @id @default(uuid()) @db.Uuid
+  moduleId        String           @map("module_id") @db.Uuid
+  module          Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  title           String           @db.VarChar(180)
+  type            LessonType       @default(VIDEO)
+  videoProvider   VideoProvider    @default(YOUTUBE) @map("video_provider")
+  videoUrl        String           @map("video_url") @db.VarChar(2048)
+  durationSeconds Int              @default(0) @map("duration_seconds")
+  content         String?          @db.Text
+  orderIndex      Int              @map("order_index")
+  createdAt       DateTime         @default(now()) @map("created_at") @db.Timestamptz(3)
+  progressRecords LessonProgress[]
+
+  @@unique([moduleId, orderIndex])
+  @@map("lessons")
+}
+
+model LessonProgress {
+  id             String     @id @default(uuid()) @db.Uuid
+  enrollmentId   String     @map("enrollment_id") @db.Uuid
+  enrollment     Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  lessonId       String     @map("lesson_id") @db.Uuid
+  lesson         Lesson     @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  watchedSeconds Int        @default(0) @map("watched_seconds")
+  completed      Boolean    @default(false)
+  completedAt    DateTime?  @map("completed_at") @db.Timestamptz(3)
+  updatedAt      DateTime   @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@unique([enrollmentId, lessonId])
+  @@map("lesson_progress")
+}

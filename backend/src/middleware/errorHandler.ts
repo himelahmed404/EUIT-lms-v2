@@ -38,7 +38,11 @@ export const errorHandler: ErrorRequestHandler = (error, req, res, _next) => {
       message: "A resource with this name already exists.",
     });
   }
-  if (error?.code === "P2034") {
+  if (
+    error?.code === "P2034" ||
+    error?.message?.includes("TransactionWriteConflict") ||
+    error?.cause?.message?.includes("TransactionWriteConflict")
+  ) {
     return sendResponse(res, {
       success: false,
       statusCode: 409,

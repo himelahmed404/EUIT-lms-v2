@@ -7,6 +7,7 @@ import { accessRouter } from "./modules/access/access.route.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 import { catalogRouter } from "./modules/catalog/catalog.route.js";
+import { enrollmentRouter } from "./modules/enrollment/enrollment.route.js";
 
 export const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/me", meRouter);
 app.use("/api", catalogRouter);
+app.use("/api", enrollmentRouter);
 app.use("/api", accessRouter);
 app.use(notFound);
 app.use(errorHandler);

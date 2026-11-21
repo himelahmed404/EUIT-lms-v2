@@ -27,6 +27,8 @@ model Course {
   createdAt DateTime @default(now()) @db.Timestamptz(3)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
   batches Batch[]
+  modules Module[]
+  enrollments Enrollment[]
   @@index([status, title])
   @@map("courses")
 }
@@ -72,6 +74,7 @@ model Batch {
   createdAt DateTime @default(now()) @db.Timestamptz(3)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
   classes BatchClass[]
+  enrollments Enrollment[]
   @@unique([courseId, name])
   @@index([status, websiteVisible, admissionOpen])
   @@map("batches")
