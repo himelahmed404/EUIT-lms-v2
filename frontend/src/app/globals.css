@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
+@tailwind components;
+@tailwind utilities;
+
 @import "../styles/eit.css";
 @import "../styles/panel.css";
 @import "../styles/app.css";
@@ -7,6 +10,7 @@
 @import "../styles/pages.css";
 @import "../styles/shadcn.css";
 @import "../styles/error-pages.css";
+@import "../styles/auth-ui.css";
 
 :root {
   --font-sans: "Anek Bangla", system-ui, sans-serif;

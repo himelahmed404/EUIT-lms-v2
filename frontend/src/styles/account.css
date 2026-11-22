@@ -29,45 +29,7 @@
 .account-badge-header svg {
   color: #0f172a;
 }
-.account-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: #f1f5f9;
-  border-radius: 12px;
-  padding: 4px;
-  gap: 4px;
-  margin-bottom: 24px;
-}
-.account-tab {
-  border: 0;
-  border-radius: 9px;
-  padding: 9px 16px;
-  background: transparent;
-  color: #64748b;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  text-align: center;
-  box-shadow: none;
-}
-.account-tab:hover:not(.is-active) {
-  color: #0f172a;
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: none;
-  transform: none;
-}
-.account-tab.is-active {
-  background: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-.portal-content .account-card .account-tab:not(.is-active) {
-  color: #64748b;
-}
-.portal-content .account-card .account-tab.is-active {
-  color: #0f172a;
-}
+
 .account-card h1 {
   font-size: clamp(22px, 2.5vw, 28px);
   font-weight: 700;
@@ -240,30 +202,7 @@
   accent-color: #0f172a;
   cursor: pointer;
 }
-.account-card .account-options-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.account-card .account-forgot-link {
-  font-size: 13px;
-  font-weight: 500;
-  color: #0284c7;
-  text-decoration: none;
-}
-.account-card .account-forgot-link:hover {
-  text-decoration: underline;
-}
-.account-card .account-footer-switch {
-  text-align: center;
-  font-size: 14px;
-  color: #64748b;
-  margin-top: 18px;
-  padding-top: 18px;
-  border-top: 1px solid #f1f5f9;
-}
+
 .account-actions {
   display: flex;
   gap: 12px;
@@ -330,7 +269,7 @@
 .portal-content .account-card button {
   color: inherit;
 }
-.portal-content .account-card button:not(.account-btn-secondary):not(.account-text-btn):not(.account-tab),
+.portal-content .account-card button:not(.account-btn-secondary):not(.account-text-btn),
 .portal-content .account-card a.account-btn {
   color: #ffffff;
 }

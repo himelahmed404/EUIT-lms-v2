@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 const allowed =
-  /^(auth\/student\/signup|me(?:\/(?:profile|photo(?:\/upload)?|preferences|permissions))?|permissions|catalog\/courses(?:\/[0-9a-f-]+)?|admin\/(?:courses|batches)(?:\/[0-9a-f-]+)?|admin\/(?:rooms|mentors)|admin\/roles|admin\/profiles\/[0-9a-f-]+\/access)$/i;
+  /^(auth\/student\/signup|me(?:\/(?:profile|photo(?:\/upload)?|preferences|permissions|courses|routine|enrollments\/[0-9a-f-]+\/(?:course|lessons\/[0-9a-f-]+(?:\/progress)?)))?|permissions|enrollments\/(?:quote|demo-checkout)|catalog\/courses(?:\/[0-9a-f-]+)?|admin\/(?:courses|batches)(?:\/[0-9a-f-]+)?|admin\/(?:rooms|mentors)|admin\/roles|admin\/profiles\/[0-9a-f-]+\/access)$/i;
 async function forward(
   request: NextRequest,
   context: { params: Promise<{ path: string[] }> },

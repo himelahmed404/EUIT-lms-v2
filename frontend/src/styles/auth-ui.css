@@ -1,0 +1,352 @@
+/* ==========================================================================
+   EaseMize Auth UI Stylesheet — Matching log.html & Figma Specification
+   ========================================================================== */
+
+.auth-page-root {
+  --background: #ffffff;
+  --foreground: #020817;
+  --primary: #020817;
+  --primary-foreground: #f8fafc;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #020817;
+  --radius: 0.75rem;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:is(.dark, [data-theme="dark"], html.dark, html[data-theme="dark"]) .auth-page-root,
+.auth-page-root:is(.dark, [data-theme="dark"]) {
+  --background: #131313;
+  --foreground: #f8fafc;
+  --primary: #f8fafc;
+  --primary-foreground: #020817;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #262626;
+  --accent-foreground: #f8fafc;
+  --border: #262626;
+  --input: #262626;
+  --ring: #cbd5e1;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.auth-page-root *,
+.auth-page-root *::before,
+.auth-page-root *::after {
+  box-sizing: border-box;
+}
+
+/* Base button and input resets */
+:where(.auth-page-root) button,
+:where(.auth-page-root) input {
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:where(.auth-page-root) button {
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+:where(.auth-page-root) input {
+  border: 0;
+  outline: none;
+}
+
+/* Explicit styling for bordered controls */
+.auth-page-root input.border-input {
+  border: 1px solid var(--input) !important;
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+.auth-page-root input.border-input:focus-visible {
+  background-color: rgba(227, 227, 227, 0.25) !important;
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 0px !important;
+}
+
+:is(.dark, [data-theme="dark"], html.dark, html[data-theme="dark"]) .auth-page-root input.border-input:focus-visible {
+  background-color: rgba(58, 58, 58, 0.25) !important;
+  outline: 2px solid var(--ring) !important;
+}
+
+.auth-page-root button.border-input {
+  border: 1px solid var(--input) !important;
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  cursor: pointer !important;
+}
+
+.auth-page-root button.border-input:hover {
+  background-color: var(--accent) !important;
+  color: var(--accent-foreground) !important;
+}
+
+/* Naked buttons (toggle and show-password eye) */
+.auth-page-root button[data-password-toggle],
+.auth-page-root #toggle-auth-mode {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.auth-page-root input[type="password"]::-ms-reveal,
+.auth-page-root input[type="password"]::-ms-clear {
+  display: none;
+}
+
+.auth-bottom-gradient {
+  background: linear-gradient(to top, var(--background) 0%, rgba(255, 255, 255, 0.75) 50%, transparent 100%);
+}
+
+:is(.dark, [data-theme="dark"], html.dark, html[data-theme="dark"]) .auth-bottom-gradient {
+  background: linear-gradient(to top, var(--background) 0%, rgba(19, 19, 19, 0.75) 50%, transparent 100%);
+}
+
+/* ==========================================================================
+   Motion & Animation Enhancements
+   ========================================================================== */
+
+/* Entrance animation for main auth container */
+@keyframes authCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-card-enter {
+  animation: authCardEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Form switch slide & fade */
+@keyframes formSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-form-animate {
+  animation: formSlideIn 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Subtle continuous ambient Ken Burns zoom on the visual backdrop */
+@keyframes kenBurnsSlow {
+  0% {
+    transform: scale(1.0) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.05) translate(-1%, -1%);
+  }
+  100% {
+    transform: scale(1.0) translate(0, 0);
+  }
+}
+
+.auth-bg-kenburns {
+  animation: kenBurnsSlow 32s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Glassmorphic quote card container & vertical position
+   Tip: To manually shift the card higher, increase padding-bottom or add margin-bottom here. */
+.auth-quote-container {
+  /* Default positioning uses Tailwind 'pb-24' (6rem = 96px). 
+     Uncomment or override below if adjusting directly in CSS:
+     padding-bottom: 6rem !important; */
+}
+
+/* Glassmorphic quote card */
+.auth-quote-card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1), 0 0 1px 1px rgba(255, 255, 255, 0.6) inset;
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.25s ease;
+}
+
+:is(.dark, [data-theme="dark"], html.dark, html[data-theme="dark"]) .auth-quote-card {
+  background: rgba(19, 19, 19, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05) inset;
+}
+
+.auth-quote-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Smooth blinking caret */
+@keyframes caretBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.auth-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.15em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background-color: currentColor;
+  animation: caretBlink 0.9s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Interactive Input States */
+.auth-input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+
+.auth-input:hover:not(:disabled):not(:focus) {
+  border-color: rgba(148, 163, 184, 0.6) !important;
+}
+
+:is(.dark, [data-theme="dark"], html.dark, html[data-theme="dark"]) .auth-input:hover:not(:disabled):not(:focus) {
+  border-color: rgba(100, 116, 139, 0.6) !important;
+}
+
+.auth-input:focus {
+  box-shadow: 0 0 0 3px rgba(2, 8, 23, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  transform: translateY(-1px);
+}
+
+:is(.dark, [data-theme="dark"], html.dark, html[data-theme="dark"]) .auth-input:focus {
+  box-shadow: 0 0 0 3px rgba(203, 213, 225, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Button Micro-Interactions */
+.auth-btn-primary {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-btn-primary:hover:not(:disabled) {
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.12);
+}
+
+:is(.dark, [data-theme="dark"], html.dark, html[data-theme="dark"]) .auth-btn-primary:hover:not(:disabled) {
+  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.5);
+}
+
+.auth-btn-primary:active:not(:disabled) {
+  transform: translateY(0.5px) scale(0.985);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.auth-btn-google {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-btn-google:hover:not(:disabled) {
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+}
+
+.auth-btn-google:active:not(:disabled) {
+  transform: translateY(0.5px) scale(0.985);
+}
+
+/* Theme Toggle Button Micro-Interaction */
+.auth-theme-btn {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s, border-color 0.2s;
+}
+
+.auth-theme-btn:hover {
+  transform: rotate(15deg) scale(1.06);
+}
+
+.auth-theme-btn:active {
+  transform: rotate(180deg) scale(0.92);
+}
+
+/* Eye Toggle Button */
+.auth-eye-btn {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.15s ease;
+}
+
+.auth-eye-btn:hover {
+  transform: scale(1.15);
+}
+
+.auth-eye-btn:active {
+  transform: scale(0.9);
+}
+
+/* Status Message Animations */
+@keyframes statusIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+.auth-status-in {
+  animation: statusIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.auth-status-error {
+  animation: statusIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both, errorShake 0.4s ease 0.1s;
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  .auth-card-enter,
+  .auth-form-animate,
+  .auth-bg-kenburns,
+  .auth-caret,
+  .auth-status-in,
+  .auth-status-error,
+  .auth-theme-btn,
+  .auth-btn-primary,
+  .auth-btn-google,
+  .auth-eye-btn,
+  .auth-quote-card {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

@@ -16,7 +16,9 @@ export function StudentRankingSummary() {
     >
       <div
         style={{
-          flex: "1 1 360px",
+          flex: "1 1 320px",
+          minWidth: 0,
+          maxWidth: "100%",
           display: "flex",
           flexDirection: "column",
           gap: "16px",

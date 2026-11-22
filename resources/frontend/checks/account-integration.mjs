@@ -12,7 +12,8 @@ assert.ok(process.env.EUIT_API_BASE_URL?.startsWith('http://127.0.0.1:'));
 const listener = createServer(); await new Promise((resolve,reject)=>{listener.once('error',reject);listener.listen(0,'127.0.0.1',resolve);});
 const port = listener.address().port; await new Promise(r=>listener.close(r));
 let logs = '';
-const server = spawn(process.execPath,[frontendRequire.resolve('next/dist/bin/next'),'dev','--hostname','127.0.0.1','-p',String(port)],{cwd:ROOT,env:{...process.env,NODE_ENV:'development',EUIT_TEST_DIST_DIR:`.next-test-${process.pid}`,API_SERVER_URL:process.env.EUIT_API_BASE_URL},stdio:['ignore','pipe','pipe']});
+const testDistDir = `.next-test-${process.pid}`;
+const server = spawn(process.execPath,[frontendRequire.resolve('next/dist/bin/next'),'dev','--hostname','127.0.0.1','-p',String(port)],{cwd:ROOT,env:{...process.env,NODE_ENV:'development',EUIT_TEST_DIST_DIR:testDistDir,API_SERVER_URL:process.env.EUIT_API_BASE_URL},stdio:['ignore','pipe','pipe']});
 server.stdout.on('data',b=>logs+=b);server.stderr.on('data',b=>logs+=b);
 const base=`http://127.0.0.1:${port}`;
 let browser;
@@ -23,8 +24,8 @@ try {
   const context=await browser.newContext({ reducedMotion: "reduce" });const page=await context.newPage();page.setDefaultTimeout(20000);page.setDefaultNavigationTimeout(60000);
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   async function login(name){
-    await page.goto(base);await page.getByLabel('Email address',{exact:true}).fill(`${name}@example.test`);
-    await page.getByLabel('Password',{exact:true}).fill('Emulator-test-only-123!');
+    await page.goto(base);await page.locator('#signin-email').fill(`${name}@example.test`);
+    await page.locator('#signin-password').fill('Emulator-test-only-123!');
     await page.getByRole('button',{name:'Sign in',exact:true}).click();
   }
   async function uploadProfilePhoto() {
@@ -121,7 +122,7 @@ try {
   await login('missing');await page.getByRole('alert').filter({hasText:'No LMS profile'}).waitFor();
   await page.getByRole('button',{name:'Sign out',exact:true}).click();
   await page.goto(base+'/forgot-password');await page.getByLabel('Email address',{exact:true}).fill('student@example.test');await page.getByRole('button',{name:'Send reset email'}).click();await page.getByRole('status').filter({hasText:'check its inbox'}).waitFor();
-  await page.goto(base);await page.getByRole('button',{name:'Create a student account',exact:true}).click();await page.getByLabel('Full name',{exact:true}).fill('New Browser Student');await page.getByLabel('Email address',{exact:true}).fill('new-browser@example.test');await page.getByLabel('Password',{exact:true}).fill('Browser-signup-only-123!');await page.getByRole('button',{name:'Create account',exact:true}).click();await page.getByRole('status').filter({hasText:'Account request accepted'}).waitFor();
+  await page.goto(base);await page.getByRole('button',{name:'Create a student account',exact:true}).click();await page.getByLabel('Full name',{exact:true}).fill('New Browser Student');await page.locator('#signup-email').fill('new-browser@example.test');await page.locator('#signup-password').fill('Browser-signup-only-123!');await page.getByRole('button',{name:'Create account',exact:true}).click();await page.getByRole('status').filter({hasText:'Account request accepted'}).waitFor();
   await checkPublicCatalog(page, base);
   await page.getByLabel('Full name',{exact:true}).fill('Checkout Student');
   await page.getByLabel('Mobile number',{exact:true}).fill('1712345678');
@@ -138,4 +139,20 @@ try {
   console.log(`PASS: browser Firebase sign-in/out, verification refresh, signup, reset email, profile/preferences persistence, portal guards, Owner access changes, ${visited} authenticated routes at two widths; no page errors.`);
   }
   await context.close();
-} catch(error){console.error(logs.slice(-2500));throw error;} finally {await browser?.close();server.kill('SIGTERM');await Promise.race([new Promise(r=>server.once('exit',r)),delay(5000)]);if(server.exitCode===null)server.kill('SIGKILL');}
+} catch(error){console.error(logs.slice(-2500));throw error;} finally {
+  await browser?.close();
+  server.kill('SIGTERM');
+  await Promise.race([new Promise(r=>server.once('exit',r)),delay(5000)]);
+  if(server.exitCode===null)server.kill('SIGKILL');
+  try {
+    const { rm, readFile, writeFile } = await import('node:fs/promises');
+    const { join } = await import('node:path');
+    await rm(join(ROOT, testDistDir), { recursive: true, force: true });
+    const tsconfigPath = join(ROOT, 'tsconfig.json');
+    const tsconfigContent = await readFile(tsconfigPath, 'utf8');
+    if (tsconfigContent.includes(testDistDir)) {
+      const cleaned = tsconfigContent.replace(new RegExp(`\\s*"\\.?${testDistDir}[^"]*",?`, 'g'), '');
+      await writeFile(tsconfigPath, cleaned, 'utf8');
+    }
+  } catch {}
+}

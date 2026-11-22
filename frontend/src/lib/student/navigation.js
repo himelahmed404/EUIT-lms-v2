@@ -106,6 +106,9 @@ export function initPage(signal, revealMenu) {
   directory
     .querySelector("[data-dropdown-close]")
     .addEventListener("click", () => close(true), { signal });
+  panel.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => close(), { signal });
+  });
   search.addEventListener("input", filter, { signal });
   const inside = (target) =>
     panel.contains(target) ||
